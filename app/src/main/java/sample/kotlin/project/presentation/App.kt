@@ -8,7 +8,7 @@ import sample.kotlin.project.BuildConfig
 import timber.log.Timber
 import javax.inject.Inject
 
-class SkpApp : Application(), HasAndroidInjector {
+class App : Application(), HasAndroidInjector {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>

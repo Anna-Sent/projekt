@@ -13,5 +13,5 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-    fun inject(app: SkpApp)
+    fun inject(app: App)
 }
