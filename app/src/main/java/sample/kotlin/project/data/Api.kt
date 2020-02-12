@@ -8,6 +8,7 @@ class Api {
     fun search(query: String) =
         Single.timer(10, TimeUnit.SECONDS)
             .map { "Result $query" }
+            .flatMap<String> { Single.error(IllegalArgumentException()) }
 
     fun suggestions() =
         Single.timer(1, TimeUnit.SECONDS)

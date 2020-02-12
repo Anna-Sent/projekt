@@ -21,6 +21,11 @@ class SearchReducer : Reducer<SearchState, SearchAction> {
                     data = action.data
                 )
 
+            is SearchAction.SearchFailureAction ->
+                state.copy(
+                    loading = false
+                )
+
             is SearchAction.SuggestionsLoadedAction ->
                 state.copy(
                     suggestions = action.suggestions

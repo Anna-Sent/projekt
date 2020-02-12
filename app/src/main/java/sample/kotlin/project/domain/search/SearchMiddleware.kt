@@ -25,6 +25,7 @@ class SearchMiddleware : Middleware<SearchAction, SearchState, SearchEvent> {
                     .toObservable()
                     .map<SearchAction> { SearchAction.SearchSuccessAction(it) }
                     .doOnError { events.accept(SearchEvent.SearchFailureEvent(it)) }
+                    .onErrorReturn { SearchAction.SearchFailureAction(it) }
                     .observeOn(uiScheduler)
                     .startWith(SearchAction.SearchLoadingAction)
             }
