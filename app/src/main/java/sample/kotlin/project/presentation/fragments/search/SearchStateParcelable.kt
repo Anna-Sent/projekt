@@ -7,6 +7,5 @@ import kotlinx.android.parcel.Parcelize
 data class SearchStateParcelable(
     val loading: Boolean = false,
     val data: String? = null,
-    val throwable: Throwable? = null,
     val suggestions: List<String> = emptyList()
 ) : Parcelable

@@ -9,9 +9,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.withLatestFrom
 
-open class Store<A : Action, S : State>(
+open class Store<A : Action, S : State, E : Event>(
     private val reducer: Reducer<S, A>,
-    private val middlewares: Set<Middleware<A, S>>,
+    private val middlewares: Set<Middleware<A, S, E>>,
     initialState: S
 ) {
 
@@ -19,6 +19,7 @@ open class Store<A : Action, S : State>(
 
     private val states = BehaviorRelay.createDefault<S>(initialState).toSerialized()
     private val actions = PublishRelay.create<A>().toSerialized()
+    private val events = PublishRelay.create<E>().toSerialized()
 
     fun wire(): Disposable {
         val disposable = CompositeDisposable()
@@ -31,18 +32,19 @@ open class Store<A : Action, S : State>(
             .subscribe(states::accept)
 
         disposable += Observable.merge<A>(
-            middlewares.map { it.bind(actions, states) }
+            middlewares.map { it.bind(actions, states, events) }
         )
             .subscribe(actions::accept)
 
         return disposable
     }
 
-    fun bind(view: MviView<A, S>): Disposable {
+    fun bind(view: MviView<A, S, E>): Disposable {
         val disposable = CompositeDisposable()
 
         disposable += states.observeOn(uiScheduler).subscribe(view::render)
         disposable += view.actions.subscribe(actions::accept)
+        disposable += events.observeOn(uiScheduler).subscribe { view.eventsConsumer.accept(it) }
 
         return disposable
     }

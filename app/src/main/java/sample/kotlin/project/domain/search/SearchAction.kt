@@ -14,7 +14,5 @@ sealed class SearchAction : Action {
 
     class SearchSuccessAction(val data: String) : SearchAction()
 
-    class SearchFailureAction(val throwable: Throwable) : SearchAction()
-
     class SuggestionsLoadedAction(val suggestions: List<String>) : SearchAction()
 }

@@ -12,18 +12,21 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import sample.kotlin.project.domain.mvi.Action
+import sample.kotlin.project.domain.mvi.Event
 import sample.kotlin.project.domain.mvi.MviView
 import sample.kotlin.project.domain.mvi.State
 import javax.inject.Inject
 
-abstract class BaseFragment<S : State, A : Action, Parcel : Parcelable, VM : BaseViewModel<S, A>> :
-    Fragment(), HasAndroidInjector, MviView<A, S> {
+abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelable, VM : BaseViewModel<S, A, E>> :
+    Fragment(), HasAndroidInjector, MviView<A, S, E> {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -57,6 +60,7 @@ abstract class BaseFragment<S : State, A : Action, Parcel : Parcelable, VM : Bas
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.bind(this)
+        disposables += events.subscribe { handleEvent(it) }
     }
 
     override fun onDestroyView() {
@@ -77,14 +81,18 @@ abstract class BaseFragment<S : State, A : Action, Parcel : Parcelable, VM : Bas
 
     protected abstract fun getViewModel(provider: ViewModelProvider): VM
 
-    // TODO protected abstract fun onEvent(event: E)
-
     protected val userActions = BehaviorRelay.create<A>().toSerialized()
     final override val actions: Observable<A> = userActions.hide()
+    private val events = PublishRelay.create<E>().toSerialized()
+    final override val eventsConsumer = events
 
     @CallSuper
     override fun render(state: S) {
         stateSaver.setState(state)
+    }
+
+    protected open fun handleEvent(event: E) {
+        // override in nested classes if needed
     }
 
     protected fun toast(message: String) {

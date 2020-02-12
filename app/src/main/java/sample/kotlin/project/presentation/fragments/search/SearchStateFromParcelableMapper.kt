@@ -11,7 +11,6 @@ class SearchStateFromParcelableMapper @Inject constructor() :
         return SearchState(
             loading = from.loading,
             data = from.data,
-            throwable = from.throwable,
             suggestions = from.suggestions
         )
     }

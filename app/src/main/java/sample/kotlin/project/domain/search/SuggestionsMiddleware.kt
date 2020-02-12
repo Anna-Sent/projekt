@@ -3,11 +3,12 @@ package sample.kotlin.project.domain.search
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
 import sample.kotlin.project.data.Api
 import sample.kotlin.project.domain.mvi.Middleware
 
 class SuggestionsMiddleware :
-    Middleware<SearchAction, SearchState> {
+    Middleware<SearchAction, SearchState, SearchEvent> {
 
     private val uiScheduler: Scheduler = AndroidSchedulers.mainThread()
 
@@ -15,7 +16,8 @@ class SuggestionsMiddleware :
 
     override fun bind(
         actions: Observable<SearchAction>,
-        states: Observable<SearchState>
+        states: Observable<SearchState>,
+        events: Consumer<SearchEvent>
     ): Observable<SearchAction> =
         actions
             .ofType<SearchAction.LoadSuggestionsAction>(SearchAction.LoadSuggestionsAction::class.java)

@@ -2,13 +2,10 @@ package sample.kotlin.project.presentation.core
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.Disposable
-import sample.kotlin.project.domain.mvi.Action
-import sample.kotlin.project.domain.mvi.MviView
-import sample.kotlin.project.domain.mvi.State
-import sample.kotlin.project.domain.mvi.Store
+import sample.kotlin.project.domain.mvi.*
 
-abstract class BaseViewModel<S : State, A : Action>
-constructor(private val store: Store<A, S>) : ViewModel() {
+abstract class BaseViewModel<S : State, A : Action, E : Event>
+constructor(private val store: Store<A, S, E>) : ViewModel() {
 
     private val wiring = store.wire()
     private var viewBinding: Disposable? = null
@@ -17,7 +14,7 @@ constructor(private val store: Store<A, S>) : ViewModel() {
         wiring.dispose()
     }
 
-    fun bind(view: MviView<A, S>) {
+    fun bind(view: MviView<A, S, E>) {
         viewBinding = store.bind(view)
     }
 

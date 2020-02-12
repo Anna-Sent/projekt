@@ -12,21 +12,13 @@ class SearchReducer : Reducer<SearchState, SearchAction> {
 
             is SearchAction.SearchLoadingAction ->
                 state.copy(
-                    loading = true,
-                    throwable = null
+                    loading = true
                 )
 
             is SearchAction.SearchSuccessAction ->
                 state.copy(
                     loading = false,
-                    data = action.data,
-                    throwable = null
-                )
-
-            is SearchAction.SearchFailureAction ->
-                state.copy(
-                    loading = false,
-                    throwable = action.throwable
+                    data = action.data
                 )
 
             is SearchAction.SuggestionsLoadedAction ->

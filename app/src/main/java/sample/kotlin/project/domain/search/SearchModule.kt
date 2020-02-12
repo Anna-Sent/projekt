@@ -10,5 +10,5 @@ interface SearchModule {
 
     @Binds
     @FragmentScope
-    fun bindStore(store: SearchStore): Store<SearchAction, SearchState>
+    fun bindStore(store: SearchStore): Store<SearchAction, SearchState, SearchEvent>
 }

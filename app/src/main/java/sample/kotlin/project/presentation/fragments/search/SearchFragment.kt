@@ -11,8 +11,8 @@ import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_search.*
 import sample.kotlin.project.R
-import sample.kotlin.project.domain.mvi.MviView
 import sample.kotlin.project.domain.search.SearchAction
+import sample.kotlin.project.domain.search.SearchEvent
 import sample.kotlin.project.domain.search.SearchState
 import sample.kotlin.project.presentation.core.BaseFragment
 import java.util.concurrent.TimeUnit
@@ -32,8 +32,7 @@ import java.util.concurrent.TimeUnit
 // save restore state
 // exclude something from parcel
 class SearchFragment :
-    BaseFragment<SearchState, SearchAction, SearchStateParcelable, SearchViewModel>(),
-    MviView<SearchAction, SearchState> {
+    BaseFragment<SearchState, SearchAction, SearchEvent, SearchStateParcelable, SearchViewModel>() {
 
     companion object {
         fun newInstance() = SearchFragment()
@@ -67,11 +66,17 @@ class SearchFragment :
         progressBar.visibility = if (state.loading) VISIBLE else GONE
         textView.visibility = if (state.data.isNullOrEmpty()) GONE else VISIBLE
         textView.text = state.data
-        state.throwable?.let { toast("Search failed") }
         val adapter = ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line, state.suggestions
         )
         editTextQuery.setAdapter(adapter)
+    }
+
+    override fun handleEvent(event: SearchEvent) {
+        when (event) {
+
+            is SearchEvent.SearchFailureEvent -> toast("Search failed")
+        }
     }
 }
