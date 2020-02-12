@@ -1,10 +1,10 @@
-package sample.kotlin.project.ui.main
+package sample.kotlin.project.domain.mvi
 
 import io.reactivex.Observable
 
 interface MviView<A : Action, S : State> {
 
-    val userActions: Observable<A>
+    val actions: Observable<A>
 
     fun render(state: S)
 }

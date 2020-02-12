@@ -1,4 +1,4 @@
-package sample.kotlin.project.ui.main
+package sample.kotlin.project.domain.mvi
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
@@ -11,27 +11,27 @@ import io.reactivex.rxkotlin.withLatestFrom
 
 open class Store<A : Action, S : State>(
     private val reducer: Reducer<S, A>,
-    private val middlewares: List<Middleware<A, S>>,
+    private val middlewares: Set<Middleware<A, S>>,
     initialState: S
 ) {
 
     private val uiScheduler = AndroidSchedulers.mainThread()
 
-    private val state: BehaviorRelay<S> = BehaviorRelay.createDefault<S>(initialState)
-    private val actions: PublishRelay<A> = PublishRelay.create<A>()
+    private val states = BehaviorRelay.createDefault<S>(initialState).toSerialized()
+    private val actions = PublishRelay.create<A>().toSerialized()
 
     fun wire(): Disposable {
         val disposable = CompositeDisposable()
 
         disposable += actions
-            .withLatestFrom(state) { action: A, state: S ->
+            .withLatestFrom(states) { action: A, state: S ->
                 reducer.reduce(state, action)
             }
             .distinctUntilChanged()
-            .subscribe(state::accept)
+            .subscribe(states::accept)
 
         disposable += Observable.merge<A>(
-            middlewares.map { middleware -> middleware.bind(actions, state) }
+            middlewares.map { it.bind(actions, states) }
         )
             .subscribe(actions::accept)
 
@@ -41,8 +41,8 @@ open class Store<A : Action, S : State>(
     fun bind(view: MviView<A, S>): Disposable {
         val disposable = CompositeDisposable()
 
-        disposable += state.observeOn(uiScheduler).subscribe(view::render)
-        disposable += view.userActions.subscribe(actions::accept)
+        disposable += states.observeOn(uiScheduler).subscribe(view::render)
+        disposable += view.actions.subscribe(actions::accept)
 
         return disposable
     }
