@@ -44,7 +44,7 @@ open class Store<A : Action, S : State, E : Event>(
 
         disposable += states.observeOn(uiScheduler).subscribe(view::render)
         disposable += view.actions.subscribe(actions::accept)
-        disposable += events.observeOn(uiScheduler).subscribe { view.eventsConsumer.accept(it) }
+        disposable += events.observeOn(uiScheduler).subscribe { view.events.accept(it) }
 
         return disposable
     }

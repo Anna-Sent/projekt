@@ -7,7 +7,7 @@ interface MviView<A : Action, S : State, E : Event> {
 
     val actions: Observable<A>
 
-    val eventsConsumer: Consumer<E>
+    val events: Consumer<E>
 
     fun render(state: S)
 }

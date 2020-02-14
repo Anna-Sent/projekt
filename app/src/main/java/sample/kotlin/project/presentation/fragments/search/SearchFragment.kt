@@ -31,18 +31,18 @@ class SearchFragment :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        userActions.accept(SearchAction.LoadSuggestionsAction)
+        actionsRelay.accept(SearchAction.LoadSuggestionsAction)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         disposables += buttonSearch.clicks()
             .map { SearchAction.SearchClickAction(editTextQuery.text.toString().trim()) }
-            .subscribe(userActions::accept)
+            .subscribe(actionsRelay::accept)
         disposables += editTextQuery.textChanges()
             .debounce(250, TimeUnit.MILLISECONDS)
             .map { SearchAction.SearchQueryChangeAction(it.toString().trim()) }
-            .subscribe(userActions::accept)
+            .subscribe(actionsRelay::accept)
     }
 
     override fun render(state: SearchState) {

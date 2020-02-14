@@ -79,10 +79,10 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
         stateSaver.saveInstanceState(outState)
     }
 
-    protected val userActions = BehaviorRelay.create<A>().toSerialized()
-    final override val actions: Observable<A> = userActions.hide()
-    private val events = PublishRelay.create<E>().toSerialized()
-    final override val eventsConsumer = events
+    protected val actionsRelay = BehaviorRelay.create<A>().toSerialized()
+    final override val actions: Observable<A> = actionsRelay.hide()
+    private val eventsRelay = PublishRelay.create<E>().toSerialized()
+    final override val events = eventsRelay
 
     @CallSuper
     override fun render(state: S) {
