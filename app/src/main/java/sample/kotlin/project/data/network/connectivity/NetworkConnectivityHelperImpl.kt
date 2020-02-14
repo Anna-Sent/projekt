@@ -10,7 +10,7 @@ import io.reactivex.Single
 import sample.kotlin.project.domain.exceptions.NoConnectionException
 import javax.inject.Inject
 
-internal class NetworkConnectivityHelperImpl
+class NetworkConnectivityHelperImpl
 @Inject constructor(
     private val connectivityManager: ConnectivityManager
 ) : NetworkConnectivityHelper {

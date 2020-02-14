@@ -20,7 +20,6 @@ import net.danlew.android.joda.JodaTimeAndroid
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import sample.kotlin.project.BuildConfig
-import sample.kotlin.project.presentation.DaggerAppComponent
 import javax.inject.Inject
 
 class App : Application(), HasAndroidInjector {

@@ -1,10 +1,11 @@
 package sample.kotlin.project.domain.stores.search
 
 import dagger.Module
+import sample.kotlin.project.domain.stores.StoresModule
 
 @Module(
     includes = [
-        SearchModule::class
+        StoresModule::class
     ]
 )
 interface DomainModule

@@ -24,7 +24,7 @@ interface SearchFragmentModule {
             ViewModelModule::class
         ]
     )
-    fun contributeSearchFragmentInjector(): SearchFragment
+    fun bindSearchFragment(): SearchFragment
 
     @Module
     interface Binding {
@@ -47,7 +47,7 @@ interface SearchFragmentModule {
     class Providing {
 
         @Provides
-        fun initialState(saver: StateSaver<SearchState, SearchStateParcelable>) =
+        fun provideInitialState(saver: StateSaver<SearchState, SearchStateParcelable>) =
             saver.getStateOrDefault { SearchState() }
     }
 }
