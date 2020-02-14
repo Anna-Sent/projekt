@@ -1,11 +1,12 @@
 package sample.kotlin.project.presentation.fragments.search
 
-import sample.kotlin.project.domain.Mapper
-import sample.kotlin.project.domain.search.SearchState
+import sample.kotlin.project.domain.core.Mapper
+import sample.kotlin.project.domain.stores.search.SearchState
 import javax.inject.Inject
 
-class SearchStateToParcelableMapper @Inject constructor() :
-    Mapper<SearchState, SearchStateParcelable> {
+class SearchStateToParcelableMapper
+@Inject constructor(
+) : Mapper<SearchState, SearchStateParcelable> {
 
     override fun map(from: SearchState): SearchStateParcelable {
         return SearchStateParcelable(

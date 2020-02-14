@@ -13,14 +13,14 @@ abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
+    final override fun androidInjector() = androidInjector
+
+    @LayoutRes
+    protected abstract fun layoutId(): Int
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(layoutId())
     }
-
-    override fun androidInjector() = androidInjector
-
-    @LayoutRes
-    protected abstract fun layoutId(): Int
 }

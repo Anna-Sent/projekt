@@ -2,12 +2,10 @@ package sample.kotlin.project.presentation.core
 
 import android.os.Bundle
 import android.os.Parcelable
-import sample.kotlin.project.domain.FragmentScope
-import sample.kotlin.project.domain.Mapper
-import sample.kotlin.project.domain.mvi.State
+import sample.kotlin.project.domain.core.Mapper
+import sample.kotlin.project.domain.core.mvi.State
 import javax.inject.Inject
 
-@FragmentScope
 class StateSaver<S : State, Parcel : Parcelable>
 @Inject constructor(
     private val toParcelableMapper: Mapper<S, Parcel>,

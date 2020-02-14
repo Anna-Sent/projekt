@@ -4,7 +4,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import sample.kotlin.project.core.AndroidTestUtils
+import sample.kotlin.project.core.AndroidTestUtils.appContext
+import sample.kotlin.project.core.AndroidTestUtils.testContext
 
 @RunWith(AndroidJUnit4::class)
 class ContextAndroidTest {
@@ -15,8 +16,6 @@ class ContextAndroidTest {
 
     @Test
     fun checkContext() {
-        val appContext = AndroidTestUtils.appContext
-        val testContext = AndroidTestUtils.testContext
         Assert.assertEquals(
             PACKAGE_NAME,
             appContext.packageName

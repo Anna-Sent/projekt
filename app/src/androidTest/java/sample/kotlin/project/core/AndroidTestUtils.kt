@@ -26,16 +26,14 @@ object AndroidTestUtils {
         val fileReader = BufferedReader(FileReader(fileDescriptor.fileDescriptor))
 
         var value: Float? = null
-        try {
-            var line = fileReader.readLine()
+        fileReader.use {
+            var line = it.readLine()
             while (line != null) {
                 if (value == null) {
                     value = line.toFloat()
                 }
-                line = fileReader.readLine()
+                line = it.readLine()
             }
-        } finally {
-            fileReader.close()
         }
         return requireNotNull(value) { "Failed to read property $property" }
     }
@@ -46,12 +44,10 @@ object AndroidTestUtils {
         val fileDescriptor = uiAutomation.executeShellCommand(command)
         val fileStream = FileInputStream(fileDescriptor.fileDescriptor)
 
-        try {
+        fileStream.use {
             val buffer = ByteArray(1024)
-            while (fileStream.read(buffer) > 0) {
+            while (it.read(buffer) > 0) {
             }
-        } finally {
-            fileStream.close()
         }
     }
 }

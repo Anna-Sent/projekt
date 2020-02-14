@@ -19,10 +19,10 @@ import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
-import sample.kotlin.project.domain.mvi.Action
-import sample.kotlin.project.domain.mvi.Event
-import sample.kotlin.project.domain.mvi.MviView
-import sample.kotlin.project.domain.mvi.State
+import sample.kotlin.project.domain.core.mvi.Action
+import sample.kotlin.project.domain.core.mvi.Event
+import sample.kotlin.project.domain.core.mvi.MviView
+import sample.kotlin.project.domain.core.mvi.State
 import javax.inject.Inject
 
 abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelable, VM : BaseViewModel<S, A, E>> :
@@ -37,6 +37,13 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
 
     private lateinit var viewModel: VM
     protected val disposables = CompositeDisposable()
+
+    final override fun androidInjector() = androidInjector
+
+    @LayoutRes
+    protected abstract fun layoutId(): Int
+
+    protected abstract fun getViewModel(provider: ViewModelProvider): VM
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -53,9 +60,7 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(layoutId(), container, false)
-    }
+    ): View? = inflater.inflate(layoutId(), container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,13 +78,6 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
         super.onSaveInstanceState(outState)
         stateSaver.saveInstanceState(outState)
     }
-
-    final override fun androidInjector() = androidInjector
-
-    @LayoutRes
-    protected abstract fun layoutId(): Int
-
-    protected abstract fun getViewModel(provider: ViewModelProvider): VM
 
     protected val userActions = BehaviorRelay.create<A>().toSerialized()
     final override val actions: Observable<A> = userActions.hide()

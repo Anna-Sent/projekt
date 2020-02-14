@@ -2,7 +2,7 @@ package sample.kotlin.project.presentation.core
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.Disposable
-import sample.kotlin.project.domain.mvi.*
+import sample.kotlin.project.domain.core.mvi.*
 
 abstract class BaseViewModel<S : State, A : Action, E : Event>
 constructor(private val store: Store<A, S, E>) : ViewModel() {
