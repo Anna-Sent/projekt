@@ -1,4 +1,4 @@
-package sample.kotlin.project.presentation.fragments.search
+package sample.kotlin.project.presentation.fragments.search.state
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

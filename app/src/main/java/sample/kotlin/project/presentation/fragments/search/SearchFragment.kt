@@ -15,6 +15,7 @@ import sample.kotlin.project.domain.stores.search.SearchAction
 import sample.kotlin.project.domain.stores.search.SearchEvent
 import sample.kotlin.project.domain.stores.search.SearchState
 import sample.kotlin.project.presentation.core.BaseFragment
+import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable
 import java.util.concurrent.TimeUnit
 
 class SearchFragment :

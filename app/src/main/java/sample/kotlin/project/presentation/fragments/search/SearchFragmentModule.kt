@@ -12,6 +12,9 @@ import sample.kotlin.project.domain.stores.search.SearchState
 import sample.kotlin.project.presentation.core.StateSaver
 import sample.kotlin.project.presentation.core.ViewModelKey
 import sample.kotlin.project.presentation.core.ViewModelModule
+import sample.kotlin.project.presentation.fragments.search.state.SearchStateFromParcelableMapper
+import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable
+import sample.kotlin.project.presentation.fragments.search.state.SearchStateToParcelableMapper
 
 @Module
 interface SearchFragmentModule {
