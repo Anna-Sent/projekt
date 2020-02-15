@@ -64,13 +64,12 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.bind(this)
+        disposables += viewModel.bind(this)
         disposables += events.subscribe { handleEvent(it) }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.unbind()
         disposables.clear()
     }
 
