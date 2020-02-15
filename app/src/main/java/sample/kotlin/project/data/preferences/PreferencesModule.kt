@@ -1,7 +1,6 @@
 package sample.kotlin.project.data.preferences
 
 import android.content.Context
-import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,6 +10,6 @@ class PreferencesModule {
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(context: Context): SharedPreferences =
+    fun provideSharedPreferences(context: Context) =
         context.getSharedPreferences("sample.kotlin.project", Context.MODE_PRIVATE)
 }

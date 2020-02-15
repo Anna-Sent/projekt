@@ -2,6 +2,7 @@ package sample.kotlin.project.presentation.app
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.view.inputmethod.InputMethodManager
 import dagger.Module
 import dagger.Provides
 import sample.kotlin.project.data.DataModule
@@ -33,6 +34,19 @@ class AppModule(private val context: Context) {
     @Provides
     @Singleton
     fun provideLogger(app: App) = app.logger
+
+    @Provides
+    @Singleton
+    fun provideAppRouter(app: App) = app.router
+
+    @Provides
+    @Singleton
+    fun provideNavigatorHolder(app: App) = app.navigatorHolder
+
+    @Provides
+    @Singleton
+    fun provideInputMethodManager(context: Context) =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     @Provides
     @Singleton

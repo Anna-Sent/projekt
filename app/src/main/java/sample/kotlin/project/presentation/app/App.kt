@@ -19,6 +19,8 @@ import io.reactivex.plugins.RxJavaPlugins
 import net.danlew.android.joda.JodaTimeAndroid
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.NavigatorHolder
 import sample.kotlin.project.BuildConfig
 import javax.inject.Inject
 
@@ -31,6 +33,9 @@ class App : Application(), HasAndroidInjector {
 
     lateinit var logger: Logger
     lateinit var refWatcher: RefWatcher
+    lateinit var cicerone: Cicerone<AppRouter>
+    val navigatorHolder: NavigatorHolder get() = cicerone.navigatorHolder
+    val router: AppRouter get() = cicerone.router
 
     override fun onCreate() {
         super.onCreate()
@@ -50,6 +55,7 @@ class App : Application(), HasAndroidInjector {
         initUncaughtExceptionHandler()
         initLogging()
         initLibraries()
+        initNavigation()
     }
 
     private fun initDi() {
@@ -117,5 +123,9 @@ class App : Application(), HasAndroidInjector {
         if (BuildConfig.DEBUG) {
             TooLargeTool.startLogging(this)
         }
+    }
+
+    private fun initNavigation() {
+        cicerone = Cicerone.create(AppRouter())
     }
 }
