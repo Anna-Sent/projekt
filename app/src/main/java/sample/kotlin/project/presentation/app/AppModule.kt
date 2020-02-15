@@ -17,39 +17,39 @@ import javax.inject.Singleton
         PresentationModule::class
     ]
 )
-class AppModule(private val context: Context) {
+class AppModule(private val app: App) {
 
     @Provides
     @Singleton
-    fun provideContext() = context
+    fun provideContext(): Context = app.applicationContext
 
     @Provides
     @Singleton
-    fun provideApp(app: App) = app
+    fun provideApp() = app
 
     @Provides
     @Singleton
-    fun provideRefWatcher(app: App) = app.refWatcher
+    fun provideRefWatcher() = app.refWatcher
 
     @Provides
     @Singleton
-    fun provideLogger(app: App) = app.logger
+    fun provideLogger() = app.logger
 
     @Provides
     @Singleton
-    fun provideAppRouter(app: App) = app.router
+    fun provideAppRouter() = app.router
 
     @Provides
     @Singleton
-    fun provideNavigatorHolder(app: App) = app.navigatorHolder
+    fun provideNavigatorHolder() = app.navigatorHolder
 
     @Provides
     @Singleton
-    fun provideInputMethodManager(context: Context) =
-        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    fun provideInputMethodManager() =
+        app.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     @Provides
     @Singleton
-    fun provideConnectivityManager(context: Context) =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    fun provideConnectivityManager() =
+        app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 }

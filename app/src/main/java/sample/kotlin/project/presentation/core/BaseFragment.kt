@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
+import com.squareup.leakcanary.RefWatcher
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
@@ -39,6 +40,8 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    @Inject
+    lateinit var refWatcher: RefWatcher
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProvider.Factory
     @Inject
@@ -80,6 +83,11 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun onDestroyView() {
         super.onDestroyView()
         disposables.clear()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        refWatcher.watch(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

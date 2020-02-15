@@ -31,11 +31,11 @@ class App : Application(), HasAndroidInjector {
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
-    lateinit var logger: Logger
-    lateinit var refWatcher: RefWatcher
-    lateinit var cicerone: Cicerone<AppRouter>
-    val navigatorHolder: NavigatorHolder get() = cicerone.navigatorHolder
-    val router: AppRouter get() = cicerone.router
+    internal lateinit var logger: Logger
+    internal lateinit var refWatcher: RefWatcher
+    private lateinit var cicerone: Cicerone<AppRouter>
+    internal val navigatorHolder: NavigatorHolder get() = cicerone.navigatorHolder
+    internal val router: AppRouter get() = cicerone.router
 
     override fun onCreate() {
         super.onCreate()
@@ -60,7 +60,7 @@ class App : Application(), HasAndroidInjector {
 
     private fun initDi() {
         DaggerAppComponent.builder()
-            .appModule(AppModule(applicationContext))
+            .appModule(AppModule(this))
             .build()
             .inject(this)
     }
