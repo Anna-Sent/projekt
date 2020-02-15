@@ -16,9 +16,11 @@ import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
+import io.logging.LogSystem
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
+import org.slf4j.LoggerFactory
 import sample.kotlin.project.domain.core.mvi.Action
 import sample.kotlin.project.domain.core.mvi.Event
 import sample.kotlin.project.domain.core.mvi.MviView
@@ -27,6 +29,13 @@ import javax.inject.Inject
 
 abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelable, VM : BaseViewModel<S, A, E>> :
     Fragment(), HasAndroidInjector, MviView<A, S, E> {
+
+    final override fun toString() = super.toString()
+    private val logger = LoggerFactory.getLogger(toString())
+    protected fun unexpectedError(throwable: Throwable) {
+        logger.error("Unexpected error occurred", throwable)
+        LogSystem.report(logger, "Unexpected error occurred", throwable)
+    }
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -65,7 +74,7 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         disposables += viewModel.bind(this)
-        disposables += events.subscribe { handleEvent(it) }
+        disposables += events.subscribe({ handleEvent(it) }, ::unexpectedError)
     }
 
     override fun onDestroyView() {

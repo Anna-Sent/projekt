@@ -117,7 +117,7 @@ class App : Application(), HasAndroidInjector {
             while (throwable is UndeliverableException) {
                 throwable = throwable.cause
             }
-            logger.warn("Undeliverable exception received", throwable)
+            logger.warn("Undeliverable error received", throwable)
         }
 
         if (BuildConfig.DEBUG) {

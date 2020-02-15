@@ -39,11 +39,11 @@ class SearchFragment :
         super.onViewCreated(view, savedInstanceState)
         disposables += buttonSearch.clicks()
             .map { SearchAction.SearchClickAction(editTextQuery.text.toString().trim()) }
-            .subscribe(actionsRelay::accept)
+            .subscribe(actionsRelay::accept, ::unexpectedError)
         disposables += editTextQuery.textChanges()
             .debounce(250, TimeUnit.MILLISECONDS)
             .map { SearchAction.SearchQueryChangeAction(it.toString().trim()) }
-            .subscribe(actionsRelay::accept)
+            .subscribe(actionsRelay::accept, ::unexpectedError)
     }
 
     override fun render(state: SearchState) {
