@@ -8,7 +8,6 @@ import sample.kotlin.project.domain.stores.main.MainEvent
 import sample.kotlin.project.domain.stores.main.MainState
 import sample.kotlin.project.presentation.activities.main.state.MainStateParcelable
 import sample.kotlin.project.presentation.core.BaseActivity
-import sample.kotlin.project.presentation.fragments.search.SearchFragment
 import javax.inject.Inject
 
 class MainActivity :
@@ -25,12 +24,7 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.container,
-                    SearchFragment.newInstance()
-                )
-                .commitNow()
+            actionsRelay.accept(MainAction.NavigateToSearchAction)
         }
     }
 }

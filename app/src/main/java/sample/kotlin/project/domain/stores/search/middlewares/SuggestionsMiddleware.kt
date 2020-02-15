@@ -1,8 +1,6 @@
 package sample.kotlin.project.domain.stores.search.middlewares
 
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
 import sample.kotlin.project.domain.sources.search.SearchRemoteSource
@@ -16,8 +14,6 @@ class SuggestionsMiddleware
     private val searchRemoteSource: SearchRemoteSource
 ) : Middleware<SearchAction, SearchState, SearchEvent> {
 
-    private val uiScheduler: Scheduler = AndroidSchedulers.mainThread()
-
     override fun bind(
         actions: Observable<SearchAction>,
         states: Observable<SearchState>,
@@ -30,6 +26,5 @@ class SuggestionsMiddleware
                     .toObservable()
                     .onErrorReturnItem(emptyList())
                     .map { SearchAction.SuggestionsLoadedAction(it) }
-                    .observeOn(uiScheduler)
             }
 }
