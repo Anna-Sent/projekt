@@ -3,7 +3,7 @@ package sample.kotlin.project.core
 import sample.kotlin.project.core.AndroidTestUtils.PROPERTY_ANIMATOR_DURATION
 import sample.kotlin.project.core.AndroidTestUtils.PROPERTY_TRANSITION_ANIMATION
 import sample.kotlin.project.core.AndroidTestUtils.PROPERTY_WINDOW_ANIMATION
-import sample.kotlin.project.core.AndroidTestUtils.getFloatSetting
+import sample.kotlin.project.core.AndroidTestUtils.floatSetting
 import sample.kotlin.project.core.AndroidTestUtils.putFloatSetting
 import java.io.IOException
 
@@ -25,8 +25,8 @@ internal class AnimationHelper {
 
     @Throws(IOException::class)
     private fun saveAnimationSettings() {
-        windowAnimation = getFloatSetting(PROPERTY_WINDOW_ANIMATION)
-        transitionAnimation = getFloatSetting(PROPERTY_TRANSITION_ANIMATION)
-        animatorDuration = getFloatSetting(PROPERTY_ANIMATOR_DURATION)
+        windowAnimation = floatSetting(PROPERTY_WINDOW_ANIMATION)
+        transitionAnimation = floatSetting(PROPERTY_TRANSITION_ANIMATION)
+        animatorDuration = floatSetting(PROPERTY_ANIMATOR_DURATION)
     }
 }

@@ -89,6 +89,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, Parcel : Par
         logger.debug("onCreate: {}", sens(savedInstanceState))
         stateSaver.restoreState(savedInstanceState)
         viewModel = buildViewModel(ViewModelProvider(this, viewModelProviderFactory))
+        logger.debug("provided view model: {}", viewModel)
     }
 
     override fun onCreateView(

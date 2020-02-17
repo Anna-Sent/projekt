@@ -27,7 +27,7 @@ class SearchFragment :
 
     override fun layoutId() = R.layout.fragment_search
 
-    override fun buildViewModel(provider: ViewModelProvider) = provider[SearchViewModel::class.java]
+    override fun provideViewModel(provider: ViewModelProvider) = provider[SearchViewModel::class.java]
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -10,7 +10,7 @@ import sample.kotlin.project.core.AndroidTest
 import sample.kotlin.project.core.AndroidTestUtils.PROPERTY_ANIMATOR_DURATION
 import sample.kotlin.project.core.AndroidTestUtils.PROPERTY_TRANSITION_ANIMATION
 import sample.kotlin.project.core.AndroidTestUtils.PROPERTY_WINDOW_ANIMATION
-import sample.kotlin.project.core.AndroidTestUtils.getFloatSetting
+import sample.kotlin.project.core.AndroidTestUtils.floatSetting
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
@@ -31,9 +31,9 @@ class AnimationAndroidTest : AndroidTest() {
     @Test
     @Throws(IOException::class)
     fun animationScalesSetToZeroDuringTest() {
-        val windowAnimation = getFloatSetting(PROPERTY_WINDOW_ANIMATION)
-        val transitionAnimation = getFloatSetting(PROPERTY_TRANSITION_ANIMATION)
-        val animatorDuration = getFloatSetting(PROPERTY_ANIMATOR_DURATION)
+        val windowAnimation = floatSetting(PROPERTY_WINDOW_ANIMATION)
+        val transitionAnimation = floatSetting(PROPERTY_TRANSITION_ANIMATION)
+        val animatorDuration = floatSetting(PROPERTY_ANIMATOR_DURATION)
         Assert.assertEquals(
             PROPERTY_WINDOW_ANIMATION,
             0f,

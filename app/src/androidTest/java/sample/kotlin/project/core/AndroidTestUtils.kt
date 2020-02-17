@@ -20,7 +20,7 @@ object AndroidTestUtils {
     val appContext: Context = ApplicationProvider.getApplicationContext()
 
     @Throws(IOException::class)
-    fun getFloatSetting(property: String): Float {
+    fun floatSetting(property: String): Float {
         val command = "settings get global $property"
         val fileDescriptor = uiAutomation.executeShellCommand(command)
         val fileReader = BufferedReader(FileReader(fileDescriptor.fileDescriptor))

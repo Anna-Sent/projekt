@@ -29,6 +29,7 @@ constructor(private val store: Store<A, S, E>) : ViewModel() {
     val eventsObservable = store.eventsObservable
 
     override fun onCleared() {
+        logger.debug("cleared view model {}", this)
         store.dispose()
     }
 

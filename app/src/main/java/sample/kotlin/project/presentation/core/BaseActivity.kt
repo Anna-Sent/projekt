@@ -69,6 +69,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
         setContentView(layoutId())
         stateSaver.restoreState(savedInstanceState)
         viewModel = buildViewModel(ViewModelProvider(this, viewModelProviderFactory))
+        logger.debug("provided view model: {}", viewModel)
         if (USE_LIVE_DATA) {
             viewModel.statesLiveData.observe(this, Observer(::handleState))
         } else {
