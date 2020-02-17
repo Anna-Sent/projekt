@@ -28,12 +28,12 @@ class CacheRelay<T> private constructor() : Relay<T>() {
                 observer
             )
         } else {
+            relay.subscribeActual(observer)
             var element: T? = queue.poll()
             while (element != null) {
                 observer.onNext(element)
                 element = queue.poll()
             }
-            relay.subscribeActual(observer)
         }
     }
 
