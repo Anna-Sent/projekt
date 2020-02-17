@@ -46,6 +46,7 @@ open class Store<A : Action, S : State, E : Event>(
     }
 
     fun dispose() {
+        logger.debug("dispose")
         disposables.dispose()
     }
 
