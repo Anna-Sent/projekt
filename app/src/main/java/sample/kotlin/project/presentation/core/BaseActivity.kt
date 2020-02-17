@@ -15,7 +15,9 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import io.logging.LogSystem
 import io.logging.LogSystem.sens
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import org.slf4j.LoggerFactory
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
@@ -23,13 +25,14 @@ import sample.kotlin.project.domain.core.mvi.Action
 import sample.kotlin.project.domain.core.mvi.Event
 import sample.kotlin.project.domain.core.mvi.MviView
 import sample.kotlin.project.domain.core.mvi.State
+import sample.kotlin.project.presentation.core.Settings.USE_LIVE_DATA
 import javax.inject.Inject
 
 abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelable, VM : BaseViewModel<S, A, E>> :
     AppCompatActivity(), HasAndroidInjector, MviView<S, E> {
 
     final override fun toString() = super.toString()
-    private val logger = LoggerFactory.getLogger(toString())
+    protected val logger = LoggerFactory.getLogger(toString())
     protected fun unexpectedError(throwable: Throwable) {
         logger.error("Unexpected error occurred", throwable)
         LogSystem.report(logger, "Unexpected error occurred", throwable)
@@ -47,7 +50,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
     lateinit var navigatorHolder: NavigatorHolder
 
     protected lateinit var viewModel: VM
-    protected val disposables = CompositeDisposable() // for rx view bindings
+    protected val disposables = CompositeDisposable()
 
     final override fun androidInjector() = androidInjector
 
@@ -64,12 +67,22 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
         setContentView(layoutId())
         stateSaver.restoreState(savedInstanceState)
         viewModel = buildViewModel(ViewModelProvider(this, viewModelProviderFactory))
-        viewModel.statesLiveData.observe(this,
-            Observer {
-                stateSaver.setState(it)
-                render(it)
-            })
-        viewModel.eventsLiveData.observe(this, Observer(::handleEvent))
+        if (USE_LIVE_DATA) {
+            viewModel.statesLiveData.observe(this, Observer(::handleState))
+            viewModel.eventsLiveData.observe(this, Observer(::handleEvent))
+        } else {
+            disposables += viewModel.statesObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::handleState, ::unexpectedError)
+            disposables += viewModel.eventsObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::handleEvent, ::unexpectedError)
+        }
+    }
+
+    private fun handleState(state: S) {
+        stateSaver.setState(state)
+        render(state)
     }
 
     override fun onNewIntent(intent: Intent?) {
