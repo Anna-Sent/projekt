@@ -47,12 +47,7 @@ class NetworkConnectivityHelperImpl
             networkInfo != null && networkInfo.isConnected
         }
 
-    private val isNetworkConnectedSingle
-        get() = isNetworkConnectedObservable
-            .firstOrError()
+    private val isNetworkConnectedObservable = connectedSource.distinctUntilChanged().hide()
 
-    private val isNetworkConnectedObservable
-        get() = connectedSource
-            .distinctUntilChanged()
-            .hide()
+    private val isNetworkConnectedSingle = isNetworkConnectedObservable.firstOrError()
 }
