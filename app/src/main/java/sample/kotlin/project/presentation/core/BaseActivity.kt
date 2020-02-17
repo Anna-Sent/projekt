@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.leakcanary.RefWatcher
 import dagger.android.AndroidInjection
@@ -25,7 +24,6 @@ import sample.kotlin.project.domain.core.mvi.Action
 import sample.kotlin.project.domain.core.mvi.Event
 import sample.kotlin.project.domain.core.mvi.MviView
 import sample.kotlin.project.domain.core.mvi.State
-import sample.kotlin.project.presentation.core.Settings.USE_LIVE_DATA
 import javax.inject.Inject
 
 abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelable, VM : BaseViewModel<S, A, E>> :
@@ -70,13 +68,9 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
         stateSaver.restoreState(savedInstanceState)
         viewModel = buildViewModel(ViewModelProvider(this, viewModelProviderFactory))
         logger.debug("provided view model: {}", viewModel)
-        if (USE_LIVE_DATA) {
-            viewModel.statesLiveData.observe(this, Observer(::handleState))
-        } else {
-            statesDisposables += viewModel.statesObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::handleState, ::unexpectedError)
-        }
+        statesDisposables += viewModel.statesObservable
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::handleState, ::unexpectedError)
     }
 
     private fun handleState(state: S) {
@@ -110,13 +104,9 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun onResume() {
         super.onResume()
         logger.debug("onResume")
-        if (USE_LIVE_DATA) {
-            viewModel.eventsLiveData.observe(this, Observer(::handleEvent))
-        } else {
-            eventsDisposable += viewModel.eventsObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::handleEvent, ::unexpectedError)
-        }
+        eventsDisposable += viewModel.eventsObservable
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::handleEvent, ::unexpectedError)
     }
 
     override fun onAttachFragment(fragment: Fragment) {

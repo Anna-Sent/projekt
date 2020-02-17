@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.leakcanary.RefWatcher
 import dagger.android.DispatchingAndroidInjector
@@ -26,7 +25,6 @@ import sample.kotlin.project.domain.core.mvi.Action
 import sample.kotlin.project.domain.core.mvi.Event
 import sample.kotlin.project.domain.core.mvi.MviView
 import sample.kotlin.project.domain.core.mvi.State
-import sample.kotlin.project.presentation.core.Settings.USE_LIVE_DATA
 import javax.inject.Inject
 
 abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelable, VM : BaseViewModel<S, A, E>> :
@@ -91,13 +89,9 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logger.debug("onViewCreated: {}", sens(savedInstanceState))
-        if (USE_LIVE_DATA) {
-            viewModel.statesLiveData.observe(viewLifecycleOwner, Observer(::handleState))
-        } else {
-            statesDisposables += viewModel.statesObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::handleState, ::unexpectedError)
-        }
+        statesDisposables += viewModel.statesObservable
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::handleState, ::unexpectedError)
     }
 
     private fun handleState(state: S) {
@@ -131,13 +125,9 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun onResume() {
         super.onResume()
         logger.debug("onResume")
-        if (USE_LIVE_DATA) {
-            viewModel.eventsLiveData.observe(viewLifecycleOwner, Observer(::handleEvent))
-        } else {
-            eventsDisposable += viewModel.eventsObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::handleEvent, ::unexpectedError)
-        }
+        eventsDisposable += viewModel.eventsObservable
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::handleEvent, ::unexpectedError)
     }
 
     override fun onPause() {
