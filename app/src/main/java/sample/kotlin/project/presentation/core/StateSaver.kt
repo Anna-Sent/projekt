@@ -16,11 +16,8 @@ class StateSaver<S : State, Parcel : Parcelable>
         private const val BUNDLE_SAVED_STATE = "BUNDLE_SAVED_STATE"
     }
 
-    private var state: S? = null
-
-    fun setState(state: S?) {
-        this.state = state
-    }
+    var state: S? = null
+        internal set
 
     fun saveInstanceState(outState: Bundle) =
         state?.let {

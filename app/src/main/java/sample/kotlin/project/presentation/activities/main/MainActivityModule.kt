@@ -56,6 +56,13 @@ interface MainActivityModule {
         internal fun provideNavigator(activity: MainActivity) =
             MainNavigator(activity, R.id.container)
 
+        @ActivityScope
+        @Provides
+        fun provideStateSaver(
+            toParcelableMapper: Mapper<MainState, MainStateParcelable>,
+            fromParcelableMapper: Mapper<MainStateParcelable, MainState>
+        ) = StateSaver(toParcelableMapper, fromParcelableMapper)
+
         @Provides
         fun provideInitialState(saver: StateSaver<MainState, MainStateParcelable>) =
             saver.stateOrDefault { MainState }

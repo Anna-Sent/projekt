@@ -49,6 +49,13 @@ interface SearchFragmentModule {
     @Module
     class Providing {
 
+        @FragmentScope
+        @Provides
+        fun provideStateSaver(
+            toParcelableMapper: Mapper<SearchState, SearchStateParcelable>,
+            fromParcelableMapper: Mapper<SearchStateParcelable, SearchState>
+        ) = StateSaver(toParcelableMapper, fromParcelableMapper)
+
         @Provides
         fun provideInitialState(saver: StateSaver<SearchState, SearchStateParcelable>) =
             saver.stateOrDefault { SearchState() }

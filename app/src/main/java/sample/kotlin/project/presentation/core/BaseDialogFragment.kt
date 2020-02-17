@@ -134,7 +134,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, Parcel : Par
     }
 
     private fun handleState(state: S) {
-        stateSaver.setState(state)
+        stateSaver.state = state
         render(state)
     }
 

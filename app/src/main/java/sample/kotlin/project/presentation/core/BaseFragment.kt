@@ -100,7 +100,7 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
     }
 
     private fun handleState(state: S) {
-        stateSaver.setState(state)
+        stateSaver.state = state
         render(state)
     }
 
