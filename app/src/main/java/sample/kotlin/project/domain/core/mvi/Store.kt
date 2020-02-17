@@ -4,16 +4,14 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.logging.LogSystem
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.withLatestFrom
 import org.slf4j.LoggerFactory
 
 open class Store<A : Action, S : State, E : Event>(
-    private val reducer: Reducer<S, A>,
-    private val middlewares: Set<Middleware<A, S, E>>,
+    reducer: Reducer<S, A>,
+    middlewares: Set<Middleware<A, S, E>>,
     initialState: S
 ) {
 
@@ -24,42 +22,35 @@ open class Store<A : Action, S : State, E : Event>(
         LogSystem.report(logger, "Unexpected error occurred", throwable)
     }
 
-    private val uiScheduler = AndroidSchedulers.mainThread()
+    private val disposables = CompositeDisposable()
 
     private val states = BehaviorRelay.createDefault<S>(initialState).toSerialized()
-    private val actions = PublishRelay.create<A>().toSerialized()
     private val events = PublishRelay.create<E>().toSerialized()
+    private val actions = PublishRelay.create<A>().toSerialized()
 
-    fun wire(): Disposable {
-        val disposable = CompositeDisposable()
+    val statesObservable: Observable<S> = states.hide()
+    val eventsObservable: Observable<E> = events.hide()
 
-        disposable += actions
+    init {
+        disposables += actions
             .withLatestFrom(states) { action: A, state: S ->
                 reducer.reduce(state, action)
             }
             .distinctUntilChanged()
             .subscribe(states::accept, ::unexpectedError)
 
-        disposable += Observable.merge<A>(
+        disposables += Observable.merge<A>(
             middlewares.map { it.bind(actions, states, events) }
         )
             .subscribe(actions::accept, ::unexpectedError)
-
-        return disposable
     }
 
-    fun bind(view: MviView<A, S, E>): Disposable {
-        val disposable = CompositeDisposable()
+    fun dispose() {
+        disposables.dispose()
+    }
 
-        disposable += states
-            .observeOn(uiScheduler)
-            .subscribe(view::render, ::unexpectedError)
-        disposable += view.actions
-            .subscribe(actions::accept, ::unexpectedError)
-        disposable += events
-            .observeOn(uiScheduler)
-            .subscribe({ view.events.accept(it) }, ::unexpectedError)
-
-        return disposable
+    fun postAction(action: A) {
+        logger.debug("post action {}", action)
+        actions.accept(action)
     }
 }

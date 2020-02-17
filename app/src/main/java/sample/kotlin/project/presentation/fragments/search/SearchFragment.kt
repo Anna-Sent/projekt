@@ -27,27 +27,25 @@ class SearchFragment :
 
     override fun layoutId() = R.layout.fragment_search
 
-    override fun getViewModel(provider: ViewModelProvider) =
-        provider[SearchViewModel::class.java]
+    override fun buildViewModel(provider: ViewModelProvider) = provider[SearchViewModel::class.java]
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        actionsRelay.accept(SearchAction.LoadSuggestionsAction)
+        viewModel.postAction(SearchAction.LoadSuggestionsAction)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         disposables += buttonSearch.clicks()
             .map { SearchAction.SearchClickAction(editTextQuery.text.toString().trim()) }
-            .subscribe(actionsRelay::accept, ::unexpectedError)
+            .subscribe(viewModel::postAction, ::unexpectedError)
         disposables += editTextQuery.textChanges()
             .debounce(250, TimeUnit.MILLISECONDS)
             .map { SearchAction.SearchQueryChangeAction(it.toString().trim()) }
-            .subscribe(actionsRelay::accept, ::unexpectedError)
+            .subscribe(viewModel::postAction, ::unexpectedError)
     }
 
     override fun render(state: SearchState) {
-        super.render(state)
         buttonSearch.isEnabled = !state.loading
         progressBar.visibility = if (state.loading) VISIBLE else GONE
         textView.visibility = if (state.data.isNullOrEmpty()) GONE else VISIBLE

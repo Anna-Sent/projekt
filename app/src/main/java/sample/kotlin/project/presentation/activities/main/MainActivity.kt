@@ -18,13 +18,20 @@ class MainActivity :
 
     override fun layoutId() = R.layout.activity_main
 
-    override fun getViewModel(provider: ViewModelProvider) =
-        provider[MainViewModel::class.java]
+    override fun buildViewModel(provider: ViewModelProvider) = provider[MainViewModel::class.java]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            actionsRelay.accept(MainAction.NavigateToSearchAction)
+            viewModel.postAction(MainAction.NavigateToSearchAction)
         }
+    }
+
+    override fun render(state: MainState) {
+        // no op
+    }
+
+    override fun handleEvent(event: MainEvent) {
+        // no op
     }
 }

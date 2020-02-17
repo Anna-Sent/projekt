@@ -51,6 +51,6 @@ interface SearchFragmentModule {
 
         @Provides
         fun provideInitialState(saver: StateSaver<SearchState, SearchStateParcelable>) =
-            saver.getStateOrDefault { SearchState() }
+            saver.stateOrDefault { SearchState() }
     }
 }

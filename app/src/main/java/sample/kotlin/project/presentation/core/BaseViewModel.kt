@@ -1,16 +1,26 @@
 package sample.kotlin.project.presentation.core
 
+import androidx.lifecycle.LiveDataReactiveStreams.fromPublisher
 import androidx.lifecycle.ViewModel
-import sample.kotlin.project.domain.core.mvi.*
+import io.reactivex.BackpressureStrategy
+import sample.kotlin.project.domain.core.mvi.Action
+import sample.kotlin.project.domain.core.mvi.Event
+import sample.kotlin.project.domain.core.mvi.State
+import sample.kotlin.project.domain.core.mvi.Store
 
 abstract class BaseViewModel<S : State, A : Action, E : Event>
 constructor(private val store: Store<A, S, E>) : ViewModel() {
 
-    private val wiring = store.wire()
-
-    fun bind(view: MviView<A, S, E>) = store.bind(view)
+    val statesLiveData
+        get() = fromPublisher(store.statesObservable.toFlowable(BackpressureStrategy.LATEST))
+    val eventsLiveData
+        get() = fromPublisher(store.eventsObservable.toFlowable(BackpressureStrategy.BUFFER))
 
     override fun onCleared() {
-        wiring.dispose()
+        store.dispose()
+    }
+
+    internal fun postAction(action: A) {
+        store.postAction(action)
     }
 }

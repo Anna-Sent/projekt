@@ -58,6 +58,6 @@ interface MainActivityModule {
 
         @Provides
         fun provideInitialState(saver: StateSaver<MainState, MainStateParcelable>) =
-            saver.getStateOrDefault { MainState }
+            saver.stateOrDefault { MainState }
     }
 }

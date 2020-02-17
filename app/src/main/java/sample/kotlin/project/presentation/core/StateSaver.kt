@@ -32,6 +32,6 @@ class StateSaver<S : State, Parcel : Parcelable>
             ?.let(fromParcelableMapper::map)
     }
 
-    fun getStateOrDefault(defaultStateProvider: () -> S) =
+    fun stateOrDefault(defaultStateProvider: () -> S) =
         state ?: defaultStateProvider.invoke()
 }
