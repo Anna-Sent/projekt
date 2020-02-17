@@ -9,6 +9,7 @@ class CacheRelay<T> private constructor() : Relay<T>() {
     private val queue = ConcurrentLinkedQueue<T>()
     private val relay = PublishRelay.create<T>()
 
+    @Synchronized
     override fun accept(value: T) {
         if (relay.hasObservers()) {
             relay.accept(value)
@@ -17,12 +18,11 @@ class CacheRelay<T> private constructor() : Relay<T>() {
         }
     }
 
-    override fun hasObservers(): Boolean {
-        return relay.hasObservers()
-    }
+    override fun hasObservers() = relay.hasObservers()
 
-    override fun subscribeActual(observer: Observer<in T>) {
-        if (hasObservers()) {
+    @Synchronized
+    override fun subscribeActual(observer: Observer<in T>) =
+        if (relay.hasObservers()) {
             EmptyDisposable.error(
                 IllegalStateException("Only a single observer at a time allowed"),
                 observer
@@ -35,7 +35,6 @@ class CacheRelay<T> private constructor() : Relay<T>() {
                 element = queue.poll()
             }
         }
-    }
 
     companion object {
         fun <T> create(): CacheRelay<T> {
