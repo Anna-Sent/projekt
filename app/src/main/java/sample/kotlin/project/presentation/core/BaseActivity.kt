@@ -51,6 +51,8 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
 
     protected lateinit var viewModel: VM
     protected val disposables = CompositeDisposable()
+    private val statesDisposables = CompositeDisposable()
+    private val eventsDisposable = CompositeDisposable()
 
     final override fun androidInjector() = androidInjector
 
@@ -69,14 +71,10 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
         viewModel = buildViewModel(ViewModelProvider(this, viewModelProviderFactory))
         if (USE_LIVE_DATA) {
             viewModel.statesLiveData.observe(this, Observer(::handleState))
-            viewModel.eventsLiveData.observe(this, Observer(::handleEvent))
         } else {
-            disposables += viewModel.statesObservable
+            statesDisposables += viewModel.statesObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(::handleState, ::unexpectedError)
-            disposables += viewModel.eventsObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::handleEvent, ::unexpectedError)
         }
     }
 
@@ -111,6 +109,13 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun onResume() {
         super.onResume()
         logger.debug("onResume")
+        if (USE_LIVE_DATA) {
+            viewModel.eventsLiveData.observe(this, Observer(::handleEvent))
+        } else {
+            eventsDisposable += viewModel.eventsObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::handleEvent, ::unexpectedError)
+        }
     }
 
     override fun onAttachFragment(fragment: Fragment) {
@@ -128,6 +133,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
         super.onPause()
         logger.debug("onPause")
         navigatorHolder.removeNavigator()
+        eventsDisposable.clear()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -145,6 +151,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
         super.onDestroy()
         logger.debug("onDestroy")
         disposables.dispose()
+        statesDisposables.dispose()
         refWatcher.watch(this)
     }
 

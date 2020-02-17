@@ -1,6 +1,7 @@
 package sample.kotlin.project.domain.core.mvi
 
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.jakewharton.rxrelay2.CacheRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.logging.LogSystem
 import io.reactivex.Observable
@@ -25,7 +26,7 @@ open class Store<A : Action, S : State, E : Event>(
     private val disposables = CompositeDisposable()
 
     private val states = BehaviorRelay.createDefault<S>(initialState).toSerialized()
-    private val events = PublishRelay.create<E>().toSerialized()
+    private val events = CacheRelay.create<E>().toSerialized()
     private val actions = PublishRelay.create<A>().toSerialized()
 
     val statesObservable: Observable<S> = states.hide()
