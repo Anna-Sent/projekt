@@ -9,7 +9,9 @@ import sample.kotlin.project.domain.core.mvi.State
 import sample.kotlin.project.domain.core.mvi.Store
 
 abstract class BaseViewModel<S : State, A : Action, E : Event>
-constructor(private val store: Store<A, S, E>) : ViewModel() {
+constructor(
+    private val store: Store<A, S, E>
+) : ViewModel() {
 
     final override fun toString() = super.toString()
     protected val logger = LoggerFactory.getLogger(toString())
