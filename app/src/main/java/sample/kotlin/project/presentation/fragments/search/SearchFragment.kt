@@ -11,9 +11,9 @@ import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_search.*
 import sample.kotlin.project.R
-import sample.kotlin.project.domain.stores.search.data.SearchAction
-import sample.kotlin.project.domain.stores.search.data.SearchEvent
-import sample.kotlin.project.domain.stores.search.data.SearchState
+import sample.kotlin.project.domain.stores.search.entities.SearchAction
+import sample.kotlin.project.domain.stores.search.entities.SearchEvent
+import sample.kotlin.project.domain.stores.search.entities.SearchState
 import sample.kotlin.project.presentation.core.BaseFragment
 import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable
 import java.util.concurrent.TimeUnit

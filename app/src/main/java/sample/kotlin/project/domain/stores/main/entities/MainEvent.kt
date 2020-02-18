@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.stores.main.data
+package sample.kotlin.project.domain.stores.main.entities
 
 import sample.kotlin.project.domain.core.mvi.Event
 

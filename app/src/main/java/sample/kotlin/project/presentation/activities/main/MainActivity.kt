@@ -7,9 +7,9 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import sample.kotlin.project.R
 import sample.kotlin.project.domain.network.isNetworkConnected
-import sample.kotlin.project.domain.stores.main.data.MainAction
-import sample.kotlin.project.domain.stores.main.data.MainEvent
-import sample.kotlin.project.domain.stores.main.data.MainState
+import sample.kotlin.project.domain.stores.main.entities.MainAction
+import sample.kotlin.project.domain.stores.main.entities.MainEvent
+import sample.kotlin.project.domain.stores.main.entities.MainState
 import sample.kotlin.project.presentation.activities.main.state.MainStateParcelable
 import sample.kotlin.project.presentation.core.BaseActivity
 import javax.inject.Inject

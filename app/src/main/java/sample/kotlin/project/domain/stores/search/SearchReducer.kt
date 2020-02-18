@@ -1,8 +1,8 @@
 package sample.kotlin.project.domain.stores.search
 
 import sample.kotlin.project.domain.core.mvi.Reducer
-import sample.kotlin.project.domain.stores.search.data.SearchAction
-import sample.kotlin.project.domain.stores.search.data.SearchState
+import sample.kotlin.project.domain.stores.search.entities.SearchAction
+import sample.kotlin.project.domain.stores.search.entities.SearchState
 
 internal class SearchReducer : Reducer<SearchState, SearchAction> {
 

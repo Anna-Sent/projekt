@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.stores.search.data
+package sample.kotlin.project.domain.stores.search.entities
 
 import sample.kotlin.project.domain.core.mvi.State
 

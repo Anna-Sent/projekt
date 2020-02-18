@@ -4,9 +4,9 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
 import sample.kotlin.project.domain.network.NetworkConnectivityHelper
-import sample.kotlin.project.domain.stores.search.data.SearchAction
-import sample.kotlin.project.domain.stores.search.data.SearchEvent
-import sample.kotlin.project.domain.stores.search.data.SearchState
+import sample.kotlin.project.domain.stores.search.entities.SearchAction
+import sample.kotlin.project.domain.stores.search.entities.SearchEvent
+import sample.kotlin.project.domain.stores.search.entities.SearchState
 import javax.inject.Inject
 
 class NetworkConnectivityMiddleware

@@ -4,9 +4,9 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
 import sample.kotlin.project.domain.screens.SearchScreen
-import sample.kotlin.project.domain.stores.main.data.MainAction
-import sample.kotlin.project.domain.stores.main.data.MainEvent
-import sample.kotlin.project.domain.stores.main.data.MainState
+import sample.kotlin.project.domain.stores.main.entities.MainAction
+import sample.kotlin.project.domain.stores.main.entities.MainEvent
+import sample.kotlin.project.domain.stores.main.entities.MainState
 import sample.kotlin.project.presentation.app.AppRouter
 import javax.inject.Inject
 
