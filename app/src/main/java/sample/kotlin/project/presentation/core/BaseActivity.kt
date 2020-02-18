@@ -3,7 +3,6 @@ package sample.kotlin.project.presentation.core
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -159,9 +158,5 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun startActivityForResult(intent: Intent?, requestCode: Int) {
         super.startActivityForResult(intent, requestCode)
         overridePendingTransition(0, 0)
-    }
-
-    protected fun toast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

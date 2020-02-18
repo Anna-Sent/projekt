@@ -7,7 +7,6 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -173,9 +172,5 @@ abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun startActivityForResult(intent: Intent?, requestCode: Int) {
         super.startActivityForResult(intent, requestCode)
         requireActivity().overridePendingTransition(0, 0)
-    }
-
-    protected fun toast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }

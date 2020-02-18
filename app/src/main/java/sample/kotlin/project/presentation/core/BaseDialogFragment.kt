@@ -8,7 +8,6 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
@@ -197,9 +196,5 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, Parcel : Par
     override fun startActivityForResult(intent: Intent?, requestCode: Int) {
         super.startActivityForResult(intent, requestCode)
         requireActivity().overridePendingTransition(0, 0)
-    }
-
-    protected fun toast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }
