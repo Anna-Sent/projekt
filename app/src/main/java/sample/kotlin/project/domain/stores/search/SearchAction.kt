@@ -10,7 +10,9 @@ sealed class SearchAction : Action {
 
     object LoadSuggestionsAction : SearchAction()
 
-    object SearchLoadingAction : SearchAction()
+    object SearchLoadingStartedAction : SearchAction()
+
+    object SearchLoadingFinishedAction : SearchAction()
 
     class SearchSuccessAction(val data: String) : SearchAction()
 

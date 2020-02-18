@@ -5,15 +5,13 @@ import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
 import sample.kotlin.project.domain.sources.common.RequestStatusLocalSource
 import sample.kotlin.project.domain.sources.common.RequestType
-import sample.kotlin.project.domain.sources.search.SearchRemoteSource
 import sample.kotlin.project.domain.stores.search.SearchAction
 import sample.kotlin.project.domain.stores.search.SearchEvent
 import sample.kotlin.project.domain.stores.search.SearchState
 import javax.inject.Inject
 
-class SearchMiddleware
+class StateMiddleware
 @Inject constructor(
-    private val searchRemoteSource: SearchRemoteSource,
     private val requestStatusLocalSource: RequestStatusLocalSource
 ) : Middleware<SearchAction, SearchState, SearchEvent> {
 
@@ -22,14 +20,9 @@ class SearchMiddleware
         states: Observable<SearchState>,
         events: Consumer<SearchEvent>
     ): Observable<SearchAction> =
-        actions
-            .ofType<SearchAction.SearchClickAction>(SearchAction.SearchClickAction::class.java)
-            .switchMap { action ->
-                searchRemoteSource.search(action.query)
-                    .compose(requestStatusLocalSource.applyStatusUpdating(RequestType.Search))
-                    .toObservable()
-                    .map<SearchAction> { SearchAction.SearchSuccessAction(it) }
-                    .doOnError { events.accept(SearchEvent.SearchFailureEvent(it)) }
-                    .onErrorReturn { SearchAction.SearchFailureAction(it) }
+        requestStatusLocalSource.status(RequestType.Search)
+            .map {
+                if (it) SearchAction.SearchLoadingStartedAction
+                else SearchAction.SearchLoadingFinishedAction
             }
 }

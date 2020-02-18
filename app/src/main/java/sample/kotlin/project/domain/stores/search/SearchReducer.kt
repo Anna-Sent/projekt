@@ -10,21 +10,22 @@ class SearchReducer : Reducer<SearchState, SearchAction> {
             is SearchAction.SearchClickAction, is SearchAction.SearchQueryChangeAction,
             is SearchAction.LoadSuggestionsAction -> state
 
-            is SearchAction.SearchLoadingAction ->
+            is SearchAction.SearchLoadingStartedAction ->
                 state.copy(
                     loading = true
                 )
 
-            is SearchAction.SearchSuccessAction ->
-                state.copy(
-                    loading = false,
-                    data = action.data
-                )
-
-            is SearchAction.SearchFailureAction ->
+            is SearchAction.SearchLoadingFinishedAction ->
                 state.copy(
                     loading = false
                 )
+
+            is SearchAction.SearchSuccessAction ->
+                state.copy(
+                    data = action.data
+                )
+
+            is SearchAction.SearchFailureAction -> state
 
             is SearchAction.SuggestionsLoadedAction ->
                 state.copy(
