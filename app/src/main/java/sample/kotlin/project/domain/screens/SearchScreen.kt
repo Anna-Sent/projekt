@@ -6,7 +6,5 @@ import sample.kotlin.project.presentation.fragments.search.SearchFragment
 
 class SearchScreen : SupportAppScreen() {
 
-    override fun getFragment(): Fragment? {
-        return SearchFragment.newInstance()
-    }
+    override fun getFragment(): Fragment? = SearchFragment.newInstance()
 }

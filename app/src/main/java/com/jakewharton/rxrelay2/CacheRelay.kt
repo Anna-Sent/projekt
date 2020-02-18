@@ -77,8 +77,6 @@ class CacheRelay<T> private constructor() : Relay<T>() {
     }
 
     companion object {
-        fun <T> create(): CacheRelay<T> {
-            return CacheRelay()
-        }
+        fun <T> create() = CacheRelay<T>()
     }
 }

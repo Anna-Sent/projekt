@@ -8,11 +8,10 @@ class SearchStateToParcelableMapper
 @Inject constructor(
 ) : Mapper<SearchState, SearchStateParcelable> {
 
-    override fun map(from: SearchState): SearchStateParcelable {
-        return SearchStateParcelable(
+    override fun map(from: SearchState) =
+        SearchStateParcelable(
             loading = from.loading,
             data = from.data,
             suggestions = from.suggestions
         )
-    }
 }

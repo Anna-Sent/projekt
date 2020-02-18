@@ -8,7 +8,5 @@ class MainStateFromParcelableMapper
 @Inject constructor(
 ) : Mapper<MainStateParcelable, MainState> {
 
-    override fun map(from: MainStateParcelable): MainState {
-        return MainState
-    }
+    override fun map(from: MainStateParcelable) = MainState
 }
