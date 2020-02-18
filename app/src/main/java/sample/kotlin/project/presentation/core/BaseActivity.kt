@@ -59,14 +59,14 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
     @LayoutRes
     protected abstract fun layoutId(): Int
 
-    protected abstract fun buildViewModel(provider: ViewModelProvider): VM
+    protected abstract fun provideViewModel(provider: ViewModelProvider): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(layoutId())
         stateSaver.restoreState(savedInstanceState)
-        viewModel = buildViewModel(ViewModelProvider(this, viewModelProviderFactory))
+        viewModel = provideViewModel(ViewModelProvider(this, viewModelProviderFactory))
         logger.debug("provided view model: {}", viewModel)
         statesDisposables += viewModel.statesObservable
             .observeOn(AndroidSchedulers.mainThread())

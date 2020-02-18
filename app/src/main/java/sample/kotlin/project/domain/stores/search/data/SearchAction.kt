@@ -19,4 +19,6 @@ sealed class SearchAction : Action {
     class SearchFailureAction(val error: Throwable) : SearchAction()
 
     class SuggestionsLoadedAction(val suggestions: List<String>) : SearchAction()
+
+    class NetworkConnectedAction(val isConnected: Boolean) : SearchAction()
 }

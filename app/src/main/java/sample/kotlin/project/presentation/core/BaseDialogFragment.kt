@@ -69,7 +69,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, Parcel : Par
         savedInstanceState: Bundle?
     ): Dialog
 
-    protected abstract fun buildViewModel(provider: ViewModelProvider): VM
+    protected abstract fun provideViewModel(provider: ViewModelProvider): VM
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -86,7 +86,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, Parcel : Par
         super.onCreate(savedInstanceState)
         logger.debug("onCreate: {}", sens(savedInstanceState))
         stateSaver.restoreState(savedInstanceState)
-        viewModel = buildViewModel(ViewModelProvider(this, viewModelProviderFactory))
+        viewModel = provideViewModel(ViewModelProvider(this, viewModelProviderFactory))
         logger.debug("provided view model: {}", viewModel)
     }
 

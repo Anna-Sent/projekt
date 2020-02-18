@@ -3,16 +3,15 @@ package sample.kotlin.project.domain.stores.main.middlewares
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
-import sample.kotlin.project.domain.screens.SearchScreen
+import sample.kotlin.project.domain.network.NetworkConnectivityHelper
 import sample.kotlin.project.domain.stores.main.data.MainAction
 import sample.kotlin.project.domain.stores.main.data.MainEvent
 import sample.kotlin.project.domain.stores.main.data.MainState
-import sample.kotlin.project.presentation.app.AppRouter
 import javax.inject.Inject
 
-class NavigationMiddleware
+class NetworkConnectivityMiddleware
 @Inject constructor(
-    private val router: AppRouter
+    private val networkConnectivityHelper: NetworkConnectivityHelper
 ) : Middleware<MainAction, MainState, MainEvent> {
 
     override fun bind(
@@ -21,9 +20,9 @@ class NavigationMiddleware
         events: Consumer<MainEvent>
     ): Observable<MainAction> =
         actions
-            .ofType<MainAction.NavigateToSearchAction>(
-                MainAction.NavigateToSearchAction::class.java
+            .ofType<MainAction.NetworkConnectedChanged>(
+                MainAction.NetworkConnectedChanged::class.java
             )
-            .doOnNext { router.newRootScreen(SearchScreen()) }
+            .doOnNext { networkConnectivityHelper.setNetworkConnected(it.isConnected) }
             .switchMap { Observable.never<MainAction>() }
 }

@@ -33,5 +33,10 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                 state.copy(
                     suggestions = action.suggestions
                 )
+
+            is SearchAction.NetworkConnectedAction ->
+                state.copy(
+                    connected = action.isConnected
+                )
         }
 }

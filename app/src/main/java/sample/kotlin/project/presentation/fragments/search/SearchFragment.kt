@@ -27,7 +27,8 @@ class SearchFragment :
 
     override fun layoutId() = R.layout.fragment_search
 
-    override fun provideViewModel(provider: ViewModelProvider) = provider[SearchViewModel::class.java]
+    override fun provideViewModel(provider: ViewModelProvider) =
+        provider[SearchViewModel::class.java]
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -46,6 +47,7 @@ class SearchFragment :
     }
 
     override fun render(state: SearchState) {
+        textViewConnected.visibility = if (state.connected) VISIBLE else GONE
         buttonSearch.isEnabled = !state.loading
         progressBar.visibility = if (state.loading) VISIBLE else GONE
         textView.visibility = if (state.data.isNullOrEmpty()) GONE else VISIBLE

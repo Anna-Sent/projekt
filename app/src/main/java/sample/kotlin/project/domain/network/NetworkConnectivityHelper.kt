@@ -1,4 +1,4 @@
-package sample.kotlin.project.data.network.connectivity
+package sample.kotlin.project.domain.network
 
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -12,6 +12,4 @@ interface NetworkConnectivityHelper {
     fun checkNetworkConnectedOrThrow(): Single<Boolean>
 
     fun setNetworkConnected(networkConnected: Boolean)
-
-    fun isNetworkConnectedBlocking(): Boolean
 }

@@ -24,7 +24,8 @@ class SearchMiddleware
     ): Observable<SearchAction> =
         actions
             .ofType<SearchAction.SearchClickAction>(
-                SearchAction.SearchClickAction::class.java)
+                SearchAction.SearchClickAction::class.java
+            )
             .switchMap { action ->
                 searchRemoteSource.search(action.query)
                     .compose(requestStatusLocalSource.applyStatusUpdating(RequestType.Search))
