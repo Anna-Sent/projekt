@@ -9,7 +9,7 @@ import dagger.multibindings.IntoMap
 import sample.kotlin.project.R
 import sample.kotlin.project.domain.core.Mapper
 import sample.kotlin.project.domain.core.scopes.ActivityScope
-import sample.kotlin.project.domain.stores.main.MainState
+import sample.kotlin.project.domain.stores.main.data.MainState
 import sample.kotlin.project.presentation.activities.main.state.MainStateFromParcelableMapper
 import sample.kotlin.project.presentation.activities.main.state.MainStateParcelable
 import sample.kotlin.project.presentation.activities.main.state.MainStateToParcelableMapper

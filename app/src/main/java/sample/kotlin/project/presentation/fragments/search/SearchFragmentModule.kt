@@ -8,7 +8,7 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import sample.kotlin.project.domain.core.Mapper
 import sample.kotlin.project.domain.core.scopes.FragmentScope
-import sample.kotlin.project.domain.stores.search.SearchState
+import sample.kotlin.project.domain.stores.search.data.SearchState
 import sample.kotlin.project.presentation.core.StateSaver
 import sample.kotlin.project.presentation.core.ViewModelKey
 import sample.kotlin.project.presentation.core.ViewModelModule

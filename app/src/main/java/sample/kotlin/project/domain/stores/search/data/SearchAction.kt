@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.stores.search
+package sample.kotlin.project.domain.stores.search.data
 
 import sample.kotlin.project.domain.core.mvi.Action
 

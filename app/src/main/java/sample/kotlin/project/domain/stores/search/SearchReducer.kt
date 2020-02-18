@@ -1,8 +1,10 @@
 package sample.kotlin.project.domain.stores.search
 
 import sample.kotlin.project.domain.core.mvi.Reducer
+import sample.kotlin.project.domain.stores.search.data.SearchAction
+import sample.kotlin.project.domain.stores.search.data.SearchState
 
-class SearchReducer : Reducer<SearchState, SearchAction> {
+internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
     override fun reduce(state: SearchState, action: SearchAction) =
         when (action) {

@@ -5,9 +5,9 @@ import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
 import sample.kotlin.project.domain.sources.common.RequestStatusLocalSource
 import sample.kotlin.project.domain.sources.common.RequestType
-import sample.kotlin.project.domain.stores.search.SearchAction
-import sample.kotlin.project.domain.stores.search.SearchEvent
-import sample.kotlin.project.domain.stores.search.SearchState
+import sample.kotlin.project.domain.stores.search.data.SearchAction
+import sample.kotlin.project.domain.stores.search.data.SearchEvent
+import sample.kotlin.project.domain.stores.search.data.SearchState
 import javax.inject.Inject
 
 class StateMiddleware

@@ -5,6 +5,9 @@ import dagger.Module
 import sample.kotlin.project.data.sources.common.CommonDataModule
 import sample.kotlin.project.data.sources.search.SearchDataModule
 import sample.kotlin.project.domain.core.mvi.Store
+import sample.kotlin.project.domain.stores.search.data.SearchAction
+import sample.kotlin.project.domain.stores.search.data.SearchEvent
+import sample.kotlin.project.domain.stores.search.data.SearchState
 
 @Module(
     includes = [
