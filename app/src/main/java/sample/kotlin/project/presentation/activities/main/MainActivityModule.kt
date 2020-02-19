@@ -14,8 +14,8 @@ import sample.kotlin.project.presentation.activities.main.state.MainStateFromPar
 import sample.kotlin.project.presentation.activities.main.state.MainStateParcelable
 import sample.kotlin.project.presentation.activities.main.state.MainStateToParcelableMapper
 import sample.kotlin.project.presentation.core.StateSaver
-import sample.kotlin.project.presentation.core.ViewModelKey
-import sample.kotlin.project.presentation.core.ViewModelModule
+import sample.kotlin.project.presentation.core.di.ViewModelKey
+import sample.kotlin.project.presentation.core.di.ViewModelModule
 import sample.kotlin.project.presentation.fragments.FragmentsModule
 
 @Module

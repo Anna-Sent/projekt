@@ -20,10 +20,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import org.slf4j.LoggerFactory
-import sample.kotlin.project.domain.core.mvi.Action
-import sample.kotlin.project.domain.core.mvi.Event
+import sample.kotlin.project.domain.core.mvi.entities.Action
+import sample.kotlin.project.domain.core.mvi.entities.Event
 import sample.kotlin.project.domain.core.mvi.MviView
-import sample.kotlin.project.domain.core.mvi.State
+import sample.kotlin.project.domain.core.mvi.entities.State
 import javax.inject.Inject
 
 abstract class BaseFragment<S : State, A : Action, E : Event, Parcel : Parcelable, VM : BaseViewModel<S, A, E>> :

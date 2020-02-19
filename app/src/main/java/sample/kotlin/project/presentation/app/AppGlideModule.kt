@@ -1,7 +1,6 @@
 package sample.kotlin.project.presentation.app
 
 import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
 
 @GlideModule
-class TheAppGlideModule : AppGlideModule()
+class AppGlideModule : com.bumptech.glide.module.AppGlideModule()

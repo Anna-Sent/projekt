@@ -9,6 +9,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.withLatestFrom
 import org.slf4j.LoggerFactory
+import sample.kotlin.project.domain.core.mvi.entities.Action
+import sample.kotlin.project.domain.core.mvi.entities.Event
+import sample.kotlin.project.domain.core.mvi.entities.State
 
 open class Store<A : Action, S : State, E : Event>(
     reducer: Reducer<S, A>,

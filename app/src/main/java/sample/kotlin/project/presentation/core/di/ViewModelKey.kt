@@ -1,4 +1,4 @@
-package sample.kotlin.project.presentation.core
+package sample.kotlin.project.presentation.core.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

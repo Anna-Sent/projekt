@@ -10,8 +10,8 @@ import sample.kotlin.project.domain.core.Mapper
 import sample.kotlin.project.domain.core.scopes.FragmentScope
 import sample.kotlin.project.domain.stores.search.entities.SearchState
 import sample.kotlin.project.presentation.core.StateSaver
-import sample.kotlin.project.presentation.core.ViewModelKey
-import sample.kotlin.project.presentation.core.ViewModelModule
+import sample.kotlin.project.presentation.core.di.ViewModelKey
+import sample.kotlin.project.presentation.core.di.ViewModelModule
 import sample.kotlin.project.presentation.fragments.search.state.SearchStateFromParcelableMapper
 import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable
 import sample.kotlin.project.presentation.fragments.search.state.SearchStateToParcelableMapper

@@ -3,9 +3,9 @@ package sample.kotlin.project.presentation.core
 import androidx.lifecycle.ViewModel
 import io.logging.LogSystem
 import org.slf4j.LoggerFactory
-import sample.kotlin.project.domain.core.mvi.Action
-import sample.kotlin.project.domain.core.mvi.Event
-import sample.kotlin.project.domain.core.mvi.State
+import sample.kotlin.project.domain.core.mvi.entities.Action
+import sample.kotlin.project.domain.core.mvi.entities.Event
+import sample.kotlin.project.domain.core.mvi.entities.State
 import sample.kotlin.project.domain.core.mvi.Store
 
 abstract class BaseViewModel<S : State, A : Action, E : Event>

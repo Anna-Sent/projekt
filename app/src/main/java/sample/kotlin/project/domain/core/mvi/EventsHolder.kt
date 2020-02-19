@@ -1,5 +1,7 @@
 package sample.kotlin.project.domain.core.mvi
 
+import sample.kotlin.project.domain.core.mvi.entities.Event
+import sample.kotlin.project.domain.core.mvi.entities.State
 import java.util.*
 
 class EventsHolder<S : State, E : Event> {

@@ -1,6 +1,6 @@
 package sample.kotlin.project.domain.stores.search.entities
 
-import sample.kotlin.project.domain.core.mvi.Event
+import sample.kotlin.project.domain.core.mvi.entities.Event
 
 sealed class SearchEvent : Event {
 

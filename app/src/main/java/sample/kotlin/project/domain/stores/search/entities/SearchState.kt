@@ -1,6 +1,6 @@
 package sample.kotlin.project.domain.stores.search.entities
 
-import sample.kotlin.project.domain.core.mvi.State
+import sample.kotlin.project.domain.core.mvi.entities.State
 
 data class SearchState(
     val connected: Boolean = false,

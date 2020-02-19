@@ -3,7 +3,7 @@ package sample.kotlin.project.presentation.core
 import android.os.Bundle
 import android.os.Parcelable
 import sample.kotlin.project.domain.core.Mapper
-import sample.kotlin.project.domain.core.mvi.State
+import sample.kotlin.project.domain.core.mvi.entities.State
 import javax.inject.Inject
 
 class StateSaver<S : State, Parcel : Parcelable>
