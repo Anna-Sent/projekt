@@ -26,7 +26,7 @@ class RequestDataSource
 
     override fun status(requestType: RequestType): Observable<Boolean> =
         changed.map { map.get(requestType, false) }.distinctUntilChanged()
-}
 
-private fun <K, V> ConcurrentHashMap<K, V>.get(key: K, defaultValue: V): V =
-    get(key) ?: defaultValue
+    private fun <K, V> ConcurrentHashMap<K, V>.get(key: K, defaultValue: V): V =
+        get(key) ?: defaultValue
+}
