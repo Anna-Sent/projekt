@@ -1,6 +1,6 @@
 package sample.kotlin.project.presentation.activities.main.state
 
-import sample.kotlin.project.domain.core.Mapper
+import sample.kotlin.project.domain.core.mvi.Mapper
 import sample.kotlin.project.domain.stores.main.entities.MainState
 import javax.inject.Inject
 

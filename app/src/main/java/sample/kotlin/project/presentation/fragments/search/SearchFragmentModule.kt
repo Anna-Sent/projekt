@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
-import sample.kotlin.project.domain.core.Mapper
+import sample.kotlin.project.domain.core.mvi.Mapper
 import sample.kotlin.project.domain.core.scopes.FragmentScope
 import sample.kotlin.project.domain.stores.search.entities.SearchState
 import sample.kotlin.project.presentation.core.StateSaver
