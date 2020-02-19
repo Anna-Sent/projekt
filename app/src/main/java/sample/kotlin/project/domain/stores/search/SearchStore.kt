@@ -1,7 +1,7 @@
 package sample.kotlin.project.domain.stores.search
 
-import io.reactivex.Scheduler
 import sample.kotlin.project.domain.core.mvi.Store
+import sample.kotlin.project.domain.sources.core.schedulers.SchedulersSource
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
 import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
@@ -14,14 +14,14 @@ import javax.inject.Inject
 
 class SearchStore
 @Inject constructor(
-    uiScheduler: Scheduler,
+    schedulersSource: SchedulersSource,
     searchMiddleware: SearchMiddleware,
     stateMiddleware: StateMiddleware,
     suggestionsMiddleware: SuggestionsMiddleware,
     connectivityMiddleware: ConnectivityMiddleware,
     initialState: SearchState
 ) : Store<SearchState, SearchAction, SearchEvent, SearchNavigationCommand>(
-    uiScheduler,
+    schedulersSource,
     SearchReducer(),
     setOf(
         searchMiddleware,

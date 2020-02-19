@@ -4,7 +4,6 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.logging.LogSystem
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.withLatestFrom
@@ -13,9 +12,10 @@ import sample.kotlin.project.domain.core.mvi.entities.Action
 import sample.kotlin.project.domain.core.mvi.entities.Event
 import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
+import sample.kotlin.project.domain.sources.core.schedulers.SchedulersSource
 
 open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
-    uiScheduler: Scheduler,
+    schedulersSource: SchedulersSource,
     reducer: Reducer<S, A>,
     middlewares: Set<Middleware<S, A, E, NC>>,
     initialState: S
@@ -53,7 +53,7 @@ open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
             .subscribe(actions::accept, ::unexpectedError)
 
         disposables += events
-            .observeOn(uiScheduler)
+            .observeOn(schedulersSource.uiScheduler)
             .subscribe(eventsHolder::handleEvent, ::unexpectedError)
     }
 
