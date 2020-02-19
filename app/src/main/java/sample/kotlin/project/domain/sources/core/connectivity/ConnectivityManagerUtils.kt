@@ -7,12 +7,9 @@ import io.logging.utils.DeviceUtils
 val ConnectivityManager.isNetworkConnected
     get() =
         if (DeviceUtils.isAtLeastMarshmallow()) {
-            val network = activeNetwork
-            val capabilities = getNetworkCapabilities(network)
-            capabilities != null
-                    && (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-                    || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+            val capabilities = getNetworkCapabilities(activeNetwork)
+            capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ?: false
+                    || capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ?: false
         } else {
-            val networkInfo = activeNetworkInfo
-            networkInfo != null && networkInfo.isConnected
+            activeNetworkInfo?.isConnected ?: false
         }

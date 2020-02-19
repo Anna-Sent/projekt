@@ -11,9 +11,9 @@ class EventsHolder<S : State, E : Event> {
 
     fun attachView(view: MviView<S, E>?) {
         this.view = view
-        if (view != null) {
+        view?.let {
             while (!pendingEvents.isEmpty()) {
-                view.handleEvent(pendingEvents.poll()!!)
+                it.handleEvent(pendingEvents.poll()!!)
             }
         }
     }
@@ -24,10 +24,6 @@ class EventsHolder<S : State, E : Event> {
 
     fun handleEvent(event: E) {
         val view = this.view
-        if (view != null) {
-            view.handleEvent(event)
-        } else {
-            pendingEvents.add(event)
-        }
+        view?.handleEvent(event) ?: pendingEvents.add(event)
     }
 }

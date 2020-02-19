@@ -1,28 +1,32 @@
 package sample.kotlin.project.data.sources.common
 
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.jakewharton.rxrelay2.Relay
+import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 import sample.kotlin.project.domain.sources.common.RequestStatusSource
 import sample.kotlin.project.domain.sources.common.RequestType
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
 class RequestStatusDataSource
 @Inject constructor(
 ) : RequestStatusSource {
 
-    private val map = mapOf<RequestType, Relay<Boolean>>(
-        RequestType.Search to BehaviorRelay.createDefault(false)
-    )
+    private val map = ConcurrentHashMap<RequestType, Boolean>()
+    private val changed = PublishRelay.create<Boolean>()
 
     override fun started(requestType: RequestType) {
-        map.getValue(requestType).accept(true)
+        map[requestType] = true
+        changed.accept(true)
     }
 
     override fun finished(requestType: RequestType) {
-        map.getValue(requestType).accept(false)
+        map.remove(requestType)
+        changed.accept(true)
     }
 
     override fun status(requestType: RequestType): Observable<Boolean> =
-        map.getValue(requestType).distinctUntilChanged()
+        changed.map { map.get(requestType, false) }.distinctUntilChanged()
 }
+
+private fun <K, V> ConcurrentHashMap<K, V>.get(key: K, defaultValue: V): V =
+    get(key) ?: defaultValue
