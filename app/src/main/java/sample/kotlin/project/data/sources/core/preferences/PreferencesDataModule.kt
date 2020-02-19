@@ -17,8 +17,8 @@ class PreferencesDataModule {
         context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideRxSharedPreferences(sharedPreferences: SharedPreferences) =
         RxSharedPreferences.create(sharedPreferences)
 }
