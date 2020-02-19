@@ -4,7 +4,7 @@ import sample.kotlin.project.domain.core.mvi.entities.Action
 
 sealed class MainAction : Action {
 
-    object NavigateToSearchAction : MainAction()
+    object NavigateToInitialScreenAction : MainAction()
 
     class NetworkConnectedChanged(val isConnected: Boolean) : MainAction()
 }
