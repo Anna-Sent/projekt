@@ -4,6 +4,7 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.logging.LogSystem
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.withLatestFrom
@@ -29,7 +30,7 @@ open class Store<A : Action, S : State, E : Event>(
     private val actions = PublishRelay.create<A>().toSerialized()
 
     val statesObservable: Observable<S> = states.hide()
-    val eventsObservable: Observable<E> = events.hide()
+    val eventsHolder = EventsHolder<S, E>()
 
     init {
         disposables += actions
@@ -43,6 +44,10 @@ open class Store<A : Action, S : State, E : Event>(
             middlewares.map { it.bind(actions, states, events) }
         )
             .subscribe(actions::accept, ::unexpectedError)
+
+        disposables += events
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(eventsHolder::handleEvent, ::unexpectedError)
     }
 
     fun dispose() {

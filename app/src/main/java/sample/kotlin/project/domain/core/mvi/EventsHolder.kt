@@ -1,11 +1,8 @@
-package sample.kotlin.project.presentation.core
+package sample.kotlin.project.domain.core.mvi
 
-import sample.kotlin.project.domain.core.mvi.Event
-import sample.kotlin.project.domain.core.mvi.MviView
-import sample.kotlin.project.domain.core.mvi.State
 import java.util.*
 
-internal class EventsHolder<S : State, E : Event> {
+class EventsHolder<S : State, E : Event> {
 
     private var view: MviView<S, E>? = null
     private val pendingEvents = LinkedList<E>()
