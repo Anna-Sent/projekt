@@ -6,8 +6,8 @@ import sample.kotlin.project.presentation.fragments.splash.SplashFragmentModule
 
 @Module(
     includes = [
-        SplashFragmentModule::class,
-        SearchFragmentModule::class
+        SearchFragmentModule::class,
+        SplashFragmentModule::class
     ]
 )
 interface FragmentsModule

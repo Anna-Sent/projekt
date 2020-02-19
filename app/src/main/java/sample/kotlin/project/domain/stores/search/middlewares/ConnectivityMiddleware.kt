@@ -3,7 +3,7 @@ package sample.kotlin.project.domain.stores.search.middlewares
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
-import sample.kotlin.project.domain.providers.connectivity.ConnectivityProvider
+import sample.kotlin.project.domain.repositories.connectivity.ConnectivityRepository
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
 import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class ConnectivityMiddleware
 @Inject constructor(
-    private val connectivityProvider: ConnectivityProvider
+    private val connectivityRepository: ConnectivityRepository
 ) : Middleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand> {
 
     override fun bind(
@@ -21,6 +21,6 @@ class ConnectivityMiddleware
         events: Consumer<SearchEvent>,
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
-        connectivityProvider.isNetworkConnected()
+        connectivityRepository.isNetworkConnected()
             .map { SearchAction.NetworkConnectedAction(it) }
 }
