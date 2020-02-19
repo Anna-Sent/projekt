@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.rxkotlin.plusAssign
-import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_search_content.*
 import sample.kotlin.project.R
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
@@ -52,8 +52,8 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         textViewConnected.visibility = if (state.connected) VISIBLE else GONE
         buttonSearch.isEnabled = !state.loading
         progressBar.visibility = if (state.loading) VISIBLE else GONE
-        textView.visibility = if (state.data.isNullOrEmpty()) GONE else VISIBLE
-        textView.text = state.data
+        textViewResult.visibility = if (state.data.isNullOrEmpty()) GONE else VISIBLE
+        textViewResult.text = state.data
         val adapter = ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line, state.suggestions
