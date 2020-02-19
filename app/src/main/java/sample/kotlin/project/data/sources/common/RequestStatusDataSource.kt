@@ -3,13 +3,13 @@ package sample.kotlin.project.data.sources.common
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.Relay
 import io.reactivex.Observable
-import sample.kotlin.project.domain.sources.common.RequestStatusLocalSource
+import sample.kotlin.project.domain.sources.common.RequestStatusSource
 import sample.kotlin.project.domain.sources.common.RequestType
 import javax.inject.Inject
 
-class RequestStatusLocalDataSource
+class RequestStatusDataSource
 @Inject constructor(
-) : RequestStatusLocalSource {
+) : RequestStatusSource {
 
     private val map = mapOf<RequestType, Relay<Boolean>>(
         RequestType.Search to BehaviorRelay.createDefault(false)

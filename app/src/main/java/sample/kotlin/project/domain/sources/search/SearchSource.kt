@@ -2,7 +2,7 @@ package sample.kotlin.project.domain.sources.search
 
 import io.reactivex.Single
 
-interface SearchRemoteSource {
+interface SearchSource {
 
     fun search(query: String): Single<String>
 

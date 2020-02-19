@@ -3,7 +3,7 @@ package sample.kotlin.project.domain.sources.common
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
 
-interface RequestStatusLocalSource {
+interface RequestStatusSource {
 
     fun started(requestType: RequestType)
 
