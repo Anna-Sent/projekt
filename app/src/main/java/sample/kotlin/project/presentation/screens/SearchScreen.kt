@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.screens
+package sample.kotlin.project.presentation.screens
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 import sample.kotlin.project.presentation.fragments.search.SearchFragment

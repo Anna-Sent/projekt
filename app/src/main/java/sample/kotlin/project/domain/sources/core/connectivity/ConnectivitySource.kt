@@ -1,9 +1,9 @@
-package sample.kotlin.project.domain.network
+package sample.kotlin.project.domain.sources.core.connectivity
 
 import io.reactivex.Observable
 import io.reactivex.Single
 
-interface NetworkConnectivityHelper {
+interface ConnectivitySource {
 
     fun isNetworkConnected(): Observable<Boolean>
 

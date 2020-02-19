@@ -1,4 +1,4 @@
-package sample.kotlin.project.data.preferences
+package sample.kotlin.project.data.sources.core.preferences
 
 object PreferencesConstants {
 

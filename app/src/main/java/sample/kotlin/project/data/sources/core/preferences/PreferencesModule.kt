@@ -1,11 +1,11 @@
-package sample.kotlin.project.data.preferences
+package sample.kotlin.project.data.sources.core.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import dagger.Module
 import dagger.Provides
-import sample.kotlin.project.data.preferences.PreferencesConstants.PREFERENCES_NAME
+import sample.kotlin.project.data.sources.core.preferences.PreferencesConstants.PREFERENCES_NAME
 import javax.inject.Singleton
 
 @Module

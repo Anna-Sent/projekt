@@ -1,4 +1,4 @@
-package sample.kotlin.project.data.network.connectivity
+package sample.kotlin.project.data.sources.core.connectivity
 
 import android.net.ConnectivityManager
 import com.jakewharton.rxrelay2.BehaviorRelay
@@ -6,14 +6,14 @@ import com.jakewharton.rxrelay2.Relay
 import io.reactivex.Observable
 import io.reactivex.Single
 import sample.kotlin.project.domain.exceptions.NoConnectionException
-import sample.kotlin.project.domain.network.NetworkConnectivityHelper
-import sample.kotlin.project.domain.network.isNetworkConnected
+import sample.kotlin.project.domain.sources.core.connectivity.ConnectivitySource
+import sample.kotlin.project.domain.sources.core.connectivity.isNetworkConnected
 import javax.inject.Inject
 
-class NetworkConnectivityHelperImpl
+class ConnectivityDataSource
 @Inject constructor(
     connectivityManager: ConnectivityManager
-) : NetworkConnectivityHelper {
+) : ConnectivitySource {
 
     private val connectedSource: Relay<Boolean>
 
