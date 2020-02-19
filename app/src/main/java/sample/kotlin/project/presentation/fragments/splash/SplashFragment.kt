@@ -6,7 +6,7 @@ import sample.kotlin.project.domain.stores.splash.entities.SplashAction
 import sample.kotlin.project.domain.stores.splash.entities.SplashEvent
 import sample.kotlin.project.domain.stores.splash.entities.SplashNavigationCommand
 import sample.kotlin.project.domain.stores.splash.entities.SplashState
-import sample.kotlin.project.presentation.core.BaseFragment
+import sample.kotlin.project.presentation.core.views.BaseFragment
 import sample.kotlin.project.presentation.fragments.splash.state.SplashStateParcelable
 
 class SplashFragment : BaseFragment<SplashState, SplashAction, SplashEvent, SplashNavigationCommand,

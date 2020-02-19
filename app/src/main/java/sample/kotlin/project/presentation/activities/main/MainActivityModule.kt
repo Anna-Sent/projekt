@@ -13,7 +13,7 @@ import sample.kotlin.project.domain.stores.main.entities.MainState
 import sample.kotlin.project.presentation.activities.main.state.MainStateFromParcelableMapper
 import sample.kotlin.project.presentation.activities.main.state.MainStateParcelable
 import sample.kotlin.project.presentation.activities.main.state.MainStateToParcelableMapper
-import sample.kotlin.project.presentation.core.StateSaver
+import sample.kotlin.project.presentation.core.views.StateSaver
 import sample.kotlin.project.presentation.core.di.ViewModelKey
 import sample.kotlin.project.presentation.core.di.ViewModelModule
 import sample.kotlin.project.presentation.fragments.FragmentsModule
@@ -61,7 +61,10 @@ interface MainActivityModule {
         fun provideStateSaver(
             toParcelableMapper: Mapper<MainState, MainStateParcelable>,
             fromParcelableMapper: Mapper<MainStateParcelable, MainState>
-        ) = StateSaver(toParcelableMapper, fromParcelableMapper)
+        ) = StateSaver(
+            toParcelableMapper,
+            fromParcelableMapper
+        )
 
         @Provides
         fun provideInitialState(saver: StateSaver<MainState, MainStateParcelable>) =

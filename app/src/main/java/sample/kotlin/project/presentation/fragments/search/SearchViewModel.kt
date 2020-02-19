@@ -5,7 +5,7 @@ import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
 import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
 import sample.kotlin.project.domain.stores.search.entities.SearchState
-import sample.kotlin.project.presentation.core.BaseViewModel
+import sample.kotlin.project.presentation.core.views.BaseViewModel
 import javax.inject.Inject
 
 class SearchViewModel

@@ -7,10 +7,10 @@ import sample.kotlin.project.domain.core.mvi.entities.Action
 import sample.kotlin.project.domain.core.mvi.entities.Event
 import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
-import sample.kotlin.project.presentation.core.BaseActivity
-import sample.kotlin.project.presentation.core.BaseDialogFragment
-import sample.kotlin.project.presentation.core.BaseFragment
-import sample.kotlin.project.presentation.core.BaseViewModel
+import sample.kotlin.project.presentation.core.views.BaseActivity
+import sample.kotlin.project.presentation.core.views.BaseDialogFragment
+import sample.kotlin.project.presentation.core.views.BaseFragment
+import sample.kotlin.project.presentation.core.views.BaseViewModel
 
 fun <S : State, A : Action, E : Event, NC : NavigationCommand,
         Parcel : Parcelable, VM : BaseViewModel<S, A, E, NC>>

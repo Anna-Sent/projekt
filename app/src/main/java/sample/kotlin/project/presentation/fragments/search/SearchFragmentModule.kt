@@ -9,7 +9,7 @@ import dagger.multibindings.IntoMap
 import sample.kotlin.project.domain.core.mvi.Mapper
 import sample.kotlin.project.domain.core.scopes.FragmentScope
 import sample.kotlin.project.domain.stores.search.entities.SearchState
-import sample.kotlin.project.presentation.core.StateSaver
+import sample.kotlin.project.presentation.core.views.StateSaver
 import sample.kotlin.project.presentation.core.di.ViewModelKey
 import sample.kotlin.project.presentation.core.di.ViewModelModule
 import sample.kotlin.project.presentation.fragments.search.state.SearchStateFromParcelableMapper
@@ -54,7 +54,10 @@ interface SearchFragmentModule {
         fun provideStateSaver(
             toParcelableMapper: Mapper<SearchState, SearchStateParcelable>,
             fromParcelableMapper: Mapper<SearchStateParcelable, SearchState>
-        ) = StateSaver(toParcelableMapper, fromParcelableMapper)
+        ) = StateSaver(
+            toParcelableMapper,
+            fromParcelableMapper
+        )
 
         @Provides
         fun provideInitialState(saver: StateSaver<SearchState, SearchStateParcelable>) =

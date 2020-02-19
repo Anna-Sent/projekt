@@ -1,4 +1,4 @@
-package sample.kotlin.project.presentation.core
+package sample.kotlin.project.presentation.core.views
 
 import android.content.Intent
 import android.os.Bundle

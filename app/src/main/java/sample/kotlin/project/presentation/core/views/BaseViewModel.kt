@@ -1,4 +1,4 @@
-package sample.kotlin.project.presentation.core
+package sample.kotlin.project.presentation.core.views
 
 import androidx.lifecycle.ViewModel
 import io.logging.LogSystem

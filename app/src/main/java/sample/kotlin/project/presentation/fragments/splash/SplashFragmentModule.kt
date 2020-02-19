@@ -9,7 +9,7 @@ import dagger.multibindings.IntoMap
 import sample.kotlin.project.domain.core.mvi.Mapper
 import sample.kotlin.project.domain.core.scopes.FragmentScope
 import sample.kotlin.project.domain.stores.splash.entities.SplashState
-import sample.kotlin.project.presentation.core.StateSaver
+import sample.kotlin.project.presentation.core.views.StateSaver
 import sample.kotlin.project.presentation.core.di.ViewModelKey
 import sample.kotlin.project.presentation.core.di.ViewModelModule
 import sample.kotlin.project.presentation.fragments.splash.state.SplashStateFromParcelableMapper
@@ -54,7 +54,10 @@ interface SplashFragmentModule {
         fun provideStateSaver(
             toParcelableMapper: Mapper<SplashState, SplashStateParcelable>,
             fromParcelableMapper: Mapper<SplashStateParcelable, SplashState>
-        ) = StateSaver(toParcelableMapper, fromParcelableMapper)
+        ) = StateSaver(
+            toParcelableMapper,
+            fromParcelableMapper
+        )
 
         @Provides
         fun provideInitialState(saver: StateSaver<SplashState, SplashStateParcelable>) =

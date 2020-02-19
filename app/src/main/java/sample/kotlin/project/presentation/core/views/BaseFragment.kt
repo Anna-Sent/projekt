@@ -1,6 +1,5 @@
-package sample.kotlin.project.presentation.core
+package sample.kotlin.project.presentation.core.views
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +7,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.leakcanary.RefWatcher
@@ -30,9 +27,9 @@ import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
 import javax.inject.Inject
 
-abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : NavigationCommand,
+abstract class BaseFragment<S : State, A : Action, E : Event, NC : NavigationCommand,
         Parcel : Parcelable, VM : BaseViewModel<S, A, E, NC>> :
-    DialogFragment(), HasAndroidInjector, MviView<S, E> {
+    Fragment(), HasAndroidInjector, MviView<S, E> {
 
     final override fun toString() = super.toString()
     protected val logger = LoggerFactory.getLogger(toString())
@@ -57,17 +54,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
     final override fun androidInjector() = androidInjector
 
     @LayoutRes
-    protected open fun layoutId(): Int = 0
-
-    @CallSuper
-    protected open fun initUi(savedInstanceState: Bundle?) {
-        // override in nested classes if needed
-    }
-
-    protected abstract fun createDialog(
-        view: View?,
-        savedInstanceState: Bundle?
-    ): Dialog
+    protected abstract fun layoutId(): Int
 
     protected abstract fun provideViewModel(provider: ViewModelProvider): VM
 
@@ -96,12 +83,20 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
         savedInstanceState: Bundle?
     ): View? {
         logger.debug("onCreateView: {}", sens(savedInstanceState))
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(layoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logger.debug("onViewCreated: {}", sens(savedInstanceState))
+        statesDisposables += viewModel.statesObservable
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::handleState, ::unexpectedError)
+    }
+
+    private fun handleState(state: S) {
+        stateSaver.state = state
+        render(state)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -112,25 +107,6 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         logger.debug("onViewStateRestored: {}", sens(savedInstanceState))
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        logger.debug("onCreateDialog: {}", sens(savedInstanceState))
-        var view: View? = null
-        if (layoutId() != 0) {
-            val inflater = LayoutInflater.from(requireContext())
-            view = inflater.inflate(layoutId(), null)
-            initUi(savedInstanceState)
-            statesDisposables += viewModel.statesObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::handleState, ::unexpectedError)
-        }
-        return createDialog(view, savedInstanceState)
-    }
-
-    private fun handleState(state: S) {
-        stateSaver.state = state
-        render(state)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

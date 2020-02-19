@@ -12,7 +12,7 @@ import sample.kotlin.project.domain.stores.main.entities.MainEvent
 import sample.kotlin.project.domain.stores.main.entities.MainNavigationCommand
 import sample.kotlin.project.domain.stores.main.entities.MainState
 import sample.kotlin.project.presentation.activities.main.state.MainStateParcelable
-import sample.kotlin.project.presentation.core.BaseActivity
+import sample.kotlin.project.presentation.core.views.BaseActivity
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigationCommand,
