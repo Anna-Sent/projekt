@@ -19,13 +19,15 @@ import io.reactivex.rxkotlin.plusAssign
 import org.slf4j.LoggerFactory
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
+import sample.kotlin.project.domain.core.mvi.MviView
 import sample.kotlin.project.domain.core.mvi.entities.Action
 import sample.kotlin.project.domain.core.mvi.entities.Event
-import sample.kotlin.project.domain.core.mvi.MviView
+import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
 import javax.inject.Inject
 
-abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelable, VM : BaseViewModel<S, A, E>> :
+abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCommand,
+        Parcel : Parcelable, VM : BaseViewModel<S, A, E, NC>> :
     AppCompatActivity(), HasAndroidInjector, MviView<S, E> {
 
     final override fun toString() = super.toString()

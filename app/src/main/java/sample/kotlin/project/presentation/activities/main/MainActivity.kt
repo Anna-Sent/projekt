@@ -9,13 +9,14 @@ import sample.kotlin.project.R
 import sample.kotlin.project.domain.network.isNetworkConnected
 import sample.kotlin.project.domain.stores.main.entities.MainAction
 import sample.kotlin.project.domain.stores.main.entities.MainEvent
+import sample.kotlin.project.domain.stores.main.entities.MainNavigationCommand
 import sample.kotlin.project.domain.stores.main.entities.MainState
 import sample.kotlin.project.presentation.activities.main.state.MainStateParcelable
 import sample.kotlin.project.presentation.core.BaseActivity
 import javax.inject.Inject
 
-class MainActivity :
-    BaseActivity<MainState, MainAction, MainEvent, MainStateParcelable, MainViewModel>() {
+class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigationCommand,
+        MainStateParcelable, MainViewModel>() {
 
     @Inject
     override lateinit var navigator: MainNavigator

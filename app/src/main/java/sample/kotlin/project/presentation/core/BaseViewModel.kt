@@ -3,14 +3,15 @@ package sample.kotlin.project.presentation.core
 import androidx.lifecycle.ViewModel
 import io.logging.LogSystem
 import org.slf4j.LoggerFactory
+import sample.kotlin.project.domain.core.mvi.Store
 import sample.kotlin.project.domain.core.mvi.entities.Action
 import sample.kotlin.project.domain.core.mvi.entities.Event
+import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
-import sample.kotlin.project.domain.core.mvi.Store
 
-abstract class BaseViewModel<S : State, A : Action, E : Event>
+abstract class BaseViewModel<S : State, A : Action, E : Event, NC : NavigationCommand>
 constructor(
-    private val store: Store<A, S, E>
+    private val store: Store<S, A, E, NC>
 ) : ViewModel() {
 
     final override fun toString() = super.toString()

@@ -11,11 +11,12 @@ import io.reactivex.rxkotlin.withLatestFrom
 import org.slf4j.LoggerFactory
 import sample.kotlin.project.domain.core.mvi.entities.Action
 import sample.kotlin.project.domain.core.mvi.entities.Event
+import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
 
-open class Store<A : Action, S : State, E : Event>(
+open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
     reducer: Reducer<S, A>,
-    middlewares: Set<Middleware<A, S, E>>,
+    middlewares: Set<Middleware<S, A, E, NC>>,
     initialState: S
 ) {
 
@@ -29,11 +30,13 @@ open class Store<A : Action, S : State, E : Event>(
     private val disposables = CompositeDisposable()
 
     private val states = BehaviorRelay.createDefault<S>(initialState).toSerialized()
-    private val events = PublishRelay.create<E>().toSerialized()
     private val actions = PublishRelay.create<A>().toSerialized()
+    private val events = PublishRelay.create<E>().toSerialized()
+    private val navigationCommands = PublishRelay.create<NC>()
 
-    val statesObservable: Observable<S> = states.hide()
+    val statesObservable = states.hide()
     val eventsHolder = EventsHolder<S, E>()
+    val navigationCommandsObservable = navigationCommands.hide()
 
     init {
         disposables += actions
@@ -44,7 +47,7 @@ open class Store<A : Action, S : State, E : Event>(
             .subscribe(states::accept, ::unexpectedError)
 
         disposables += Observable.merge<A>(
-            middlewares.map { it.bind(actions, states, events) }
+            middlewares.map { it.bind(states, actions, events, navigationCommands) }
         )
             .subscribe(actions::accept, ::unexpectedError)
 

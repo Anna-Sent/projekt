@@ -4,9 +4,15 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.entities.Action
 import sample.kotlin.project.domain.core.mvi.entities.Event
+import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
 
-interface Middleware<A : Action, S : State, E : Event> {
+interface Middleware<S : State, A : Action, E : Event, NC : NavigationCommand> {
 
-    fun bind(actions: Observable<A>, states: Observable<S>, events: Consumer<E>): Observable<A>
+    fun bind(
+        states: Observable<S>,
+        actions: Observable<A>,
+        events: Consumer<E>,
+        navigationCommands: Consumer<NC>
+    ): Observable<A>
 }

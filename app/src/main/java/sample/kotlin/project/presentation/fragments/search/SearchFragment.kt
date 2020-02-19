@@ -13,14 +13,15 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import sample.kotlin.project.R
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
+import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
 import sample.kotlin.project.domain.stores.search.entities.SearchState
 import sample.kotlin.project.presentation.core.BaseFragment
 import sample.kotlin.project.presentation.core.utils.toast
 import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable
 import java.util.concurrent.TimeUnit
 
-class SearchFragment :
-    BaseFragment<SearchState, SearchAction, SearchEvent, SearchStateParcelable, SearchViewModel>() {
+class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, SearchNavigationCommand,
+        SearchStateParcelable, SearchViewModel>() {
 
     companion object {
         fun newInstance() = SearchFragment()
