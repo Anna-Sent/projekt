@@ -1,9 +1,9 @@
-package sample.kotlin.project.domain.sources.common
+package sample.kotlin.project.domain.sources.request
 
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
 
-interface RequestStatusSource {
+interface RequestSource {
 
     fun started(requestType: RequestType)
 

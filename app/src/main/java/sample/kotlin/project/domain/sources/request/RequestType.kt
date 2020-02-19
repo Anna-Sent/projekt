@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.sources.common
+package sample.kotlin.project.domain.sources.request
 
 sealed class RequestType {
 

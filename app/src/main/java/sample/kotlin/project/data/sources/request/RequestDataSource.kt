@@ -1,15 +1,15 @@
-package sample.kotlin.project.data.sources.common
+package sample.kotlin.project.data.sources.request
 
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
-import sample.kotlin.project.domain.sources.common.RequestStatusSource
-import sample.kotlin.project.domain.sources.common.RequestType
+import sample.kotlin.project.domain.sources.request.RequestSource
+import sample.kotlin.project.domain.sources.request.RequestType
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
-class RequestStatusDataSource
+class RequestDataSource
 @Inject constructor(
-) : RequestStatusSource {
+) : RequestSource {
 
     private val map = ConcurrentHashMap<RequestType, Boolean>()
     private val changed = PublishRelay.create<Boolean>()
