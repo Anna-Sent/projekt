@@ -1,7 +1,7 @@
 package sample.kotlin.project.domain.stores.main
 
 import sample.kotlin.project.domain.core.mvi.Store
-import sample.kotlin.project.domain.sources.core.schedulers.SchedulersProvider
+import sample.kotlin.project.domain.providers.schedulers.SchedulersProvider
 import sample.kotlin.project.domain.stores.main.entities.MainAction
 import sample.kotlin.project.domain.stores.main.entities.MainEvent
 import sample.kotlin.project.domain.stores.main.entities.MainNavigationCommand

@@ -6,7 +6,7 @@ import sample.kotlin.project.domain.sources.search.SearchSource
 import javax.inject.Singleton
 
 @Module
-interface SearchDataModule {
+interface SearchModule {
 
     @Binds
     @Singleton

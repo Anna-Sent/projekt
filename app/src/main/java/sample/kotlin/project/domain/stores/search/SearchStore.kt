@@ -1,7 +1,7 @@
 package sample.kotlin.project.domain.stores.search
 
 import sample.kotlin.project.domain.core.mvi.Store
-import sample.kotlin.project.domain.sources.core.schedulers.SchedulersProvider
+import sample.kotlin.project.domain.providers.schedulers.SchedulersProvider
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
 import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand

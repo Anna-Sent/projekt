@@ -3,8 +3,8 @@ package sample.kotlin.project.domain.stores.search
 import dagger.Binds
 import dagger.Module
 import sample.kotlin.project.data.providers.schedulers.SchedulersModule
-import sample.kotlin.project.data.sources.request.RequestDataModule
-import sample.kotlin.project.data.sources.search.SearchDataModule
+import sample.kotlin.project.data.sources.request.RequestModule
+import sample.kotlin.project.data.sources.search.SearchModule
 import sample.kotlin.project.domain.core.mvi.Store
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
@@ -14,8 +14,8 @@ import sample.kotlin.project.domain.stores.search.entities.SearchState
 @Module(
     includes = [
         SchedulersModule::class,
-        SearchDataModule::class,
-        RequestDataModule::class
+        SearchModule::class,
+        RequestModule::class
     ]
 )
 interface SearchModule {

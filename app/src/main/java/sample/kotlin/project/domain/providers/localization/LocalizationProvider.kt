@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.sources.core.localization
+package sample.kotlin.project.domain.providers.localization
 
 interface LocalizationProvider {
 

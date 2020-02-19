@@ -1,6 +1,6 @@
 package sample.kotlin.project.data.providers.localization
 
-import sample.kotlin.project.domain.sources.core.localization.LocalizationProvider
+import sample.kotlin.project.domain.providers.localization.LocalizationProvider
 import java.util.*
 import javax.inject.Inject
 

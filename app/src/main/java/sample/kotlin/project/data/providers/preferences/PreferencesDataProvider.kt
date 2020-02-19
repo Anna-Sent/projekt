@@ -1,8 +1,8 @@
 package sample.kotlin.project.data.providers.preferences
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences
-import sample.kotlin.project.domain.sources.core.preferences.Preference
-import sample.kotlin.project.domain.sources.core.preferences.PreferencesProvider
+import sample.kotlin.project.domain.providers.preferences.Preference
+import sample.kotlin.project.domain.providers.preferences.PreferencesProvider
 import javax.inject.Inject
 
 class PreferencesDataProvider

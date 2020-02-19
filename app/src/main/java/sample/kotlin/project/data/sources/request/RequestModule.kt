@@ -6,7 +6,7 @@ import sample.kotlin.project.domain.sources.request.RequestSource
 import javax.inject.Singleton
 
 @Module
-interface RequestDataModule {
+interface RequestModule {
 
     @Binds
     @Singleton

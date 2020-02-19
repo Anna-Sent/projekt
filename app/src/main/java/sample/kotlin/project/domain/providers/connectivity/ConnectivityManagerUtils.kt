@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.sources.core.connectivity
+package sample.kotlin.project.domain.providers.connectivity
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities

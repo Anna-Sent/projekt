@@ -12,7 +12,7 @@ import sample.kotlin.project.domain.core.mvi.entities.Action
 import sample.kotlin.project.domain.core.mvi.entities.Event
 import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
-import sample.kotlin.project.domain.sources.core.schedulers.SchedulersProvider
+import sample.kotlin.project.domain.providers.schedulers.SchedulersProvider
 
 open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
     schedulersProvider: SchedulersProvider,

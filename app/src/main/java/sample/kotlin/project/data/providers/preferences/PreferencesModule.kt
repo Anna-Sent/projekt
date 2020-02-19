@@ -6,7 +6,7 @@ import com.f2prateek.rx.preferences2.RxSharedPreferences
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import sample.kotlin.project.domain.sources.core.preferences.PreferencesProvider
+import sample.kotlin.project.domain.providers.preferences.PreferencesProvider
 import javax.inject.Singleton
 
 @Module(

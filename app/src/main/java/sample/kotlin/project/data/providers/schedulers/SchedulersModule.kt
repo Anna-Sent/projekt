@@ -2,7 +2,7 @@ package sample.kotlin.project.data.providers.schedulers
 
 import dagger.Binds
 import dagger.Module
-import sample.kotlin.project.domain.sources.core.schedulers.SchedulersProvider
+import sample.kotlin.project.domain.providers.schedulers.SchedulersProvider
 import javax.inject.Singleton
 
 @Module

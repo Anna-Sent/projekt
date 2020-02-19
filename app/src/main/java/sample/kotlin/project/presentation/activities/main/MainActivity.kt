@@ -6,7 +6,7 @@ import android.net.NetworkRequest
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import sample.kotlin.project.R
-import sample.kotlin.project.domain.sources.core.connectivity.isNetworkConnected
+import sample.kotlin.project.domain.providers.connectivity.isNetworkConnected
 import sample.kotlin.project.domain.stores.main.entities.MainAction
 import sample.kotlin.project.domain.stores.main.entities.MainEvent
 import sample.kotlin.project.domain.stores.main.entities.MainNavigationCommand

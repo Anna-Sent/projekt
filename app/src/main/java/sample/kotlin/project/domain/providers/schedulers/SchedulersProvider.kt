@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.sources.core.schedulers
+package sample.kotlin.project.domain.providers.schedulers
 
 import io.reactivex.Scheduler
 

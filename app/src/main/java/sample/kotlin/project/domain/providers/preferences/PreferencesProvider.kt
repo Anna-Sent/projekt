@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.sources.core.preferences
+package sample.kotlin.project.domain.providers.preferences
 
 import io.reactivex.Observable
 
