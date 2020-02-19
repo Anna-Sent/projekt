@@ -49,7 +49,6 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
     protected lateinit var viewModel: VM
     protected val disposables = CompositeDisposable()
     private val statesDisposables = CompositeDisposable()
-    private val eventsDisposable = CompositeDisposable()
 
     final override fun androidInjector() = androidInjector
 
@@ -103,9 +102,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun onResume() {
         super.onResume()
         logger.debug("onResume")
-        eventsDisposable += viewModel.eventsObservable
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::handleEvent, ::unexpectedError)
+        viewModel.eventsHolder.attachView(this)
     }
 
     override fun onAttachFragment(fragment: Fragment) {
@@ -125,7 +122,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
         logger.debug("onPause")
         logger.debug("detached navigation holder: {}", navigatorHolder)
         navigatorHolder.removeNavigator()
-        eventsDisposable.clear()
+        viewModel.eventsHolder.detachView()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

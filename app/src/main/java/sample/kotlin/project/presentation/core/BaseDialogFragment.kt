@@ -51,7 +51,6 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, Parcel : Par
     protected lateinit var viewModel: VM
     protected val disposables = CompositeDisposable()
     private val statesDisposables = CompositeDisposable()
-    private val eventsDisposable = CompositeDisposable()
 
     final override fun androidInjector() = androidInjector
 
@@ -148,15 +147,13 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, Parcel : Par
     override fun onResume() {
         super.onResume()
         logger.debug("onResume")
-        eventsDisposable += viewModel.eventsObservable
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::handleEvent, ::unexpectedError)
+        viewModel.eventsHolder.attachView(this)
     }
 
     override fun onPause() {
         super.onPause()
         logger.debug("onPause")
-        eventsDisposable.clear()
+        viewModel.eventsHolder.detachView()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
