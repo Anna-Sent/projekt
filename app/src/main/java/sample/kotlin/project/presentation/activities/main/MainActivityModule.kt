@@ -13,10 +13,9 @@ import sample.kotlin.project.domain.stores.main.entities.MainState
 import sample.kotlin.project.presentation.activities.main.state.MainStateFromParcelableMapper
 import sample.kotlin.project.presentation.activities.main.state.MainStateParcelable
 import sample.kotlin.project.presentation.activities.main.state.MainStateToParcelableMapper
-import sample.kotlin.project.presentation.core.views.StateSaver
 import sample.kotlin.project.presentation.core.di.ViewModelKey
 import sample.kotlin.project.presentation.core.di.ViewModelModule
-import sample.kotlin.project.presentation.fragments.FragmentsModule
+import sample.kotlin.project.presentation.core.views.StateSaver
 
 @Module
 interface MainActivityModule {
@@ -26,8 +25,7 @@ interface MainActivityModule {
         modules = [
             Binding::class,
             Providing::class,
-            ViewModelModule::class,
-            FragmentsModule::class
+            ViewModelModule::class
         ]
     )
     fun bindMainActivity(): MainActivity
