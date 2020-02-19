@@ -1,6 +1,6 @@
 package sample.kotlin.project.domain.sources.core.localization
 
-interface LocalizationSource {
+interface LocalizationProvider {
 
     val systemLanguageCode: String
 

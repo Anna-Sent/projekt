@@ -1,12 +1,12 @@
-package sample.kotlin.project.data.sources.core.localization
+package sample.kotlin.project.data.providers.localization
 
-import sample.kotlin.project.domain.sources.core.localization.LocalizationSource
+import sample.kotlin.project.domain.sources.core.localization.LocalizationProvider
 import java.util.*
 import javax.inject.Inject
 
-class LocalizationDataSource
+class LocalizationDataProvider
 @Inject constructor(
-) : LocalizationSource {
+) : LocalizationProvider {
 
     companion object {
         private val SUPPORTED_LANGUAGE_CODES = arrayOf("en")

@@ -2,7 +2,7 @@ package sample.kotlin.project.domain.sources.core.schedulers
 
 import io.reactivex.Scheduler
 
-interface SchedulersSource {
+interface SchedulersProvider {
 
     val ioScheduler: Scheduler
 

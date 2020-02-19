@@ -12,10 +12,10 @@ import sample.kotlin.project.domain.core.mvi.entities.Action
 import sample.kotlin.project.domain.core.mvi.entities.Event
 import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
 import sample.kotlin.project.domain.core.mvi.entities.State
-import sample.kotlin.project.domain.sources.core.schedulers.SchedulersSource
+import sample.kotlin.project.domain.sources.core.schedulers.SchedulersProvider
 
 open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
-    schedulersSource: SchedulersSource,
+    schedulersProvider: SchedulersProvider,
     reducer: Reducer<S, A>,
     middlewares: Set<Middleware<S, A, E, NC>>,
     initialState: S
@@ -53,7 +53,7 @@ open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
             .subscribe(actions::accept, ::unexpectedError)
 
         disposables += events
-            .observeOn(schedulersSource.uiScheduler)
+            .observeOn(schedulersProvider.uiScheduler)
             .subscribe(eventsHolder::handleEvent, ::unexpectedError)
     }
 

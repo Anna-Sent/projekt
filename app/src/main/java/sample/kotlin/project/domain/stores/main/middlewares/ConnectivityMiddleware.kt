@@ -3,7 +3,7 @@ package sample.kotlin.project.domain.stores.main.middlewares
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
-import sample.kotlin.project.domain.sources.core.connectivity.ConnectivitySource
+import sample.kotlin.project.domain.sources.core.connectivity.ConnectivityProvider
 import sample.kotlin.project.domain.stores.main.entities.MainAction
 import sample.kotlin.project.domain.stores.main.entities.MainEvent
 import sample.kotlin.project.domain.stores.main.entities.MainNavigationCommand
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class ConnectivityMiddleware
 @Inject constructor(
-    private val connectivitySource: ConnectivitySource
+    private val connectivityProvider: ConnectivityProvider
 ) : Middleware<MainState, MainAction, MainEvent, MainNavigationCommand> {
 
     override fun bind(
@@ -25,6 +25,6 @@ class ConnectivityMiddleware
             .ofType<MainAction.NetworkConnectedChanged>(
                 MainAction.NetworkConnectedChanged::class.java
             )
-            .doOnNext { connectivitySource.setNetworkConnected(it.isConnected) }
+            .doOnNext { connectivityProvider.setNetworkConnected(it.isConnected) }
             .switchMap { Observable.never<MainAction>() }
 }

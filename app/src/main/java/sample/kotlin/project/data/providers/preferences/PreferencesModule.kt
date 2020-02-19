@@ -1,4 +1,4 @@
-package sample.kotlin.project.data.sources.core.preferences
+package sample.kotlin.project.data.providers.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -6,19 +6,19 @@ import com.f2prateek.rx.preferences2.RxSharedPreferences
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import sample.kotlin.project.domain.sources.core.preferences.PreferencesSource
+import sample.kotlin.project.domain.sources.core.preferences.PreferencesProvider
 import javax.inject.Singleton
 
 @Module(
     includes = [
-        PreferencesDataModule.Providing::class
+        PreferencesModule.Providing::class
     ]
 )
-interface PreferencesDataModule {
+interface PreferencesModule {
 
     @Binds
     @Singleton
-    fun bindPreferencesSource(source: PreferencesDataSource): PreferencesSource
+    fun bindPreferencesSource(source: PreferencesDataProvider): PreferencesProvider
 
     @Module
     class Providing {
