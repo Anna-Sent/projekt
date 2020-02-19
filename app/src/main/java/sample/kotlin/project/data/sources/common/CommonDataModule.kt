@@ -10,5 +10,5 @@ interface CommonDataModule {
 
     @Binds
     @Singleton
-    fun bindSearchRemoteSource(source: RequestStatusLocalDataSource): RequestStatusLocalSource
+    fun bindRequestStatusLocalSource(source: RequestStatusLocalDataSource): RequestStatusLocalSource
 }
