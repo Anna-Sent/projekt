@@ -34,9 +34,9 @@ open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
     private val events = PublishRelay.create<E>().toSerialized()
     private val navigationCommands = PublishRelay.create<NC>()
 
-    val statesObservable = states.hide()
+    val statesObservable: Observable<S> = states.hide()
     val eventsHolder = EventsHolder<S, E>()
-    val navigationCommandsObservable = navigationCommands.hide()
+    val navigationCommandsObservable: Observable<NC> = navigationCommands.hide()
 
     init {
         disposables += actions
