@@ -3,7 +3,7 @@ package sample.kotlin.project.domain.stores.search.middlewares
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
-import sample.kotlin.project.domain.sources.request.RequestSource
+import sample.kotlin.project.domain.repositories.search.SearchRepository
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
 import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class StateMiddleware
 @Inject constructor(
-    private val requestSource: RequestSource
+    private val searchRepository: SearchRepository
 ) : Middleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand> {
 
     override fun bind(
@@ -21,7 +21,7 @@ class StateMiddleware
         events: Consumer<SearchEvent>,
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
-        requestSource.status(RequestType.Search)
+        searchRepository.isSearchRunning()
             .map {
                 if (it) SearchAction.SearchLoadingStartedAction
                 else SearchAction.SearchLoadingFinishedAction

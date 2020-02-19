@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.stores.search.middlewares
+package sample.kotlin.project.data.repositories.search
 
 internal sealed class RequestType {
 

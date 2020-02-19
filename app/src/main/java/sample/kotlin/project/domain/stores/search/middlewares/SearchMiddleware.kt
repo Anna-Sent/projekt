@@ -3,8 +3,7 @@ package sample.kotlin.project.domain.stores.search.middlewares
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
-import sample.kotlin.project.domain.sources.request.RequestSource
-import sample.kotlin.project.domain.sources.search.SearchSource
+import sample.kotlin.project.domain.repositories.search.SearchRepository
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
 import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
@@ -13,8 +12,7 @@ import javax.inject.Inject
 
 class SearchMiddleware
 @Inject constructor(
-    private val searchSource: SearchSource,
-    private val requestSource: RequestSource
+    private val searchRepository: SearchRepository
 ) : Middleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand> {
 
     override fun bind(
@@ -28,8 +26,7 @@ class SearchMiddleware
                 SearchAction.SearchClickAction::class.java
             )
             .switchMap { action ->
-                searchSource.search(action.query)
-                    .compose(requestSource.applyStatusUpdating(RequestType.Search))
+                searchRepository.search(action.query)
                     .toObservable()
                     .map<SearchAction> { SearchAction.SearchSuccessAction(it) }
                     .doOnError { events.accept(SearchEvent.SearchFailureEvent(it)) }
