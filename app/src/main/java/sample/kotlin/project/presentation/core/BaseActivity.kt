@@ -116,12 +116,14 @@ abstract class BaseActivity<S : State, A : Action, E : Event, Parcel : Parcelabl
     override fun onResumeFragments() {
         super.onResumeFragments()
         logger.debug("onResumeFragments")
+        logger.debug("attached navigation holder: {}", navigatorHolder)
         navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
         logger.debug("onPause")
+        logger.debug("detached navigation holder: {}", navigatorHolder)
         navigatorHolder.removeNavigator()
         eventsDisposable.clear()
     }
