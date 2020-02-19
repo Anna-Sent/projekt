@@ -4,7 +4,6 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.Middleware
 import sample.kotlin.project.domain.sources.request.RequestSource
-import sample.kotlin.project.domain.sources.request.RequestType
 import sample.kotlin.project.domain.sources.search.SearchSource
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent

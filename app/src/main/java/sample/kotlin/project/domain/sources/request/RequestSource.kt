@@ -5,13 +5,13 @@ import io.reactivex.SingleTransformer
 
 interface RequestSource {
 
-    fun started(requestType: RequestType)
+    fun started(requestType: Any)
 
-    fun finished(requestType: RequestType)
+    fun finished(requestType: Any)
 
-    fun status(requestType: RequestType): Observable<Boolean>
+    fun status(requestType: Any): Observable<Boolean>
 
-    fun <U> applyStatusUpdating(requestType: RequestType): SingleTransformer<U, U> =
+    fun <U> applyStatusUpdating(requestType: Any): SingleTransformer<U, U> =
         SingleTransformer {
             it
                 .doOnSubscribe { started(requestType) }
