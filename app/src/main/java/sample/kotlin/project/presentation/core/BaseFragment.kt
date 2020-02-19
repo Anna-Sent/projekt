@@ -172,4 +172,12 @@ abstract class BaseFragment<S : State, A : Action, E : Event, NC : NavigationCom
         super.startActivityForResult(intent, requestCode)
         requireActivity().overridePendingTransition(0, 0)
     }
+
+    override fun render(state: S) {
+        // override in nested classes if needed
+    }
+
+    override fun handleEvent(event: E) {
+        // override in nested classes if needed
+    }
 }

@@ -64,12 +64,4 @@ class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigati
     private fun unregisterNetworkCallback() {
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }
-
-    override fun render(state: MainState) {
-        // no op
-    }
-
-    override fun handleEvent(event: MainEvent) {
-        // no op
-    }
 }
