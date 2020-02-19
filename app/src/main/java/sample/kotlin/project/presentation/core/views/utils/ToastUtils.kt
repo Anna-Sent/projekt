@@ -1,4 +1,4 @@
-package sample.kotlin.project.presentation.core.utils
+package sample.kotlin.project.presentation.core.views.utils
 
 import android.content.Context
 import android.os.Parcelable

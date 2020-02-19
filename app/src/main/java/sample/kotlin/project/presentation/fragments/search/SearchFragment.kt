@@ -16,7 +16,7 @@ import sample.kotlin.project.domain.stores.search.entities.SearchEvent
 import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
 import sample.kotlin.project.domain.stores.search.entities.SearchState
 import sample.kotlin.project.presentation.core.views.BaseFragment
-import sample.kotlin.project.presentation.core.utils.toast
+import sample.kotlin.project.presentation.core.views.utils.toast
 import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable
 import java.util.concurrent.TimeUnit
 
