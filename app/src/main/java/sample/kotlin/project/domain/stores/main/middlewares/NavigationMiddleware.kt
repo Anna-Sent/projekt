@@ -23,6 +23,6 @@ class NavigationMiddleware
             .ofType<MainAction.NavigateToInitialScreenAction>(
                 MainAction.NavigateToInitialScreenAction::class.java
             )
-            .doOnNext { navigationCommands.accept(MainNavigationCommand.NavigateToSearchScreen) }
+            .doOnNext { navigationCommands.accept(MainNavigationCommand.NavigateToSplashScreen) }
             .switchMap { Observable.never<MainAction>() }
 }

@@ -16,7 +16,7 @@ class SplashFragment : BaseFragment<SplashState, SplashAction, SplashEvent, Spla
         fun newInstance() = SplashFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_search
+    override fun layoutId() = R.layout.fragment_splash
 
     override fun provideViewModel(provider: ViewModelProvider) =
         provider[SplashViewModel::class.java]
