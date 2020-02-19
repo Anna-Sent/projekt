@@ -9,7 +9,7 @@ import sample.kotlin.project.data.sources.core.preferences.PreferencesConstants.
 import javax.inject.Singleton
 
 @Module
-class PreferencesModule {
+class PreferencesDataModule {
 
     @Provides
     @Singleton

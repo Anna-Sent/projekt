@@ -5,14 +5,12 @@ import android.net.ConnectivityManager
 import android.view.inputmethod.InputMethodManager
 import dagger.Module
 import dagger.Provides
-import sample.kotlin.project.data.DataModule
 import sample.kotlin.project.domain.DomainModule
 import sample.kotlin.project.presentation.PresentationModule
 import javax.inject.Singleton
 
 @Module(
     includes = [
-        DataModule::class,
         DomainModule::class,
         PresentationModule::class
     ]

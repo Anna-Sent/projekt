@@ -6,7 +6,7 @@ import sample.kotlin.project.domain.sources.core.connectivity.ConnectivitySource
 import javax.inject.Singleton
 
 @Module
-interface ConnectivityModule {
+interface ConnectivityDataModule {
 
     @Binds
     @Singleton

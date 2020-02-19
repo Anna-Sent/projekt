@@ -6,7 +6,7 @@ import sample.kotlin.project.domain.sources.core.localization.LocalizationSource
 import javax.inject.Singleton
 
 @Module
-interface LocalizationModule {
+interface LocalizationDataModule {
 
     @Binds
     @Singleton

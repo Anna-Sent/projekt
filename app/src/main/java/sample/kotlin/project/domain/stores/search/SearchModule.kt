@@ -2,6 +2,7 @@ package sample.kotlin.project.domain.stores.search
 
 import dagger.Binds
 import dagger.Module
+import sample.kotlin.project.data.sources.core.schedulers.SchedulersDataModule
 import sample.kotlin.project.data.sources.request.RequestDataModule
 import sample.kotlin.project.data.sources.search.SearchDataModule
 import sample.kotlin.project.domain.core.mvi.Store
@@ -12,6 +13,7 @@ import sample.kotlin.project.domain.stores.search.entities.SearchState
 
 @Module(
     includes = [
+        SchedulersDataModule::class,
         SearchDataModule::class,
         RequestDataModule::class
     ]
