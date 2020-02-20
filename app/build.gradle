@@ -228,6 +228,12 @@ android {
         implementation 'org.slf4j:slf4j-api:1.7.25'
         implementation 'com.github.tony19:logback-android:2.0.0'
 
+        // HTTP
+        implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+        implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+        implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+
         // JSON
         implementation 'com.google.code.gson:gson:2.8.6'
 
