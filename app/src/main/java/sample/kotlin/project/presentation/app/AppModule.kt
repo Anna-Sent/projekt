@@ -11,7 +11,6 @@ import javax.inject.Singleton
 
 @Module(
     includes = [
-        DomainModule::class,
         PresentationModule::class
     ]
 )
