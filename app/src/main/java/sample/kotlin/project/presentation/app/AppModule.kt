@@ -5,8 +5,8 @@ import android.net.ConnectivityManager
 import android.view.inputmethod.InputMethodManager
 import dagger.Module
 import dagger.Provides
-import sample.kotlin.project.domain.DomainModule
 import sample.kotlin.project.presentation.PresentationModule
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module(
@@ -30,6 +30,7 @@ class AppModule(private val app: App) {
 
     @Provides
     @Singleton
+    @Named("AppLogger")
     fun provideLogger() = app.logger
 
     @Provides

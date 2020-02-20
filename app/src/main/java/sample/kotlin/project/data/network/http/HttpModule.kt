@@ -14,13 +14,13 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.kotlin.project.BuildConfig
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 class HttpModule {
 
     companion object {
-        private const val HTTP_LOG_TAG = "HTTP"
         private const val HOST = "api.github.com"
         private const val BASE_URL = "https://$HOST"
         private const val TIMEOUT_SECS = 20L
@@ -28,17 +28,19 @@ class HttpModule {
 
     @Provides
     @Singleton
+    @Named("HttpLogger")
     fun provideLogger(): Logger =
-        if (BuildConfig.PRINT_HTTP_LOGS) LoggerFactory.getLogger(HTTP_LOG_TAG)
+        if (BuildConfig.PRINT_HTTP_LOGS) LoggerFactory.getLogger("http")
         else NOPLogger.NOP_LOGGER
 
     @Provides
     @Singleton
-    fun provideHttpLogger(logger: Logger) = object : HttpLoggingInterceptor.Logger {
-        override fun log(message: String) {
-            logger.debug(message)
+    fun provideHttpLogger(@Named("HttpLogger") logger: Logger) =
+        object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                logger.debug(message)
+            }
         }
-    }
 
     @Provides
     @Singleton

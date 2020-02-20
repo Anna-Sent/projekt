@@ -1,18 +1,19 @@
 package sample.kotlin.project.data.sources.search
 
 import io.reactivex.Single
+import sample.kotlin.project.data.network.http.services.GitHubSearchHttpService
 import sample.kotlin.project.domain.sources.search.SearchSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SearchDataSource
 @Inject constructor(
+    private val gitHubSearchHttpService: GitHubSearchHttpService
 ) : SearchSource {
 
     override fun search(query: String) =
-        Single.timer(10, TimeUnit.SECONDS)
-            .map { "Result $query" }
-            .flatMap<String> { Single.error(IllegalArgumentException()) }
+        gitHubSearchHttpService.searchRepositories(query, "starts", "desc")
+            .map { it.string() }
 
     override fun suggestions() =
         Single.timer(1, TimeUnit.SECONDS)

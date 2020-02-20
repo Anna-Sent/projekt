@@ -37,7 +37,6 @@ android {
         useLibrary 'android.test.base'
         useLibrary 'android.test.mock'
 
-
         buildConfigField 'String', 'LOG_TAG', '"SKP"'
 
         resConfigs 'en'
