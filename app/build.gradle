@@ -91,6 +91,11 @@ android {
             buildConfigField 'boolean', 'PRINT_LOGS_TO_LOGCAT', 'true'
             buildConfigField 'boolean', 'PRINT_SENSITIVE_DATA', 'true'
             buildConfigField 'boolean', 'DUMP_OUT_OF_MEMORY', 'false'
+
+            // network
+            buildConfigField 'boolean', 'PRINT_HTTP_LOGS', 'true'
+            buildConfigField 'boolean', 'PRETTY_JSON', 'true'
+            buildConfigField 'boolean', 'USE_CERTIFICATE_PINNING', 'false'
         }
         qa {
             versionNameSuffix '-QA'
@@ -117,6 +122,11 @@ android {
             buildConfigField 'boolean', 'PRINT_LOGS_TO_LOGCAT', 'true'
             buildConfigField 'boolean', 'PRINT_SENSITIVE_DATA', 'true'
             buildConfigField 'boolean', 'DUMP_OUT_OF_MEMORY', 'false'
+
+            // network
+            buildConfigField 'boolean', 'PRINT_HTTP_LOGS', 'true'
+            buildConfigField 'boolean', 'PRETTY_JSON', 'true'
+            buildConfigField 'boolean', 'USE_CERTIFICATE_PINNING', 'false'
         }
         release {
             versionNameSuffix ''
@@ -142,6 +152,11 @@ android {
             buildConfigField 'boolean', 'PRINT_LOGS_TO_LOGCAT', 'false'
             buildConfigField 'boolean', 'PRINT_SENSITIVE_DATA', 'false'
             buildConfigField 'boolean', 'DUMP_OUT_OF_MEMORY', 'false'
+
+            // network
+            buildConfigField 'boolean', 'PRINT_HTTP_LOGS', 'false'
+            buildConfigField 'boolean', 'PRETTY_JSON', 'false'
+            buildConfigField 'boolean', 'USE_CERTIFICATE_PINNING', 'true'
         }
 
         flavorDimensions 'server'
