@@ -25,8 +25,8 @@ class SearchMiddleware
             .ofType<SearchAction.SearchClickAction>(
                 SearchAction.SearchClickAction::class.java
             )
-            .switchMap { action ->
-                searchRepository.search(action.query)
+            .switchMap {
+                searchRepository.search(it.query)
                     .toObservable()
                     .map<SearchAction> { SearchAction.SearchSuccessAction(it) }
                     .doOnError { events.accept(SearchEvent.SearchFailureEvent(it)) }
