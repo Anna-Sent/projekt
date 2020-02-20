@@ -2,7 +2,7 @@ package sample.kotlin.project.domain.stores.main.middlewares
 
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
-import sample.kotlin.project.domain.core.mvi.Middleware
+import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.repositories.connectivity.ConnectivityRepository
 import sample.kotlin.project.domain.stores.main.entities.MainAction
 import sample.kotlin.project.domain.stores.main.entities.MainEvent
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class ConnectivityMiddleware
 @Inject constructor(
     private val connectivityRepository: ConnectivityRepository
-) : Middleware<MainState, MainAction, MainEvent, MainNavigationCommand> {
+) : BaseMiddleware<MainState, MainAction, MainEvent, MainNavigationCommand>() {
 
     override fun bind(
         states: Observable<MainState>,

@@ -2,7 +2,7 @@ package sample.kotlin.project.domain.stores.main.middlewares
 
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
-import sample.kotlin.project.domain.core.mvi.Middleware
+import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.stores.main.entities.MainAction
 import sample.kotlin.project.domain.stores.main.entities.MainEvent
 import sample.kotlin.project.domain.stores.main.entities.MainNavigationCommand
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class NavigationMiddleware
 @Inject constructor(
-) : Middleware<MainState, MainAction, MainEvent, MainNavigationCommand> {
+) : BaseMiddleware<MainState, MainAction, MainEvent, MainNavigationCommand>() {
 
     override fun bind(
         states: Observable<MainState>,

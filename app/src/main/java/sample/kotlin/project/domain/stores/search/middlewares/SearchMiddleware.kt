@@ -2,7 +2,7 @@ package sample.kotlin.project.domain.stores.search.middlewares
 
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
-import sample.kotlin.project.domain.core.mvi.Middleware
+import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.repositories.search.SearchRepository
 import sample.kotlin.project.domain.stores.search.entities.SearchAction
 import sample.kotlin.project.domain.stores.search.entities.SearchEvent
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class SearchMiddleware
 @Inject constructor(
     private val searchRepository: SearchRepository
-) : Middleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand> {
+) : BaseMiddleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand>() {
 
     override fun bind(
         states: Observable<SearchState>,

@@ -5,6 +5,7 @@ import io.logging.LogSystem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import sample.kotlin.project.domain.core.mvi.Store
 import sample.kotlin.project.domain.core.mvi.entities.Action
@@ -18,7 +19,7 @@ constructor(
 ) : ViewModel() {
 
     final override fun toString() = super.toString()
-    protected val logger = LoggerFactory.getLogger(toString())
+    protected val logger: Logger = LoggerFactory.getLogger(toString())
     protected fun unexpectedError(throwable: Throwable) {
         logger.error("Unexpected error occurred", throwable)
         LogSystem.report(logger, "Unexpected error occurred", throwable)

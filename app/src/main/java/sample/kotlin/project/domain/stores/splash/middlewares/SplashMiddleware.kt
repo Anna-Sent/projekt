@@ -3,7 +3,7 @@ package sample.kotlin.project.domain.stores.splash.middlewares
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import sample.kotlin.project.domain.core.mvi.Middleware
+import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.stores.splash.entities.SplashAction
 import sample.kotlin.project.domain.stores.splash.entities.SplashEvent
 import sample.kotlin.project.domain.stores.splash.entities.SplashNavigationCommand
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class SplashMiddleware
 @Inject constructor(
-) : Middleware<SplashState, SplashAction, SplashEvent, SplashNavigationCommand> {
+) : BaseMiddleware<SplashState, SplashAction, SplashEvent, SplashNavigationCommand>() {
 
     override fun bind(
         states: Observable<SplashState>,
