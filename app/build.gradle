@@ -95,6 +95,7 @@ android {
             buildConfigField 'boolean', 'PRINT_HTTP_LOGS', 'true'
             buildConfigField 'boolean', 'PRETTY_JSON', 'true'
             buildConfigField 'boolean', 'USE_CERTIFICATE_PINNING', 'false'
+            buildConfigField 'boolean', 'USE_FAKE_INTERCEPTOR', 'true'
         }
         qa {
             versionNameSuffix '-QA'
@@ -126,6 +127,7 @@ android {
             buildConfigField 'boolean', 'PRINT_HTTP_LOGS', 'true'
             buildConfigField 'boolean', 'PRETTY_JSON', 'true'
             buildConfigField 'boolean', 'USE_CERTIFICATE_PINNING', 'false'
+            buildConfigField 'boolean', 'USE_FAKE_INTERCEPTOR', 'false'
         }
         release {
             versionNameSuffix ''
@@ -156,6 +158,7 @@ android {
             buildConfigField 'boolean', 'PRINT_HTTP_LOGS', 'false'
             buildConfigField 'boolean', 'PRETTY_JSON', 'false'
             buildConfigField 'boolean', 'USE_CERTIFICATE_PINNING', 'true'
+            buildConfigField 'boolean', 'USE_FAKE_INTERCEPTOR', 'false'
         }
 
         flavorDimensions 'server'
@@ -243,10 +246,10 @@ android {
         implementation 'com.github.tony19:logback-android:2.0.0'
 
         // HTTP
-        implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
-        implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
-        implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+        implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
+        implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+        implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
 
         // JSON
         implementation 'com.google.code.gson:gson:2.8.6'

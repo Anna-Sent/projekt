@@ -53,6 +53,13 @@ class HttpModule {
 
     @Provides
     @Singleton
+    @Named("AppInterceptor")
+    fun provideAppInterceptor() =
+        if (BuildConfig.USE_FAKE_INTERCEPTOR) FakeInterceptor()
+        else GeneralInterceptor()
+
+    @Provides
+    @Singleton
     fun provideCertificatePinner() =
         if (BuildConfig.USE_CERTIFICATE_PINNING)
             CertificatePinner.Builder()
@@ -64,9 +71,11 @@ class HttpModule {
     @Singleton
     fun provideOkHttpClient(
         @Named("LoggingInterceptor") loggingInterceptor: Interceptor,
+        @Named("AppInterceptor") appInterceptor: Interceptor,
         certificatePinner: CertificatePinner
     ) = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor(appInterceptor)
         .certificatePinner(certificatePinner)
         .connectTimeout(TIMEOUT_SECS, TimeUnit.SECONDS)
         .writeTimeout(TIMEOUT_SECS, TimeUnit.SECONDS)
