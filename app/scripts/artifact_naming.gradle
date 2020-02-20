@@ -3,12 +3,12 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             def formattedDate = new Date().format('yyyy.MM.dd')
-            outputFileName = "${APPLICATION_NAME}_${formattedDate}_v${VERSION_NAME}(${variant.versionCode})_${variant.name}.apk"
+            outputFileName = "${APPLICATION_NAME}_${formattedDate}_v${defaultConfig.versionName}(${defaultConfig.versionCode})_${variant.name}.apk"
         }
     }
 
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
+        variant.outputs.each {
             variant.assembleProvider.get().doLast {
                 def mappingFile = variant.mappingFile
                 if (mappingFile && mappingFile.exists()) {
@@ -16,8 +16,8 @@ android {
                         from mappingFile
                         into variant.getPackageApplicationProvider().get().outputs.files[1]
                         def formattedDate = new Date().format('yyyy.MM.dd')
-                        rename { String fileName ->
-                            "mapping_${APPLICATION_NAME}_${formattedDate}_v${VERSION_NAME}(${variant.versionCode})_${variant.name}.txt"
+                        rename {
+                            "mapping_${APPLICATION_NAME}_${formattedDate}_v${defaultConfig.versionName}(${defaultConfig.versionCode})_${variant.name}.txt"
                         }
                     }
                 }
