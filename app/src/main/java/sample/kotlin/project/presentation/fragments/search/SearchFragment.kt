@@ -64,7 +64,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     override fun handleEvent(event: SearchEvent) {
         when (event) {
 
-            is SearchEvent.SearchFailureEvent -> toast("Search failed")
+            is SearchEvent.SearchFailureEvent -> toast("Search failed\n${event.error}")
         }
     }
 }
