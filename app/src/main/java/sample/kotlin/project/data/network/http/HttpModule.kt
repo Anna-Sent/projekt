@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import okhttp3.CertificatePinner
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.slf4j.Logger
@@ -44,7 +45,8 @@ class HttpModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(httpLogger: HttpLoggingInterceptor.Logger) =
+    @Named("LoggingInterceptor")
+    fun provideLoggingInterceptor(httpLogger: HttpLoggingInterceptor.Logger): Interceptor =
         HttpLoggingInterceptor(httpLogger).apply {
             this.level = HttpLoggingInterceptor.Level.BODY
         }
@@ -61,7 +63,7 @@ class HttpModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
+        @Named("LoggingInterceptor") loggingInterceptor: Interceptor,
         certificatePinner: CertificatePinner
     ) = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
