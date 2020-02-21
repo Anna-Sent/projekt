@@ -63,7 +63,7 @@ class HttpModule {
     fun provideCertificatePinner() =
         if (BuildConfig.USE_CERTIFICATE_PINNING)
             CertificatePinner.Builder()
-                .add(HOST, "sha256/OtGR7ixvqZTxaH6c5Vpeje4IUMgdfqgYdIq5ZykUcgc=")
+                .add(HOST, "sha256/WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=")
                 .build()
         else CertificatePinner.DEFAULT
 
