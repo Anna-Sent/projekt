@@ -18,7 +18,6 @@ android {
 
     defaultConfig {
         applicationId 'sample.kotlin.project'
-        resValue 'string', 'file_provider_authorities', "${applicationId}${applicationIdSuffix}"
 
         minSdkVersion 21
         targetSdkVersion 29
@@ -70,6 +69,7 @@ android {
             versionNameSuffix '-DEBUG'
             applicationIdSuffix '.debug'
             resValue 'string', 'app_name', "${APPLICATION_NAME}${versionNameSuffix}"
+            resValue 'string', 'file_provider_authorities', "${defaultConfig.applicationId}${applicationIdSuffix}"
             debuggable true
             signingConfig signingConfigs.debug
 
@@ -101,6 +101,7 @@ android {
             versionNameSuffix '-QA'
             applicationIdSuffix '.qa'
             resValue 'string', 'app_name', "${APPLICATION_NAME}${versionNameSuffix}"
+            resValue 'string', 'file_provider_authorities', "${defaultConfig.applicationId}${applicationIdSuffix}"
             debuggable true
             signingConfig signingConfigs.debug
             matchingFallbacks = ['release', 'debug']
@@ -133,6 +134,7 @@ android {
             versionNameSuffix ''
             applicationIdSuffix ''
             resValue 'string', 'app_name', "${APPLICATION_NAME}${versionNameSuffix}"
+            resValue 'string', 'file_provider_authorities', "${defaultConfig.applicationId}${applicationIdSuffix}"
             //debuggable true
             signingConfig signingConfigs.release
 
