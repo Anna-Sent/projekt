@@ -189,11 +189,8 @@ android {
     }
 
     dependencies {
-        // Libs
-        implementation fileTree(dir: 'libs', include: ['*.jar'])
-
         // Testing
-        testImplementation 'junit:junit:4.12'
+        testImplementation 'junit:junit:4.13'
         androidTestImplementation 'androidx.test:rules:1.2.0'
         androidTestImplementation 'androidx.test.ext:junit:1.1.1'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -225,7 +222,7 @@ android {
         // Rx
         implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
         implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
-        implementation 'io.reactivex.rxjava2:rxjava:2.2.14'
+        implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
         implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
         implementation 'com.github.ReactiveX:RxKotlin:2.4.0'
 
@@ -234,11 +231,11 @@ android {
         implementation 'com.google.firebase:firebase-analytics:17.2.2'
 
         // DI
-        api 'com.google.dagger:dagger:2.25.2'
-        kapt 'com.google.dagger:dagger-compiler:2.25.2'
-        api 'com.google.dagger:dagger-android:2.25.2'
-        api 'com.google.dagger:dagger-android-support:2.25.2'
-        kapt 'com.google.dagger:dagger-android-processor:2.25.2'
+        api 'com.google.dagger:dagger:2.26'
+        kapt 'com.google.dagger:dagger-compiler:2.26'
+        api 'com.google.dagger:dagger-android:2.26'
+        api 'com.google.dagger:dagger-android-support:2.26'
+        kapt 'com.google.dagger:dagger-android-processor:2.26'
 
         // Logging
         implementation 'io.logging:logging-library:1.0'
@@ -265,8 +262,8 @@ android {
         testImplementation 'joda-time:joda-time:2.10.5'
 
         // Pictures
-        implementation 'com.github.bumptech.glide:glide:4.10.0'
-        kapt 'com.github.bumptech.glide:compiler:4.10.0'
+        implementation 'com.github.bumptech.glide:glide:4.11.0'
+        kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
         // Lists
         implementation 'com.hannesdorfmann:adapterdelegates4:4.2.0'
