@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId 'sample.kotlin.project'
-        resValue 'string', 'file_provider_authorities', 'sample.kotlin.project'
+        resValue 'string', 'file_provider_authorities', "${applicationId}${applicationIdSuffix}"
 
         minSdkVersion 21
         targetSdkVersion 29
