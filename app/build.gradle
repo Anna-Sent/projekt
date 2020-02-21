@@ -198,9 +198,7 @@ android {
         androidTestUtil 'androidx.test:orchestrator:1.2.0'
 
         // Leaks tool
-        debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
-        qaImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
-        releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 
         // TTLE tool
         implementation 'com.gu.android:toolargetool:0.2.1@aar'

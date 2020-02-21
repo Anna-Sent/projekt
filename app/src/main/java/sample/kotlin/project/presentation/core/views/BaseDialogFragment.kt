@@ -13,7 +13,6 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.squareup.leakcanary.RefWatcher
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
@@ -44,8 +43,6 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
-    @Inject
-    lateinit var refWatcher: RefWatcher
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProvider.Factory
     @Inject
@@ -180,7 +177,6 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
     override fun onDestroy() {
         super.onDestroy()
         logger.debug("onDestroy")
-        refWatcher.watch(this)
     }
 
     override fun onDetach() {

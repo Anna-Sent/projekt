@@ -4,8 +4,6 @@ import android.app.Application
 import android.content.Context
 import com.crashlytics.android.Crashlytics
 import com.gu.toolargetool.TooLargeTool
-import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.RefWatcher
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -32,7 +30,6 @@ class App : Application(), HasAndroidInjector {
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
     internal lateinit var logger: Logger
-    internal lateinit var refWatcher: RefWatcher
     private lateinit var cicerone: Cicerone<AppRouter>
     internal val navigatorHolder: NavigatorHolder get() = cicerone.navigatorHolder
     internal val router: AppRouter get() = cicerone.router
@@ -40,16 +37,6 @@ class App : Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
         initDi()
-
-        // init memory analyzer start
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not showActivities your app in this process.
-            return
-        }
-
-        refWatcher = LeakCanary.install(this)
-        // init memory analyzer finish
 
         // install uncaught exception handler before initializing crash report system
         initUncaughtExceptionHandler()

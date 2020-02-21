@@ -26,10 +26,6 @@ class AppModule(private val app: App) {
 
     @Provides
     @Singleton
-    fun provideRefWatcher() = app.refWatcher
-
-    @Provides
-    @Singleton
     @Named("AppLogger")
     fun provideLogger() = app.logger
 

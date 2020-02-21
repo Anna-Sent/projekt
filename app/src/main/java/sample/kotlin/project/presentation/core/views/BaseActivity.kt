@@ -7,7 +7,6 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.squareup.leakcanary.RefWatcher
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -40,8 +39,6 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
-    @Inject
-    lateinit var refWatcher: RefWatcher
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProvider.Factory
     @Inject
@@ -144,7 +141,6 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
         logger.debug("onDestroy")
         disposables.dispose()
         statesDisposables.dispose()
-        refWatcher.watch(this)
     }
 
     override fun finish() {
