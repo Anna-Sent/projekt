@@ -236,8 +236,8 @@ android {
         kapt 'com.google.dagger:dagger-android-processor:2.26'
 
         // Logging
-        implementation 'io.logging:logging-library:1.0'
-        implementation 'org.slf4j:slf4j-api:1.7.25'
+        implementation 'io.logging:logging-library:1.0.1'
+        implementation 'org.slf4j:slf4j-api:1.7.30'
         implementation 'com.github.tony19:logback-android:2.0.0'
 
         // HTTP
