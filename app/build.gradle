@@ -25,9 +25,7 @@ android {
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
 
-        multiDexEnabled true
         multiDexKeepProguard file('multidex-config.pro')
-        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         testInstrumentationRunnerArguments clearPackageData: 'true'
