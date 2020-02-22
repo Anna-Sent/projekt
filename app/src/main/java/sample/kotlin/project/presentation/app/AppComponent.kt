@@ -11,7 +11,7 @@ import javax.inject.Singleton
         AppModule::class
     ]
 )
-interface AppComponent {
+internal interface AppComponent {
 
     fun inject(app: App)
 }

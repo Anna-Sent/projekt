@@ -14,7 +14,7 @@ import javax.inject.Singleton
         PresentationModule::class
     ]
 )
-class AppModule(private val app: App) {
+internal class AppModule(private val app: App) {
 
     @Provides
     @Singleton

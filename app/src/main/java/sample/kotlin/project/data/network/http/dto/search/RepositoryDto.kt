@@ -1,6 +1,7 @@
-package sample.kotlin.project.data.network.http.dto
+package sample.kotlin.project.data.network.http.dto.search
 
 import com.google.gson.annotations.SerializedName
+import sample.kotlin.project.data.network.http.dto.search.OwnerDto
 
 data class RepositoryDto(
     @SerializedName("created_at")
