@@ -51,8 +51,8 @@ abstract class BaseFragment<S : State, A : Action, E : Event, NC : NavigationCom
 
     final override fun androidInjector() = androidInjector
 
-    @LayoutRes
-    protected abstract fun layoutId(): Int
+    @get:LayoutRes
+    protected abstract val layoutId: Int
 
     protected abstract fun provideViewModel(provider: ViewModelProvider): VM
 
@@ -81,7 +81,7 @@ abstract class BaseFragment<S : State, A : Action, E : Event, NC : NavigationCom
         savedInstanceState: Bundle?
     ): View? {
         logger.debug("onCreateView: {}", sens(savedInstanceState))
-        return inflater.inflate(layoutId(), container, false)
+        return inflater.inflate(layoutId, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

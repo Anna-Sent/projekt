@@ -54,8 +54,8 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
 
     final override fun androidInjector() = androidInjector
 
-    @LayoutRes
-    protected open fun layoutId(): Int = 0
+    @get:LayoutRes
+    protected abstract val layoutId: Int
 
     @CallSuper
     protected open fun initUi(savedInstanceState: Bundle?) {
@@ -115,9 +115,9 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         logger.debug("onCreateDialog: {}", sens(savedInstanceState))
         var view: View? = null
-        if (layoutId() != 0) {
+        if (layoutId != 0) {
             val inflater = LayoutInflater.from(requireContext())
-            view = inflater.inflate(layoutId(), null)
+            view = inflater.inflate(layoutId, null)
             initUi(savedInstanceState)
             statesDisposables += viewModel.statesObservable
                 .observeOn(AndroidSchedulers.mainThread())

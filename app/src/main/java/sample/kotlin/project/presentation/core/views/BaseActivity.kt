@@ -54,15 +54,15 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
 
     internal abstract val navigator: Navigator
 
-    @LayoutRes
-    protected abstract fun layoutId(): Int
+    @get:LayoutRes
+    protected abstract val layoutId: Int
 
     protected abstract fun provideViewModel(provider: ViewModelProvider): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(layoutId())
+        setContentView(layoutId)
         stateSaver.restoreState(savedInstanceState)
         viewModel = provideViewModel(ViewModelProvider(this, viewModelProviderFactory))
         logger.debug("provided view model: {}", viewModel)

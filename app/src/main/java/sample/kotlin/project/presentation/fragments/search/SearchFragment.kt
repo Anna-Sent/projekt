@@ -27,7 +27,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         fun newInstance() = SearchFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_search
+    override val layoutId = R.layout.fragment_search
 
     override fun provideViewModel(provider: ViewModelProvider) =
         provider[SearchViewModel::class.java]

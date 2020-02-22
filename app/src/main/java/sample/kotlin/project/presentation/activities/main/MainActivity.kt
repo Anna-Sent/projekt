@@ -26,7 +26,7 @@ class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigati
 
     private lateinit var networkCallback: AppNetworkCallback
 
-    override fun layoutId() = R.layout.activity_main
+    override val layoutId = R.layout.activity_main
 
     override fun provideViewModel(provider: ViewModelProvider) =
         provider[MainViewModel::class.java]
