@@ -5,7 +5,11 @@ import dagger.Module
 import sample.kotlin.project.domain.sources.search.SearchSource
 import javax.inject.Singleton
 
-@Module
+@Module(
+    includes = [
+        SearchMappersModule::class
+    ]
+)
 interface SearchModule {
 
     @Binds

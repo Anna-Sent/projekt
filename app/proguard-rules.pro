@@ -134,6 +134,7 @@
 
 -dontwarn javax.mail.Authenticator
 -dontwarn java.lang.ClassValue
+-dontwarn org.conscrypt.ConscryptHostnameVerifier
 
 -keepattributes Exceptions
 -keepattributes InnerClasses

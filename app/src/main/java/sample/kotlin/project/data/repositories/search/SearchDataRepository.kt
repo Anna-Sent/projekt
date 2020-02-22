@@ -1,6 +1,7 @@
 package sample.kotlin.project.data.repositories.search
 
 import io.reactivex.Single
+import sample.kotlin.project.domain.pojo.search.Repositories
 import sample.kotlin.project.domain.providers.connectivity.ConnectivityProvider
 import sample.kotlin.project.domain.providers.schedulers.SchedulersProvider
 import sample.kotlin.project.domain.repositories.search.SearchRepository
@@ -16,7 +17,7 @@ class SearchDataRepository
     private val requestSource: RequestSource
 ) : SearchRepository {
 
-    override fun search(query: String): Single<String> =
+    override fun search(query: String): Single<Repositories> =
         connectivityProvider.checkNetworkConnectedOrThrow()
             .flatMap { searchSource.search(query) }
             .compose(requestSource.applyStatusUpdating(RequestType.Search))

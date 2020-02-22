@@ -10,7 +10,7 @@ class ViewModelFactory
     private val viewModels: MutableMap<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         requireNotNull(viewModels[modelClass]) { "Unknown class: $modelClass" }.get() as T
 }

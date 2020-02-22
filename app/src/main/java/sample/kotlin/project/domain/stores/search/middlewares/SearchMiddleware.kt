@@ -28,7 +28,7 @@ class SearchMiddleware
             .switchMap {
                 searchRepository.search(it.query)
                     .toObservable()
-                    .map<SearchAction> { SearchAction.SearchSuccessAction(it) }
+                    .map<SearchAction> { SearchAction.SearchSuccessAction(it.toString()) }
                     .doOnError { events.accept(SearchEvent.SearchFailureEvent(it)) }
                     .onErrorReturn { SearchAction.SearchFailureAction(it) }
             }

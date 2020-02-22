@@ -4,5 +4,5 @@ interface Mapper<From, To> {
 
     fun map(from: From): To
 
-    fun map(from: Collection<From>): Collection<To> = from.map(::map)
+    fun map(from: List<From>): List<To> = from.map(::map)
 }
