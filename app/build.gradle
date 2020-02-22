@@ -36,7 +36,7 @@ android {
         useLibrary 'android.test.base'
         useLibrary 'android.test.mock'
 
-        buildConfigField 'String', 'LOG_TAG', '"SKP"'
+        buildConfigField 'string', 'LOG_TAG', '"SKP"'
 
         resConfigs 'en'
     }
@@ -181,9 +181,9 @@ android {
     }
 
     defaultConfig {
-        buildConfigField 'String', 'HOST', "\"${host}\""
-        buildConfigField 'String', 'PIN', "\"${pin}\""
-        buildConfigField 'String', 'API_URL', "\"https://${host}\""
+        buildConfigField 'string', 'HOST', "\"${host}\""
+        buildConfigField 'string', 'PIN', "\"${pin}\""
+        buildConfigField 'string', 'API_URL', "\"https://${host}\""
     }
 
     lintOptions {
