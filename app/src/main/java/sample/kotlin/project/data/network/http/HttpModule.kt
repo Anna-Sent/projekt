@@ -22,8 +22,6 @@ import javax.inject.Singleton
 class HttpModule {
 
     companion object {
-        private const val HOST = "api.github.com"
-        private const val BASE_URL = "https://$HOST"
         private const val TIMEOUT_SECS = 20L
     }
 
@@ -63,7 +61,7 @@ class HttpModule {
     fun provideCertificatePinner() =
         if (BuildConfig.USE_CERTIFICATE_PINNING)
             CertificatePinner.Builder()
-                .add(HOST, "sha256/WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=")
+                .add(BuildConfig.HOST, BuildConfig.PIN)
                 .build()
         else CertificatePinner.DEFAULT
 
@@ -93,7 +91,7 @@ class HttpModule {
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BuildConfig.API_URL)
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(gsonConverterFactory)
