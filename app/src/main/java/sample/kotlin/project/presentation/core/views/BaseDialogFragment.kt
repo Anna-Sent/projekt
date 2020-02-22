@@ -116,8 +116,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
         logger.debug("onCreateDialog: {}", sens(savedInstanceState))
         var view: View? = null
         if (layoutId != 0) {
-            val inflater = LayoutInflater.from(requireContext())
-            view = inflater.inflate(layoutId, null)
+            view = LayoutInflater.from(requireContext()).inflate(layoutId, null)
             initUi(savedInstanceState)
             statesDisposables += viewModel.statesObservable
                 .observeOn(AndroidSchedulers.mainThread())

@@ -24,7 +24,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
             is SearchAction.SearchSuccessAction ->
                 state.copy(
-                    data = action.data
+                    repositories = action.repositories
                 )
 
             is SearchAction.SearchFailureAction -> state

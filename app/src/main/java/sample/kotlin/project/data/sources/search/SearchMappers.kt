@@ -26,7 +26,7 @@ internal class RepositoryMapper
 ) : Mapper<RepositoryDto, Repository> {
 
     override fun map(from: RepositoryDto) =
-        Repository(from.fullName, ownerMapper.map(from.owner))
+        Repository(from.id, from.fullName, ownerMapper.map(from.owner))
 }
 
 internal class OwnerMapper

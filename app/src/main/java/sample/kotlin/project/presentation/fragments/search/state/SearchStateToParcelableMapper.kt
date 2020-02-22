@@ -11,7 +11,6 @@ class SearchStateToParcelableMapper
     override fun map(from: SearchState) =
         SearchStateParcelable(
             loading = from.loading,
-            data = from.data,
             suggestions = from.suggestions
         )
 }

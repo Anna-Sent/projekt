@@ -1,6 +1,7 @@
 package sample.kotlin.project.domain.stores.search.pojo
 
 import sample.kotlin.project.domain.core.mvi.pojo.Action
+import sample.kotlin.project.domain.pojo.search.Repository
 
 sealed class SearchAction : Action {
 
@@ -14,7 +15,7 @@ sealed class SearchAction : Action {
 
     object SearchLoadingFinishedAction : SearchAction()
 
-    class SearchSuccessAction(val data: String) : SearchAction()
+    class SearchSuccessAction(val repositories: List<Repository>) : SearchAction()
 
     class SearchFailureAction(val error: Throwable) : SearchAction()
 

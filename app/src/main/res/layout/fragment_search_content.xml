@@ -43,14 +43,12 @@
         app:layout_constraintTop_toBottomOf="@id/editTextQueryContainer"
         tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/textViewResult"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
-        tools:text="Result"
         tools:visibility="visible" />
 
     <Button
