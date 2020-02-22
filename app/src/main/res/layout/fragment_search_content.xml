@@ -16,15 +16,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <AutoCompleteTextView
-        android:id="@+id/editTextQuery"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextQueryContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search"
         app:layout_constraintBottom_toTopOf="@id/progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/editTextQuery"
+            style="@style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -34,18 +40,16 @@
         app:layout_constraintBottom_toTopOf="@id/buttonSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextQuery"
+        app:layout_constraintTop_toBottomOf="@id/editTextQueryContainer"
         tools:visibility="visible" />
 
     <TextView
         android:id="@+id/textViewResult"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/buttonSearch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextQuery"
+        app:layout_constraintTop_toBottomOf="@id/editTextQueryContainer"
         tools:text="Result"
         tools:visibility="visible" />
 
@@ -57,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextQuery"
+        app:layout_constraintTop_toBottomOf="@id/editTextQueryContainer"
         tools:layout_editor_absoluteX="47dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
