@@ -1,9 +1,10 @@
 package sample.kotlin.project.data.network.http.services
 
 import io.reactivex.Single
-import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import sample.kotlin.project.data.network.http.services.dto.RepositoriesDto
 
 interface GitHubSearchHttpService {
 
@@ -12,5 +13,5 @@ interface GitHubSearchHttpService {
         @Query("q") query: String,
         @Query("sort") sort: String,
         @Query("order") order: String
-    ): Single<ResponseBody>
+    ): Single<Response<RepositoriesDto>>
 }

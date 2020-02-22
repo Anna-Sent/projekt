@@ -13,7 +13,7 @@ class SearchDataSource
 
     override fun search(query: String) =
         gitHubSearchHttpService.searchRepositories(query, "starts", "desc")
-            .map { it.string() }
+            .map { it.toString() }
 
     override fun suggestions() =
         Single.timer(1, TimeUnit.SECONDS)
