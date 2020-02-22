@@ -53,6 +53,11 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
             .subscribe(viewModel::postAction, ::unexpectedError)
     }
 
+    override fun onDestroyView() {
+        recyclerView.adapter = null
+        super.onDestroyView()
+    }
+
     override fun render(state: SearchState) {
         textViewConnected.visibility = if (state.connected) VISIBLE else GONE
         buttonSearch.isEnabled = !state.loading
