@@ -4,10 +4,10 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.repositories.connectivity.ConnectivityRepository
-import sample.kotlin.project.domain.stores.main.entities.MainAction
-import sample.kotlin.project.domain.stores.main.entities.MainEvent
-import sample.kotlin.project.domain.stores.main.entities.MainNavigationCommand
-import sample.kotlin.project.domain.stores.main.entities.MainState
+import sample.kotlin.project.domain.stores.main.pojo.MainAction
+import sample.kotlin.project.domain.stores.main.pojo.MainEvent
+import sample.kotlin.project.domain.stores.main.pojo.MainNavigationCommand
+import sample.kotlin.project.domain.stores.main.pojo.MainState
 import javax.inject.Inject
 
 class ConnectivityMiddleware

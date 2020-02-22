@@ -20,10 +20,10 @@ import org.slf4j.LoggerFactory
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import sample.kotlin.project.domain.core.mvi.MviView
-import sample.kotlin.project.domain.core.mvi.entities.Action
-import sample.kotlin.project.domain.core.mvi.entities.Event
-import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
-import sample.kotlin.project.domain.core.mvi.entities.State
+import sample.kotlin.project.domain.core.mvi.pojo.Action
+import sample.kotlin.project.domain.core.mvi.pojo.Event
+import sample.kotlin.project.domain.core.mvi.pojo.NavigationCommand
+import sample.kotlin.project.domain.core.mvi.pojo.State
 import javax.inject.Inject
 
 abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCommand,

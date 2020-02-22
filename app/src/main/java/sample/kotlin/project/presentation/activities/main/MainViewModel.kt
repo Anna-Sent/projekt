@@ -1,10 +1,10 @@
 package sample.kotlin.project.presentation.activities.main
 
 import sample.kotlin.project.domain.stores.main.MainStore
-import sample.kotlin.project.domain.stores.main.entities.MainAction
-import sample.kotlin.project.domain.stores.main.entities.MainEvent
-import sample.kotlin.project.domain.stores.main.entities.MainNavigationCommand
-import sample.kotlin.project.domain.stores.main.entities.MainState
+import sample.kotlin.project.domain.stores.main.pojo.MainAction
+import sample.kotlin.project.domain.stores.main.pojo.MainEvent
+import sample.kotlin.project.domain.stores.main.pojo.MainNavigationCommand
+import sample.kotlin.project.domain.stores.main.pojo.MainState
 import sample.kotlin.project.presentation.app.AppRouter
 import sample.kotlin.project.presentation.core.views.BaseViewModel
 import sample.kotlin.project.presentation.screens.SplashScreen

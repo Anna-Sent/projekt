@@ -4,10 +4,10 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.BaseMiddleware
-import sample.kotlin.project.domain.stores.splash.entities.SplashAction
-import sample.kotlin.project.domain.stores.splash.entities.SplashEvent
-import sample.kotlin.project.domain.stores.splash.entities.SplashNavigationCommand
-import sample.kotlin.project.domain.stores.splash.entities.SplashState
+import sample.kotlin.project.domain.stores.splash.pojo.SplashAction
+import sample.kotlin.project.domain.stores.splash.pojo.SplashEvent
+import sample.kotlin.project.domain.stores.splash.pojo.SplashNavigationCommand
+import sample.kotlin.project.domain.stores.splash.pojo.SplashState
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

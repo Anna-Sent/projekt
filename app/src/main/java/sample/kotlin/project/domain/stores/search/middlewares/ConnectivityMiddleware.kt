@@ -4,10 +4,10 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.repositories.connectivity.ConnectivityRepository
-import sample.kotlin.project.domain.stores.search.entities.SearchAction
-import sample.kotlin.project.domain.stores.search.entities.SearchEvent
-import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
-import sample.kotlin.project.domain.stores.search.entities.SearchState
+import sample.kotlin.project.domain.stores.search.pojo.SearchAction
+import sample.kotlin.project.domain.stores.search.pojo.SearchEvent
+import sample.kotlin.project.domain.stores.search.pojo.SearchNavigationCommand
+import sample.kotlin.project.domain.stores.search.pojo.SearchState
 import javax.inject.Inject
 
 class ConnectivityMiddleware

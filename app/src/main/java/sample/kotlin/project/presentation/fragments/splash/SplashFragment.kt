@@ -2,10 +2,10 @@ package sample.kotlin.project.presentation.fragments.splash
 
 import androidx.lifecycle.ViewModelProvider
 import sample.kotlin.project.R
-import sample.kotlin.project.domain.stores.splash.entities.SplashAction
-import sample.kotlin.project.domain.stores.splash.entities.SplashEvent
-import sample.kotlin.project.domain.stores.splash.entities.SplashNavigationCommand
-import sample.kotlin.project.domain.stores.splash.entities.SplashState
+import sample.kotlin.project.domain.stores.splash.pojo.SplashAction
+import sample.kotlin.project.domain.stores.splash.pojo.SplashEvent
+import sample.kotlin.project.domain.stores.splash.pojo.SplashNavigationCommand
+import sample.kotlin.project.domain.stores.splash.pojo.SplashState
 import sample.kotlin.project.presentation.core.views.BaseFragment
 import sample.kotlin.project.presentation.fragments.splash.state.SplashStateParcelable
 

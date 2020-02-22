@@ -1,6 +1,6 @@
-package sample.kotlin.project.domain.stores.search.entities
+package sample.kotlin.project.domain.stores.search.pojo
 
-import sample.kotlin.project.domain.core.mvi.entities.Action
+import sample.kotlin.project.domain.core.mvi.pojo.Action
 
 sealed class SearchAction : Action {
 

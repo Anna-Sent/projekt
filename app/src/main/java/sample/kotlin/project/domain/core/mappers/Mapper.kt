@@ -1,4 +1,4 @@
-package sample.kotlin.project.domain.core.mvi
+package sample.kotlin.project.domain.core.mappers
 
 interface Mapper<From, To> {
 

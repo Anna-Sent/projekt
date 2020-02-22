@@ -1,8 +1,8 @@
 package sample.kotlin.project.domain.stores.splash
 
 import sample.kotlin.project.domain.core.mvi.Reducer
-import sample.kotlin.project.domain.stores.splash.entities.SplashAction
-import sample.kotlin.project.domain.stores.splash.entities.SplashState
+import sample.kotlin.project.domain.stores.splash.pojo.SplashAction
+import sample.kotlin.project.domain.stores.splash.pojo.SplashState
 
 internal class SplashReducer : Reducer<SplashState, SplashAction> {
 

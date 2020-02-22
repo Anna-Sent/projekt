@@ -11,10 +11,10 @@ import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_search_content.*
 import sample.kotlin.project.R
-import sample.kotlin.project.domain.stores.search.entities.SearchAction
-import sample.kotlin.project.domain.stores.search.entities.SearchEvent
-import sample.kotlin.project.domain.stores.search.entities.SearchNavigationCommand
-import sample.kotlin.project.domain.stores.search.entities.SearchState
+import sample.kotlin.project.domain.stores.search.pojo.SearchAction
+import sample.kotlin.project.domain.stores.search.pojo.SearchEvent
+import sample.kotlin.project.domain.stores.search.pojo.SearchNavigationCommand
+import sample.kotlin.project.domain.stores.search.pojo.SearchState
 import sample.kotlin.project.presentation.core.views.BaseFragment
 import sample.kotlin.project.presentation.core.views.utils.toast
 import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable

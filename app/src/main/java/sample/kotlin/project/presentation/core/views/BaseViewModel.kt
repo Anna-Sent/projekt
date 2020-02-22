@@ -8,10 +8,10 @@ import io.reactivex.rxkotlin.plusAssign
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import sample.kotlin.project.domain.core.mvi.Store
-import sample.kotlin.project.domain.core.mvi.entities.Action
-import sample.kotlin.project.domain.core.mvi.entities.Event
-import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
-import sample.kotlin.project.domain.core.mvi.entities.State
+import sample.kotlin.project.domain.core.mvi.pojo.Action
+import sample.kotlin.project.domain.core.mvi.pojo.Event
+import sample.kotlin.project.domain.core.mvi.pojo.NavigationCommand
+import sample.kotlin.project.domain.core.mvi.pojo.State
 
 abstract class BaseViewModel<S : State, A : Action, E : Event, NC : NavigationCommand>
 constructor(

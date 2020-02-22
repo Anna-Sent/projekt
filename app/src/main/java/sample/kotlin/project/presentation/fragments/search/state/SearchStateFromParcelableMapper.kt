@@ -1,7 +1,7 @@
 package sample.kotlin.project.presentation.fragments.search.state
 
-import sample.kotlin.project.domain.core.mvi.Mapper
-import sample.kotlin.project.domain.stores.search.entities.SearchState
+import sample.kotlin.project.domain.core.mappers.Mapper
+import sample.kotlin.project.domain.stores.search.pojo.SearchState
 import javax.inject.Inject
 
 class SearchStateFromParcelableMapper

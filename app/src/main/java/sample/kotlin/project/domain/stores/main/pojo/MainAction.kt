@@ -1,6 +1,6 @@
-package sample.kotlin.project.domain.stores.main.entities
+package sample.kotlin.project.domain.stores.main.pojo
 
-import sample.kotlin.project.domain.core.mvi.entities.Action
+import sample.kotlin.project.domain.core.mvi.pojo.Action
 
 sealed class MainAction : Action {
 

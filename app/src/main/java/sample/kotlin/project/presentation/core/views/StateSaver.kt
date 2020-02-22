@@ -2,8 +2,8 @@ package sample.kotlin.project.presentation.core.views
 
 import android.os.Bundle
 import android.os.Parcelable
-import sample.kotlin.project.domain.core.mvi.Mapper
-import sample.kotlin.project.domain.core.mvi.entities.State
+import sample.kotlin.project.domain.core.mappers.Mapper
+import sample.kotlin.project.domain.core.mvi.pojo.State
 import javax.inject.Inject
 
 class StateSaver<S : State, Parcel : Parcelable>

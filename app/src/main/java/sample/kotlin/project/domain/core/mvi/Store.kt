@@ -8,10 +8,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.withLatestFrom
 import org.slf4j.LoggerFactory
-import sample.kotlin.project.domain.core.mvi.entities.Action
-import sample.kotlin.project.domain.core.mvi.entities.Event
-import sample.kotlin.project.domain.core.mvi.entities.NavigationCommand
-import sample.kotlin.project.domain.core.mvi.entities.State
+import sample.kotlin.project.domain.core.mvi.pojo.Action
+import sample.kotlin.project.domain.core.mvi.pojo.Event
+import sample.kotlin.project.domain.core.mvi.pojo.NavigationCommand
+import sample.kotlin.project.domain.core.mvi.pojo.State
 import sample.kotlin.project.domain.providers.schedulers.SchedulersProvider
 
 open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
