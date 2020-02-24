@@ -38,7 +38,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.postAction(SearchAction.LoadSuggestionsAction)
+        viewModel.dispatch(SearchAction.LoadSuggestionsAction)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,11 +46,11 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         setupRecyclerView()
         disposables += buttonSearch.clicks()
             .map { SearchAction.SearchClickAction(editTextQuery.text.toString().trim()) }
-            .subscribe(viewModel::postAction, ::unexpectedError)
+            .subscribe(viewModel::dispatch, ::unexpectedError)
         disposables += editTextQuery.textChanges()
             .debounce(250, TimeUnit.MILLISECONDS)
             .map { SearchAction.SearchQueryChangeAction(it.toString().trim()) }
-            .subscribe(viewModel::postAction, ::unexpectedError)
+            .subscribe(viewModel::dispatch, ::unexpectedError)
     }
 
     override fun onDestroyView() {
@@ -70,7 +70,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         editTextQuery.setAdapter(autoCompleteAdapter)
     }
 
-    override fun handleEvent(event: SearchEvent) {
+    override fun handle(event: SearchEvent) {
         when (event) {
 
             is SearchEvent.SearchFailureEvent -> toast("Search failed\n${event.error}")

@@ -89,10 +89,10 @@ abstract class BaseFragment<S : State, A : Action, E : Event, NC : NavigationCom
         logger.debug("onViewCreated: {}", sens(savedInstanceState))
         statesDisposables += viewModel.statesObservable
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::handleState, ::unexpectedError)
+            .subscribe(::handle, ::unexpectedError)
     }
 
-    private fun handleState(state: S) {
+    private fun handle(state: S) {
         stateSaver.state = state
         render(state)
     }
@@ -174,7 +174,7 @@ abstract class BaseFragment<S : State, A : Action, E : Event, NC : NavigationCom
         // override in nested classes if needed
     }
 
-    override fun handleEvent(event: E) {
+    override fun handle(event: E) {
         // override in nested classes if needed
     }
 }

@@ -7,5 +7,5 @@ interface MviView<S : State, E : Event> {
 
     fun render(state: S)
 
-    fun handleEvent(event: E)
+    fun handle(event: E)
 }

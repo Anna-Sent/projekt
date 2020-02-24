@@ -16,7 +16,7 @@ class MainViewModel
     private val router: AppRouter
 ) : BaseViewModel<MainState, MainAction, MainEvent, MainNavigationCommand>(store) {
 
-    override fun handleNavigationCommand(navigationCommand: MainNavigationCommand) {
+    override fun handle(navigationCommand: MainNavigationCommand) {
         when (navigationCommand) {
 
             is MainNavigationCommand.NavigateToSplashScreen -> router.newRootScreen(SplashScreen())

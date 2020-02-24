@@ -120,12 +120,12 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
             initUi(savedInstanceState)
             statesDisposables += viewModel.statesObservable
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::handleState, ::unexpectedError)
+                .subscribe(::handle, ::unexpectedError)
         }
         return createDialog(view, savedInstanceState)
     }
 
-    private fun handleState(state: S) {
+    private fun handle(state: S) {
         stateSaver.state = state
         render(state)
     }
@@ -197,7 +197,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
         // override in nested classes if needed
     }
 
-    override fun handleEvent(event: E) {
+    override fun handle(event: E) {
         // override in nested classes if needed
     }
 }

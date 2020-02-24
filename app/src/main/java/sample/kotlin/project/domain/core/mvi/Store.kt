@@ -54,7 +54,7 @@ open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
 
         disposables += events
             .observeOn(schedulersProvider.uiScheduler)
-            .subscribe(eventsHolder::handleEvent, ::unexpectedError)
+            .subscribe(eventsHolder::handle, ::unexpectedError)
     }
 
     fun dispose() {
@@ -62,7 +62,7 @@ open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
         disposables.dispose()
     }
 
-    fun postAction(action: A) {
+    fun dispatch(action: A) {
         logger.debug("post action {}", action)
         actions.accept(action)
     }

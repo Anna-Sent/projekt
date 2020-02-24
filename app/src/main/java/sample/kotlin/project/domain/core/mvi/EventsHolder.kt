@@ -13,7 +13,7 @@ class EventsHolder<S : State, E : Event> {
         this.view = view
         view?.let {
             while (!pendingEvents.isEmpty()) {
-                it.handleEvent(pendingEvents.poll()!!)
+                it.handle(pendingEvents.poll()!!)
             }
         }
     }
@@ -22,8 +22,8 @@ class EventsHolder<S : State, E : Event> {
         view = null
     }
 
-    fun handleEvent(event: E) {
+    fun handle(event: E) {
         val view = this.view
-        view?.handleEvent(event) ?: pendingEvents.add(event)
+        view?.handle(event) ?: pendingEvents.add(event)
     }
 }

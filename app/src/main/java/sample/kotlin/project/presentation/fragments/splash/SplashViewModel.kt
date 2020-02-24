@@ -16,7 +16,7 @@ class SplashViewModel
     private val router: AppRouter
 ) : BaseViewModel<SplashState, SplashAction, SplashEvent, SplashNavigationCommand>(store) {
 
-    override fun handleNavigationCommand(navigationCommand: SplashNavigationCommand) {
+    override fun handle(navigationCommand: SplashNavigationCommand) {
         when (navigationCommand) {
 
             is SplashNavigationCommand.NavigateToSearchScreen -> router.newRootScreen(SearchScreen())

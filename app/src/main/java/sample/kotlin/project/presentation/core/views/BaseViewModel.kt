@@ -33,10 +33,10 @@ constructor(
     init {
         disposables += navigationCommandsObservable
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::handleNavigationCommand, ::unexpectedError)
+            .subscribe(::handle, ::unexpectedError)
     }
 
-    protected open fun handleNavigationCommand(navigationCommand: NC) {
+    protected open fun handle(navigationCommand: NC) {
         // override in nested classes if needed
     }
 
@@ -46,7 +46,7 @@ constructor(
         disposables.clear()
     }
 
-    internal fun postAction(action: A) {
-        store.postAction(action)
+    internal fun dispatch(action: A) {
+        store.dispatch(action)
     }
 }
