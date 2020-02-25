@@ -22,13 +22,13 @@ class SuggestionsMiddleware
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
         actions
-            .ofType<SearchAction.LoadSuggestionsAction>(
-                SearchAction.LoadSuggestionsAction::class.java
+            .ofType<SearchAction.OnActivityCreatedFirstTime>(
+                SearchAction.OnActivityCreatedFirstTime::class.java
             )
             .switchMap {
                 searchSource.suggestions()
                     .toObservable()
                     .onErrorReturnItem(emptyList())
-                    .map { SearchAction.SuggestionsLoadedAction(it) }
+                    .map { SearchAction.SuggestionsLoadingSucceeded(it) }
             }
 }

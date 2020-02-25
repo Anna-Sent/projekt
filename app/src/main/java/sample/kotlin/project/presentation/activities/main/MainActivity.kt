@@ -34,7 +34,7 @@ class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigati
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            viewModel.dispatch(MainAction.NavigateToInitialScreenAction)
+            viewModel.dispatch(MainAction.OnActivityCreatedFirstTime)
         }
     }
 
@@ -50,13 +50,13 @@ class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigati
 
     private fun registerNetworkCallback() {
         val isConnected = connectivityManager.isNetworkConnected
-        viewModel.dispatch(MainAction.NetworkConnectedChanged(isConnected))
+        viewModel.dispatch(MainAction.OnConnectivityChanged(isConnected))
 
         val networkRequest = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
         networkCallback = AppNetworkCallback {
-            viewModel.dispatch(MainAction.NetworkConnectedChanged(it))
+            viewModel.dispatch(MainAction.OnConnectivityChanged(it))
         }
         connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
     }

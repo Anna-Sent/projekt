@@ -38,18 +38,20 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.dispatch(SearchAction.LoadSuggestionsAction)
+        if (savedInstanceState == null) {
+            viewModel.dispatch(SearchAction.OnActivityCreatedFirstTime)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         disposables += buttonSearch.clicks()
-            .map { SearchAction.SearchClickAction(editTextQuery.text.toString().trim()) }
+            .map { SearchAction.OnSearchClick(editTextQuery.text.toString().trim()) }
             .subscribe(viewModel::dispatch, ::unexpectedError)
         disposables += editTextQuery.textChanges()
             .debounce(250, TimeUnit.MILLISECONDS)
-            .map { SearchAction.SearchQueryChangeAction(it.toString().trim()) }
+            .map { SearchAction.OnSearchQueryChanged(it.toString().trim()) }
             .subscribe(viewModel::dispatch, ::unexpectedError)
     }
 

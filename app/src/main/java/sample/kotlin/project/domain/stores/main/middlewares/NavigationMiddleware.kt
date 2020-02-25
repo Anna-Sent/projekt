@@ -20,8 +20,8 @@ class NavigationMiddleware
         navigationCommands: Consumer<MainNavigationCommand>
     ): Observable<MainAction> =
         actions
-            .ofType<MainAction.NavigateToInitialScreenAction>(
-                MainAction.NavigateToInitialScreenAction::class.java
+            .ofType<MainAction.OnActivityCreatedFirstTime>(
+                MainAction.OnActivityCreatedFirstTime::class.java
             )
             .doOnNext { navigationCommands.accept(MainNavigationCommand.NavigateToSplashScreen) }
             .switchMap { Observable.never<MainAction>() }

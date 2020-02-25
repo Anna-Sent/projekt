@@ -5,21 +5,21 @@ import sample.kotlin.project.domain.pojo.search.Repository
 
 sealed class SearchAction : Action {
 
-    class SearchClickAction(val query: String) : SearchAction()
+    class OnSearchClick(val query: String) : SearchAction()
 
-    class SearchQueryChangeAction(val query: String) : SearchAction()
+    class OnSearchQueryChanged(val query: String) : SearchAction()
 
-    object LoadSuggestionsAction : SearchAction()
+    object OnActivityCreatedFirstTime : SearchAction()
 
-    object SearchLoadingStartedAction : SearchAction()
+    object SearchLoadingStarted : SearchAction()
 
-    object SearchLoadingFinishedAction : SearchAction()
+    object SearchLoadingFinished : SearchAction()
 
-    class SearchSuccessAction(val repositories: List<Repository>) : SearchAction()
+    class SearchLoadingSucceeded(val repositories: List<Repository>) : SearchAction()
 
-    class SearchFailureAction(val error: Throwable) : SearchAction()
+    class SearchLoadingFailed(val error: Throwable) : SearchAction()
 
-    class SuggestionsLoadedAction(val suggestions: List<String>) : SearchAction()
+    class SuggestionsLoadingSucceeded(val suggestions: List<String>) : SearchAction()
 
-    class NetworkConnectedAction(val isConnected: Boolean) : SearchAction()
+    class ConnectivityChanged(val isConnected: Boolean) : SearchAction()
 }

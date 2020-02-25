@@ -22,14 +22,14 @@ class SearchMiddleware
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
         actions
-            .ofType<SearchAction.SearchClickAction>(
-                SearchAction.SearchClickAction::class.java
+            .ofType<SearchAction.OnSearchClick>(
+                SearchAction.OnSearchClick::class.java
             )
             .switchMap { action ->
                 searchRepository.search(action.query)
                     .toObservable()
-                    .map<SearchAction> { SearchAction.SearchSuccessAction(it.items) }
+                    .map<SearchAction> { SearchAction.SearchLoadingSucceeded(it.items) }
                     .doOnError { events.accept(SearchEvent.SearchFailureEvent(it)) }
-                    .onErrorReturn { SearchAction.SearchFailureAction(it) }
+                    .onErrorReturn { SearchAction.SearchLoadingFailed(it) }
             }
 }

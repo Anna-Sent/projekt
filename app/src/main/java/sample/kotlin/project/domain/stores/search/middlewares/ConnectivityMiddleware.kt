@@ -22,5 +22,5 @@ class ConnectivityMiddleware
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
         connectivityRepository.isNetworkConnected()
-            .map { SearchAction.NetworkConnectedAction(it) }
+            .map { SearchAction.ConnectivityChanged(it) }
 }

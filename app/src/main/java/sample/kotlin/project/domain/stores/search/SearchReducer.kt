@@ -9,32 +9,32 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
     override fun reduce(state: SearchState, action: SearchAction) =
         when (action) {
 
-            is SearchAction.SearchClickAction, is SearchAction.SearchQueryChangeAction,
-            is SearchAction.LoadSuggestionsAction -> state
+            is SearchAction.OnSearchClick, is SearchAction.OnSearchQueryChanged,
+            is SearchAction.OnActivityCreatedFirstTime -> state
 
-            is SearchAction.SearchLoadingStartedAction ->
+            is SearchAction.SearchLoadingStarted ->
                 state.copy(
                     loading = true
                 )
 
-            is SearchAction.SearchLoadingFinishedAction ->
+            is SearchAction.SearchLoadingFinished ->
                 state.copy(
                     loading = false
                 )
 
-            is SearchAction.SearchSuccessAction ->
+            is SearchAction.SearchLoadingSucceeded ->
                 state.copy(
                     repositories = action.repositories
                 )
 
-            is SearchAction.SearchFailureAction -> state
+            is SearchAction.SearchLoadingFailed -> state
 
-            is SearchAction.SuggestionsLoadedAction ->
+            is SearchAction.SuggestionsLoadingSucceeded ->
                 state.copy(
                     suggestions = action.suggestions
                 )
 
-            is SearchAction.NetworkConnectedAction ->
+            is SearchAction.ConnectivityChanged ->
                 state.copy(
                     connected = action.isConnected
                 )

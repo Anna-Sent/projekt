@@ -22,8 +22,8 @@ class ConnectivityMiddleware
         navigationCommands: Consumer<MainNavigationCommand>
     ): Observable<MainAction> =
         actions
-            .ofType<MainAction.NetworkConnectedChanged>(
-                MainAction.NetworkConnectedChanged::class.java
+            .ofType<MainAction.OnConnectivityChanged>(
+                MainAction.OnConnectivityChanged::class.java
             )
             .doOnNext { connectivityRepository.setNetworkConnected(it.isConnected) }
             .switchMap { Observable.never<MainAction>() }

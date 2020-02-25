@@ -23,7 +23,7 @@ class StateMiddleware
     ): Observable<SearchAction> =
         searchRepository.isSearchRunning()
             .map {
-                if (it) SearchAction.SearchLoadingStartedAction
-                else SearchAction.SearchLoadingFinishedAction
+                if (it) SearchAction.SearchLoadingStarted
+                else SearchAction.SearchLoadingFinished
             }
 }

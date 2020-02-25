@@ -4,7 +4,7 @@ import sample.kotlin.project.domain.core.mvi.pojo.Action
 
 sealed class MainAction : Action {
 
-    object NavigateToInitialScreenAction : MainAction()
+    object OnActivityCreatedFirstTime : MainAction()
 
-    class NetworkConnectedChanged(val isConnected: Boolean) : MainAction()
+    class OnConnectivityChanged(val isConnected: Boolean) : MainAction()
 }
