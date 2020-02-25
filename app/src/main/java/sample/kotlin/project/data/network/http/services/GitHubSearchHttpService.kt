@@ -14,4 +14,12 @@ interface GitHubSearchHttpService {
         @Query("sort") sort: String,
         @Query("order") order: String
     ): Single<Response<RepositoriesDto>>
+
+    @GET("search/repositories")
+    fun searchRepositories(
+        @Query("q") query: String,
+        @Query("sort") sort: String,
+        @Query("order") order: String,
+        @Query("page") page: Int
+    ): Single<Response<RepositoriesDto>>
 }

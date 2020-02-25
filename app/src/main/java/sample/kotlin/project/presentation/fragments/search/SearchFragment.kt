@@ -7,6 +7,7 @@ import android.view.View.VISIBLE
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.rxkotlin.plusAssign
@@ -19,7 +20,6 @@ import sample.kotlin.project.domain.stores.search.pojo.SearchState
 import sample.kotlin.project.presentation.core.views.BaseFragment
 import sample.kotlin.project.presentation.core.views.utils.toast
 import sample.kotlin.project.presentation.fragments.search.adapters.RepositoryAdapter
-import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable
 import java.util.concurrent.TimeUnit
 
 class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, SearchNavigationCommand,
@@ -27,6 +27,29 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
     companion object {
         fun newInstance() = SearchFragment()
+    }
+
+
+    private var scrolledByUser = false
+
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val diff = totalItemCount - visibleItemCount - firstVisibleItemPosition
+            if (diff <= 5 && firstVisibleItemPosition >= 0) {
+                logger.debug("scrolled to bottom")
+                viewModel.dispatch(SearchAction.OnScrolledToBottom)
+            }
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            if (!scrolledByUser) {
+                scrolledByUser = true
+            }
+        }
     }
 
     private val adapter = RepositoryAdapter { toast("${it.fullName} ${it.owner.login}") }
@@ -39,7 +62,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null) {
-            viewModel.dispatch(SearchAction.OnActivityCreatedFirstTime)
+            viewModel.dispatch(SearchAction.LoadSuggestions)
         }
     }
 
@@ -57,6 +80,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
     override fun onDestroyView() {
         recyclerView.adapter = null
+        recyclerView.removeOnScrollListener(scrollListener)
         super.onDestroyView()
     }
 
@@ -65,6 +89,9 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         buttonSearch.isEnabled = !state.loading
         progressBar.visibility = if (state.loading) VISIBLE else GONE
         adapter.items = state.repositories
+        if (!scrolledByUser) {
+            recyclerView.scrollToPosition(0)
+        }
         val autoCompleteAdapter = ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line, state.suggestions
@@ -84,5 +111,6 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+        recyclerView.addOnScrollListener(scrollListener)
     }
 }

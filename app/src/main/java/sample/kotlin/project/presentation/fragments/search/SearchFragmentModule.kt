@@ -9,12 +9,9 @@ import dagger.multibindings.IntoMap
 import sample.kotlin.project.domain.core.mappers.Mapper
 import sample.kotlin.project.domain.core.scopes.FragmentScope
 import sample.kotlin.project.domain.stores.search.pojo.SearchState
-import sample.kotlin.project.presentation.core.views.StateSaver
 import sample.kotlin.project.presentation.core.di.ViewModelKey
 import sample.kotlin.project.presentation.core.di.ViewModelModule
-import sample.kotlin.project.presentation.fragments.search.state.SearchStateFromParcelableMapper
-import sample.kotlin.project.presentation.fragments.search.state.SearchStateParcelable
-import sample.kotlin.project.presentation.fragments.search.state.SearchStateToParcelableMapper
+import sample.kotlin.project.presentation.core.views.StateSaver
 
 @Module
 interface SearchFragmentModule {

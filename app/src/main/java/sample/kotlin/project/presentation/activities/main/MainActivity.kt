@@ -34,7 +34,7 @@ class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigati
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            viewModel.dispatch(MainAction.OnActivityCreatedFirstTime)
+            viewModel.dispatch(MainAction.NavigateToFirstScreen)
         }
     }
 

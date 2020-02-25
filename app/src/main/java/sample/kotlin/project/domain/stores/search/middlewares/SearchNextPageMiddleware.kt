@@ -2,6 +2,7 @@ package sample.kotlin.project.domain.stores.search.middlewares
 
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
+import io.reactivex.rxkotlin.withLatestFrom
 import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.repositories.search.SearchRepository
 import sample.kotlin.project.domain.repositories.search.SearchRequest
@@ -11,7 +12,7 @@ import sample.kotlin.project.domain.stores.search.pojo.SearchNavigationCommand
 import sample.kotlin.project.domain.stores.search.pojo.SearchState
 import javax.inject.Inject
 
-class SearchMiddleware
+class SearchNextPageMiddleware
 @Inject constructor(
     private val searchRepository: SearchRepository
 ) : BaseMiddleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand>() {
@@ -23,11 +24,15 @@ class SearchMiddleware
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
         actions
-            .ofType<SearchAction.OnSearchClick>(
-                SearchAction.OnSearchClick::class.java
+            .ofType<SearchAction.OnScrolledToBottom>(
+                SearchAction.OnScrolledToBottom::class.java
             )
-            .switchMap { action ->
-                searchRepository.search(SearchRequest(action.query, 1))
+            .withLatestFrom(states) { _, state ->
+                SearchRequest(state.lastQuery, state.lastLoadedPage + 1)
+            }
+            .distinctUntilChanged()
+            .switchMap { query ->
+                searchRepository.search(query)
                     .toObservable()
                     .map<SearchAction> {
                         SearchAction.SearchLoadingSucceeded(
