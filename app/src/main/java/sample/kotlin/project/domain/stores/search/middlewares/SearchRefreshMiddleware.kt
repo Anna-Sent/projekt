@@ -25,5 +25,5 @@ class SearchRefreshMiddleware
             .withLatestFrom(states) { _, state ->
                 SearchRequest(state.lastQuery, 1)
             }
-            .map { SearchAction.LoadSearchResults(it, LoadingStatus.FIRST_PAGE_REFRESH) }
+            .map { SearchAction.LoadSearchResults(it, SearchRequestType.FIRST_PAGE_REFRESH) }
 }

@@ -2,7 +2,7 @@ package sample.kotlin.project.domain.stores.search
 
 import sample.kotlin.project.domain.core.mvi.Reducer
 import sample.kotlin.project.domain.pojo.search.RepositoryProgress
-import sample.kotlin.project.domain.stores.search.pojo.LoadingStatus
+import sample.kotlin.project.domain.stores.search.pojo.SearchRequestType
 import sample.kotlin.project.domain.stores.search.pojo.SearchAction
 import sample.kotlin.project.domain.stores.search.pojo.SearchState
 
@@ -20,17 +20,17 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
             -> state
 
             is SearchAction.LoadSearchResults -> {
-                val newState = state.copy(loadingStatus = action.loadingStatus)
+                val newState = state.copy(requestType = action.requestType)
                 when (true) {
-                    action.loadingStatus == LoadingStatus.FIRST_PAGE_INITIAL ->
+                    action.requestType == SearchRequestType.FIRST_PAGE_INITIAL ->
                         newState.copy(repositories = emptyList())
-                    action.loadingStatus == LoadingStatus.NEXT_PAGE ->
+                    action.requestType == SearchRequestType.NEXT_PAGE ->
                         newState.copy(
                             repositories = (state.repositories.map { it.value }
                                     + RepositoryProgress)
                                 .withIndex().toList()
                         )
-                    action.loadingStatus == LoadingStatus.FIRST_PAGE_REFRESH ->
+                    action.requestType == SearchRequestType.FIRST_PAGE_REFRESH ->
                         newState
                     else -> state
                 }
@@ -40,13 +40,13 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                 when (true) {
                     action.request.page == 1 ->
                         state.copy(
-                            loadingStatus = null,
+                            requestType = null,
                             lastLoadedPage = action.request.page,
                             repositories = action.repositories.withIndex().toList()
                         )
                     action.request.page == state.lastLoadedPage + 1 ->
                         state.copy(
-                            loadingStatus = null,
+                            requestType = null,
                             lastLoadedPage = action.request.page,
                             repositories = (state.repositories.map { it.value }
                                     - RepositoryProgress + action.repositories)
@@ -56,7 +56,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                 }
 
             is SearchAction.SearchLoadingFailed ->
-                state.copy(loadingStatus = null)
+                state.copy(requestType = null)
 
             is SearchAction.LoadSuggestions -> state
 

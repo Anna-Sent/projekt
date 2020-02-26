@@ -1,5 +1,5 @@
 package sample.kotlin.project.domain.stores.search.pojo
 
-enum class LoadingStatus {
+enum class SearchRequestType {
     FIRST_PAGE_INITIAL, FIRST_PAGE_REFRESH, NEXT_PAGE
 }

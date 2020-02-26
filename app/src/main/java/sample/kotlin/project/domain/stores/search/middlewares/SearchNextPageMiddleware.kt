@@ -26,11 +26,11 @@ class SearchNextPageMiddleware
                 state to SearchRequest(state.lastQuery, state.lastLoadedPage + 1)
             }
             .flatMap {
-                if (it.first.loadingStatus == null)
+                if (it.first.requestType == null)
                     Observable.just(
                         SearchAction.LoadSearchResults(
                             it.second,
-                            LoadingStatus.NEXT_PAGE
+                            SearchRequestType.NEXT_PAGE
                         )
                     )
                 else Observable.never<SearchAction>()

@@ -88,10 +88,10 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
     override fun render(state: SearchState) {
         textViewConnected.visibility = if (state.connected) VISIBLE else GONE
-        buttonSearch.isEnabled = state.loadingStatus == null
+        buttonSearch.isEnabled = state.requestType == null
         progressBar.visibility =
-            if (state.loadingStatus == LoadingStatus.FIRST_PAGE_INITIAL) VISIBLE else GONE
-        swipeRefreshLayout.isRefreshing = state.loadingStatus == LoadingStatus.FIRST_PAGE_REFRESH
+            if (state.requestType == SearchRequestType.FIRST_PAGE_INITIAL) VISIBLE else GONE
+        swipeRefreshLayout.isRefreshing = state.requestType == SearchRequestType.FIRST_PAGE_REFRESH
         adapter.items = state.repositories
         if (!scrolledByUser) {
             // TODO: проверить, нужно или нет

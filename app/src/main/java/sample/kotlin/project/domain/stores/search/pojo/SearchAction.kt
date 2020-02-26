@@ -16,7 +16,7 @@ sealed class SearchAction : Action {
 
     data class LoadSearchResults(
         val request: SearchRequest,
-        val loadingStatus: LoadingStatus
+        val requestType: SearchRequestType
     ) : SearchAction()
 
     data class SearchLoadingSucceeded(

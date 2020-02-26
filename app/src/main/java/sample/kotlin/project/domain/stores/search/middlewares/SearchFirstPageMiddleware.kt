@@ -24,7 +24,7 @@ class SearchFirstPageMiddleware
             .map {
                 SearchAction.LoadSearchResults(
                     SearchRequest(it.query, 1),
-                    LoadingStatus.FIRST_PAGE_INITIAL
+                    SearchRequestType.FIRST_PAGE_INITIAL
                 )
             }
 }
