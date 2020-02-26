@@ -5,3 +5,5 @@ data class Repository(
     val fullName: String,
     val owner: Owner
 )
+
+typealias IndexedRepository = IndexedValue<Repository>

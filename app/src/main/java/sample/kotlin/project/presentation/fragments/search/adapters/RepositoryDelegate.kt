@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import sample.kotlin.project.R
-import sample.kotlin.project.domain.pojo.search.Repository
+import sample.kotlin.project.domain.pojo.search.IndexedRepository
 import sample.kotlin.project.presentation.core.adapters.BaseAdapterDelegateUniform
 
 internal class RepositoryDelegate(
     private val onClickListener: (Int) -> Unit
-) : BaseAdapterDelegateUniform<Repository, RepositoryViewHolder>() {
+) : BaseAdapterDelegateUniform<IndexedRepository, RepositoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RepositoryViewHolder {
         val view: View = LayoutInflater.from(parent.context)

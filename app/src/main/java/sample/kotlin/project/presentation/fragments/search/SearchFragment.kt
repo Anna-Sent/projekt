@@ -37,7 +37,6 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val diff = totalItemCount - visibleItemCount - firstVisibleItemPosition
             if (diff <= 5 && firstVisibleItemPosition >= 0) {
-                logger.debug("scrolled to bottom")
                 viewModel.dispatch(SearchAction.OnScrolledToBottom)
             }
         }
@@ -49,7 +48,8 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         }
     }
 
-    private val adapter = RepositoryAdapter { toast("${it.fullName} ${it.owner.login}") }
+    private val adapter =
+        RepositoryAdapter { toast("${it.value.fullName} ${it.value.owner.login}") }
 
     override val layoutId = R.layout.fragment_search
 

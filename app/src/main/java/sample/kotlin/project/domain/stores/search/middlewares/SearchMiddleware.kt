@@ -25,7 +25,6 @@ class SearchMiddleware
             .ofType<SearchAction.LoadSearchResults>(
                 SearchAction.LoadSearchResults::class.java
             )
-            .distinctUntilChanged()
             .map(SearchAction.LoadSearchResults::request)
             .switchMap { query ->
                 searchRepository.search(query)

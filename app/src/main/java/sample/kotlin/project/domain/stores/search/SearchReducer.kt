@@ -26,7 +26,9 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                     action.loadingStatus == LoadingStatus.NEXT_PAGE ->
                         // TODO Add bottom progress item
                         newState
-                    else -> newState
+                    action.loadingStatus == LoadingStatus.FIRST_PAGE_REFRESH ->
+                        newState
+                    else -> state
                 }
             }
 
@@ -36,14 +38,15 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                         state.copy(
                             loadingStatus = null,
                             lastLoadedPage = action.request.page,
-                            repositories = action.repositories
+                            repositories = action.repositories.withIndex().toList()
                         )
                     action.request.page == state.lastLoadedPage + 1 ->
                         state.copy(
                             loadingStatus = null,
                             lastLoadedPage = action.request.page,
                             // TODO Remove progress item
-                            repositories = state.repositories + action.repositories
+                            repositories = (state.repositories.map { it.value } + action.repositories)
+                                .withIndex().toList()
                         )
                     else -> state
                 }

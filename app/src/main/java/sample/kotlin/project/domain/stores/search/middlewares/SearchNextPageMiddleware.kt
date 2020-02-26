@@ -23,7 +23,17 @@ class SearchNextPageMiddleware
                 SearchAction.OnScrolledToBottom::class.java
             )
             .withLatestFrom(states) { _, state ->
-                SearchRequest(state.lastQuery, state.lastLoadedPage + 1)
+                state to SearchRequest(state.lastQuery, state.lastLoadedPage + 1)
             }
-            .map { SearchAction.LoadSearchResults(it, LoadingStatus.NEXT_PAGE) }
+            .flatMap {
+                if (it.first.loadingStatus == null)
+                    Observable.just(
+                        SearchAction.LoadSearchResults(
+                            it.second,
+                            LoadingStatus.NEXT_PAGE
+                        )
+                    )
+                else Observable.never<SearchAction>()
+            }
+            .distinctUntilChanged()
 }
