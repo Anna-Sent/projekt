@@ -6,26 +6,29 @@ import sample.kotlin.project.domain.repositories.search.SearchRequest
 
 sealed class SearchAction : Action {
 
-    class OnSearchClick(val query: String) : SearchAction()
-
-    class OnSearchQueryChanged(val query: String) : SearchAction()
-
-    object LoadSuggestions : SearchAction()
+    data class OnSearchClick(val query: String) : SearchAction()
 
     object OnScrolledToBottom : SearchAction()
 
-    object SearchLoadingStarted : SearchAction()
+    object OnRefresh : SearchAction()
 
-    object SearchLoadingFinished : SearchAction()
+    data class OnSearchQueryChanged(val query: String) : SearchAction()
 
-    class SearchLoadingSucceeded(
+    data class LoadSearchResults(
+        val request: SearchRequest,
+        val loadingStatus: LoadingStatus
+    ) : SearchAction()
+
+    data class SearchLoadingSucceeded(
         val request: SearchRequest,
         val repositories: List<Repository>
     ) : SearchAction()
 
-    class SearchLoadingFailed(val error: Throwable) : SearchAction()
+    data class SearchLoadingFailed(val error: Throwable) : SearchAction()
 
-    class SuggestionsLoadingSucceeded(val suggestions: List<String>) : SearchAction()
+    object LoadSuggestions : SearchAction()
 
-    class ConnectivityChanged(val isConnected: Boolean) : SearchAction()
+    data class SuggestionsLoadingSucceeded(val suggestions: List<String>) : SearchAction()
+
+    data class ConnectivityChanged(val isConnected: Boolean) : SearchAction()
 }

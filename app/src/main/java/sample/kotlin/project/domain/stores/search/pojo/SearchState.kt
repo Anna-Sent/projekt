@@ -5,7 +5,7 @@ import sample.kotlin.project.domain.pojo.search.Repository
 
 data class SearchState(
     val connected: Boolean = false,
-    val loading: Boolean = false,
+    val loadingStatus: LoadingStatus? = null,
     val lastQuery: String = "",
     val lastLoadedPage: Int = 0,
     val repositories: List<Repository> = emptyList(),

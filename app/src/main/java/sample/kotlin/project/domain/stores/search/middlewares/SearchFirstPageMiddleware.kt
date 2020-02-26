@@ -3,16 +3,12 @@ package sample.kotlin.project.domain.stores.search.middlewares
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.BaseMiddleware
-import sample.kotlin.project.domain.repositories.search.SearchRepository
-import sample.kotlin.project.domain.stores.search.pojo.SearchAction
-import sample.kotlin.project.domain.stores.search.pojo.SearchEvent
-import sample.kotlin.project.domain.stores.search.pojo.SearchNavigationCommand
-import sample.kotlin.project.domain.stores.search.pojo.SearchState
+import sample.kotlin.project.domain.repositories.search.SearchRequest
+import sample.kotlin.project.domain.stores.search.pojo.*
 import javax.inject.Inject
 
-class StateMiddleware
+class SearchFirstPageMiddleware
 @Inject constructor(
-    private val searchRepository: SearchRepository
 ) : BaseMiddleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand>() {
 
     override fun bind(
@@ -21,9 +17,14 @@ class StateMiddleware
         events: Consumer<SearchEvent>,
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
-        searchRepository.isSearchRunning()
+        actions
+            .ofType<SearchAction.OnSearchClick>(
+                SearchAction.OnSearchClick::class.java
+            )
             .map {
-                if (it) SearchAction.SearchLoadingStarted
-                else SearchAction.SearchLoadingFinished
+                SearchAction.LoadSearchResults(
+                    SearchRequest(it.query, 1),
+                    LoadingStatus.FIRST_PAGE_INITIAL
+                )
             }
 }

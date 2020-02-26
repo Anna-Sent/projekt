@@ -63,7 +63,7 @@ open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
     }
 
     fun dispatch(action: A) {
-        logger.debug("post action {}", action)
+        logger.debug("dispatch action {}", action)
         actions.accept(action)
     }
 }

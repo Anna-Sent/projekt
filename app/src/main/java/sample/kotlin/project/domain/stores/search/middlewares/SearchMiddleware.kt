@@ -4,7 +4,6 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.repositories.search.SearchRepository
-import sample.kotlin.project.domain.repositories.search.SearchRequest
 import sample.kotlin.project.domain.stores.search.pojo.SearchAction
 import sample.kotlin.project.domain.stores.search.pojo.SearchEvent
 import sample.kotlin.project.domain.stores.search.pojo.SearchNavigationCommand
@@ -23,11 +22,13 @@ class SearchMiddleware
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
         actions
-            .ofType<SearchAction.OnSearchClick>(
-                SearchAction.OnSearchClick::class.java
+            .ofType<SearchAction.LoadSearchResults>(
+                SearchAction.LoadSearchResults::class.java
             )
-            .switchMap { action ->
-                searchRepository.search(SearchRequest(action.query, 1))
+            .distinctUntilChanged()
+            .map(SearchAction.LoadSearchResults::request)
+            .switchMap { query ->
+                searchRepository.search(query)
                     .toObservable()
                     .map<SearchAction> {
                         SearchAction.SearchLoadingSucceeded(

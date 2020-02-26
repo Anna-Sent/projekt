@@ -1,9 +1,9 @@
 package sample.kotlin.project.domain.stores.search
 
 import sample.kotlin.project.domain.core.mvi.Reducer
+import sample.kotlin.project.domain.stores.search.pojo.LoadingStatus
 import sample.kotlin.project.domain.stores.search.pojo.SearchAction
 import sample.kotlin.project.domain.stores.search.pojo.SearchState
-import java.util.*
 
 internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
@@ -13,46 +13,50 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
             is SearchAction.OnSearchClick ->
                 state.copy(lastQuery = action.query)
 
-            is SearchAction.OnSearchQueryChanged,
-            is SearchAction.LoadSuggestions,
-            is SearchAction.OnScrolledToBottom
+            is SearchAction.OnScrolledToBottom,
+            is SearchAction.OnRefresh,
+            is SearchAction.OnSearchQueryChanged
             -> state
 
-            is SearchAction.SearchLoadingStarted ->
-                state.copy(
-                    loading = true
-                )
-
-            is SearchAction.SearchLoadingFinished ->
-                state.copy(
-                    loading = false
-                )
+            is SearchAction.LoadSearchResults -> {
+                val newState = state.copy(loadingStatus = action.loadingStatus)
+                when (true) {
+                    action.loadingStatus == LoadingStatus.FIRST_PAGE_INITIAL ->
+                        newState.copy(repositories = emptyList())
+                    action.loadingStatus == LoadingStatus.NEXT_PAGE ->
+                        // TODO Add bottom progress item
+                        newState
+                    else -> newState
+                }
+            }
 
             is SearchAction.SearchLoadingSucceeded ->
-                if (action.request.page == state.lastLoadedPage + 1)
-                    state.copy(
-                        lastLoadedPage = action.request.page,
-                        repositories = state.repositories + action.repositories
-                    )
-                else state
+                when (true) {
+                    action.request.page == 1 ->
+                        state.copy(
+                            loadingStatus = null,
+                            lastLoadedPage = action.request.page,
+                            repositories = action.repositories
+                        )
+                    action.request.page == state.lastLoadedPage + 1 ->
+                        state.copy(
+                            loadingStatus = null,
+                            lastLoadedPage = action.request.page,
+                            // TODO Remove progress item
+                            repositories = state.repositories + action.repositories
+                        )
+                    else -> state
+                }
 
-            is SearchAction.SearchLoadingFailed -> state
+            is SearchAction.SearchLoadingFailed ->
+                state.copy(loadingStatus = null)
+
+            is SearchAction.LoadSuggestions -> state
 
             is SearchAction.SuggestionsLoadingSucceeded ->
-                state.copy(
-                    suggestions = action.suggestions
-                )
+                state.copy(suggestions = action.suggestions)
 
             is SearchAction.ConnectivityChanged ->
-                state.copy(
-                    connected = action.isConnected
-                )
+                state.copy(connected = action.isConnected)
         }
-
-    private fun <T> List<T>.plus(other: List<T>): List<T> {
-        val result = ArrayList<T>()
-        result.addAll(this)
-        result.addAll(other)
-        return Collections.unmodifiableList(result)
-    }
 }

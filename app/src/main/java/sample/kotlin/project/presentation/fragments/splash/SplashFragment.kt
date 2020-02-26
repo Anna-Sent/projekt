@@ -7,7 +7,6 @@ import sample.kotlin.project.domain.stores.splash.pojo.SplashEvent
 import sample.kotlin.project.domain.stores.splash.pojo.SplashNavigationCommand
 import sample.kotlin.project.domain.stores.splash.pojo.SplashState
 import sample.kotlin.project.presentation.core.views.BaseFragment
-import sample.kotlin.project.presentation.fragments.splash.state.SplashStateParcelable
 
 class SplashFragment : BaseFragment<SplashState, SplashAction, SplashEvent, SplashNavigationCommand,
         SplashStateParcelable, SplashViewModel>() {

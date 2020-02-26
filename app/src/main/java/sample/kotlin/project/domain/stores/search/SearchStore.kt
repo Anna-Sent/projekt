@@ -13,8 +13,9 @@ class SearchStore
 @Inject constructor(
     schedulersProvider: SchedulersProvider,
     searchMiddleware: SearchMiddleware,
+    searchRefreshMiddleware: SearchRefreshMiddleware,
+    searchFirstPageMiddleware: SearchFirstPageMiddleware,
     searchNextPageMiddleware: SearchNextPageMiddleware,
-    stateMiddleware: StateMiddleware,
     suggestionsMiddleware: SuggestionsMiddleware,
     connectivityMiddleware: ConnectivityMiddleware,
     initialState: SearchState
@@ -23,8 +24,9 @@ class SearchStore
     SearchReducer(),
     setOf(
         searchMiddleware,
+        searchRefreshMiddleware,
+        searchFirstPageMiddleware,
         searchNextPageMiddleware,
-        stateMiddleware,
         suggestionsMiddleware,
         connectivityMiddleware
     ),

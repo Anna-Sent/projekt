@@ -13,10 +13,7 @@ import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_search_content.*
 import sample.kotlin.project.R
-import sample.kotlin.project.domain.stores.search.pojo.SearchAction
-import sample.kotlin.project.domain.stores.search.pojo.SearchEvent
-import sample.kotlin.project.domain.stores.search.pojo.SearchNavigationCommand
-import sample.kotlin.project.domain.stores.search.pojo.SearchState
+import sample.kotlin.project.domain.stores.search.pojo.*
 import sample.kotlin.project.presentation.core.views.BaseFragment
 import sample.kotlin.project.presentation.core.views.utils.toast
 import sample.kotlin.project.presentation.fragments.search.adapters.RepositoryAdapter
@@ -86,10 +83,13 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
     override fun render(state: SearchState) {
         textViewConnected.visibility = if (state.connected) VISIBLE else GONE
-        buttonSearch.isEnabled = !state.loading
-        progressBar.visibility = if (state.loading) VISIBLE else GONE
+        buttonSearch.isEnabled = state.loadingStatus == null
+        progressBar.visibility =
+            if (state.loadingStatus == LoadingStatus.FIRST_PAGE_INITIAL) VISIBLE else GONE
+        swipeRefreshLayout.isRefreshing = state.loadingStatus == LoadingStatus.FIRST_PAGE_REFRESH
         adapter.items = state.repositories
         if (!scrolledByUser) {
+            // TODO: проверить, нужно или нет
             recyclerView.scrollToPosition(0)
         }
         val autoCompleteAdapter = ArrayAdapter<String>(
@@ -112,5 +112,6 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         recyclerView.addOnScrollListener(scrollListener)
+        swipeRefreshLayout.setOnRefreshListener { viewModel.dispatch(SearchAction.OnRefresh) }
     }
 }

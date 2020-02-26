@@ -9,12 +9,9 @@ import dagger.multibindings.IntoMap
 import sample.kotlin.project.domain.core.mappers.Mapper
 import sample.kotlin.project.domain.core.scopes.FragmentScope
 import sample.kotlin.project.domain.stores.splash.pojo.SplashState
-import sample.kotlin.project.presentation.core.views.StateSaver
 import sample.kotlin.project.presentation.core.di.ViewModelKey
 import sample.kotlin.project.presentation.core.di.ViewModelModule
-import sample.kotlin.project.presentation.fragments.splash.state.SplashStateFromParcelableMapper
-import sample.kotlin.project.presentation.fragments.splash.state.SplashStateParcelable
-import sample.kotlin.project.presentation.fragments.splash.state.SplashStateToParcelableMapper
+import sample.kotlin.project.presentation.core.views.StateSaver
 
 @Module
 interface SplashFragmentModule {
