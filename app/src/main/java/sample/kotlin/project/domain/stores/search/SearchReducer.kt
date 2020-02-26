@@ -1,6 +1,7 @@
 package sample.kotlin.project.domain.stores.search
 
 import sample.kotlin.project.domain.core.mvi.Reducer
+import sample.kotlin.project.domain.pojo.search.RepositoryProgress
 import sample.kotlin.project.domain.stores.search.pojo.LoadingStatus
 import sample.kotlin.project.domain.stores.search.pojo.SearchAction
 import sample.kotlin.project.domain.stores.search.pojo.SearchState
@@ -24,8 +25,11 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                     action.loadingStatus == LoadingStatus.FIRST_PAGE_INITIAL ->
                         newState.copy(repositories = emptyList())
                     action.loadingStatus == LoadingStatus.NEXT_PAGE ->
-                        // TODO Add bottom progress item
-                        newState
+                        newState.copy(
+                            repositories = (state.repositories.map { it.value }
+                                    + RepositoryProgress)
+                                .withIndex().toList()
+                        )
                     action.loadingStatus == LoadingStatus.FIRST_PAGE_REFRESH ->
                         newState
                     else -> state
@@ -44,8 +48,8 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                         state.copy(
                             loadingStatus = null,
                             lastLoadedPage = action.request.page,
-                            // TODO Remove progress item
-                            repositories = (state.repositories.map { it.value } + action.repositories)
+                            repositories = (state.repositories.map { it.value }
+                                    - RepositoryProgress + action.repositories)
                                 .withIndex().toList()
                         )
                     else -> state

@@ -13,6 +13,7 @@ import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_search_content.*
 import sample.kotlin.project.R
+import sample.kotlin.project.domain.pojo.search.Repository
 import sample.kotlin.project.domain.stores.search.pojo.*
 import sample.kotlin.project.presentation.core.views.BaseFragment
 import sample.kotlin.project.presentation.core.views.utils.toast
@@ -49,7 +50,11 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     }
 
     private val adapter =
-        RepositoryAdapter { toast("${it.value.fullName} ${it.value.owner.login}") }
+        RepositoryAdapter {
+            (it.value as Repository).apply {
+                toast("$fullName ${owner.login}")
+            }
+        }
 
     override val layoutId = R.layout.fragment_search
 
