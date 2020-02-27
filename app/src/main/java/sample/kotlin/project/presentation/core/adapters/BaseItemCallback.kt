@@ -7,4 +7,6 @@ abstract class BaseItemCallback<I> : DiffUtil.ItemCallback<I>() {
     override fun areContentsTheSame(oldItem: I, newItem: I) = sameContents(oldItem, newItem)
 
     private fun sameContents(oldItem: I, newItem: I) = oldItem == newItem
+
+    override fun getChangePayload(oldItem: I, newItem: I) = Any()
 }
