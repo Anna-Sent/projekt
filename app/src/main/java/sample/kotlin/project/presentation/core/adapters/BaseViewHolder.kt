@@ -3,9 +3,10 @@ package sample.kotlin.project.presentation.core.adapters
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.extensions.LayoutContainer
 
-abstract class BaseViewHolder<I> protected constructor(itemView: View) :
-    RecyclerView.ViewHolder(itemView) {
+abstract class BaseViewHolder<I> protected constructor(override val containerView: View) :
+    RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     protected val context: Context get() = itemView.context
 
