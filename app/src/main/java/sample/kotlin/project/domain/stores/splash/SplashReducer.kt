@@ -6,5 +6,5 @@ import sample.kotlin.project.domain.stores.splash.pojo.SplashState
 
 internal class SplashReducer : Reducer<SplashState, SplashAction> {
 
-    override fun reduce(state: SplashState, action: SplashAction) = state
+    override fun reduce(action: SplashAction, state: SplashState) = state
 }

@@ -6,5 +6,5 @@ import sample.kotlin.project.domain.stores.main.pojo.MainState
 
 internal class MainReducer : Reducer<MainState, MainAction> {
 
-    override fun reduce(state: MainState, action: MainAction) = state
+    override fun reduce(action: MainAction, state: MainState) = state
 }

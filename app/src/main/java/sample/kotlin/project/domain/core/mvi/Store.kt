@@ -41,9 +41,7 @@ open class Store<S : State, A : Action, E : Event, NC : NavigationCommand>(
 
     init {
         disposables += actions
-            .withLatestFrom(states) { action: A, state: S ->
-                reducer.reduce(state, action)
-            }
+            .withLatestFrom(states, reducer::reduce)
             .distinctUntilChanged()
             .subscribe(states::accept, ::unexpectedError)
 

@@ -2,13 +2,13 @@ package sample.kotlin.project.domain.stores.search
 
 import sample.kotlin.project.domain.core.mvi.Reducer
 import sample.kotlin.project.domain.pojo.search.RepositoryProgress
-import sample.kotlin.project.domain.stores.search.pojo.SearchRequestType
 import sample.kotlin.project.domain.stores.search.pojo.SearchAction
+import sample.kotlin.project.domain.stores.search.pojo.SearchRequestType
 import sample.kotlin.project.domain.stores.search.pojo.SearchState
 
 internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
-    override fun reduce(state: SearchState, action: SearchAction) =
+    override fun reduce(action: SearchAction, state: SearchState) =
         when (action) {
 
             is SearchAction.OnSearchClick ->
