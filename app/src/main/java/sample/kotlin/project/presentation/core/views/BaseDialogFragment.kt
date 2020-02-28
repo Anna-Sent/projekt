@@ -8,6 +8,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
@@ -42,11 +43,13 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
     }
 
     @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    internal lateinit var androidInjector: DispatchingAndroidInjector<Any>
     @Inject
-    lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    internal lateinit var viewModelProviderFactory: ViewModelProvider.Factory
     @Inject
-    lateinit var stateSaver: StateSaver<S, Parcel>
+    internal lateinit var stateSaver: StateSaver<S, Parcel>
+    @Inject
+    internal lateinit var inputMethodManager: InputMethodManager
 
     protected lateinit var viewModel: VM
     protected val disposables = CompositeDisposable()

@@ -16,6 +16,7 @@ import sample.kotlin.project.R
 import sample.kotlin.project.domain.pojo.search.Repository
 import sample.kotlin.project.domain.stores.search.pojo.*
 import sample.kotlin.project.presentation.core.views.BaseFragment
+import sample.kotlin.project.presentation.core.views.utils.hideKeyboard
 import sample.kotlin.project.presentation.core.views.utils.toast
 import sample.kotlin.project.presentation.fragments.search.adapters.RepositoryAdapter
 import java.util.concurrent.TimeUnit
@@ -73,6 +74,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         setupRecyclerView()
         disposables += buttonSearch.clicks()
             .map { SearchAction.OnSearchClick(editTextQuery.text.toString().trim()) }
+            .doOnNext { hideKeyboard() }
             .subscribe(viewModel::dispatch, ::unexpectedError)
         disposables += editTextQuery.textChanges()
             .debounce(250, TimeUnit.MILLISECONDS)

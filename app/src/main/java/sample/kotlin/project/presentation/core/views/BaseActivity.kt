@@ -3,6 +3,7 @@ package sample.kotlin.project.presentation.core.views
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -38,13 +39,15 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
     }
 
     @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    internal lateinit var androidInjector: DispatchingAndroidInjector<Any>
     @Inject
-    lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    internal lateinit var viewModelProviderFactory: ViewModelProvider.Factory
     @Inject
-    lateinit var stateSaver: StateSaver<S, Parcel>
+    internal lateinit var stateSaver: StateSaver<S, Parcel>
     @Inject
-    lateinit var navigatorHolder: NavigatorHolder
+    internal lateinit var inputMethodManager: InputMethodManager
+    @Inject
+    internal lateinit var navigatorHolder: NavigatorHolder
 
     protected lateinit var viewModel: VM
     protected val disposables = CompositeDisposable()
