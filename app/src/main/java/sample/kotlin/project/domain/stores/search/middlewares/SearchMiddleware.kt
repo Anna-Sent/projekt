@@ -4,10 +4,7 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.BaseMiddleware
 import sample.kotlin.project.domain.repositories.search.SearchRepository
-import sample.kotlin.project.domain.stores.search.pojo.SearchAction
-import sample.kotlin.project.domain.stores.search.pojo.SearchEvent
-import sample.kotlin.project.domain.stores.search.pojo.SearchNavigationCommand
-import sample.kotlin.project.domain.stores.search.pojo.SearchState
+import sample.kotlin.project.domain.stores.search.pojo.*
 import javax.inject.Inject
 
 class SearchMiddleware
@@ -25,17 +22,20 @@ class SearchMiddleware
             .ofType<SearchAction.LoadSearchResults>(
                 SearchAction.LoadSearchResults::class.java
             )
-            .map(SearchAction.LoadSearchResults::request)
-            .switchMap { query ->
-                searchRepository.search(query)
+            .switchMap { action ->
+                searchRepository.search(action.request)
                     .toObservable()
                     .map<SearchAction> {
                         SearchAction.SearchLoadingSucceeded(
-                            it.request,
+                            action.requestType,
                             it.repositories.items
                         )
                     }
-                    .doOnError { events.accept(SearchEvent.SearchFailureEvent(it)) }
-                    .onErrorReturn { SearchAction.SearchLoadingFailed(it) }
+                    .doOnError {
+                        if (action.requestType != SearchRequestType.FIRST_PAGE_INITIAL) {
+                            events.accept(SearchEvent.SearchFailureEvent(it))
+                        }
+                    }
+                    .onErrorReturn { SearchAction.SearchLoadingFailed(action.requestType, it) }
             }
 }

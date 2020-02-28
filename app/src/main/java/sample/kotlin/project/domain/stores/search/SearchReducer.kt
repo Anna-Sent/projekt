@@ -1,7 +1,8 @@
 package sample.kotlin.project.domain.stores.search
 
 import sample.kotlin.project.domain.core.mvi.Reducer
-import sample.kotlin.project.domain.pojo.search.RepositoryProgress
+import sample.kotlin.project.domain.pojo.search.RepositoryErrorItem
+import sample.kotlin.project.domain.pojo.search.RepositoryProgressItem
 import sample.kotlin.project.domain.stores.search.pojo.SearchAction
 import sample.kotlin.project.domain.stores.search.pojo.SearchRequestType
 import sample.kotlin.project.domain.stores.search.pojo.SearchState
@@ -19,44 +20,51 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
             is SearchAction.OnSearchQueryChanged
             -> state
 
-            is SearchAction.LoadSearchResults -> {
-                val newState = state.copy(requestType = action.requestType)
-                when (true) {
-                    action.requestType == SearchRequestType.FIRST_PAGE_INITIAL ->
-                        newState.copy(repositories = emptyList())
-                    action.requestType == SearchRequestType.NEXT_PAGE ->
-                        newState.copy(
+            is SearchAction.LoadSearchResults ->
+                when (action.requestType) {
+                    SearchRequestType.FIRST_PAGE_INITIAL ->
+                        state.copy(
+                            requestType = action.requestType,
+                            repositories = emptyList()
+                        )
+                    SearchRequestType.NEXT_PAGE ->
+                        state.copy(
+                            requestType = action.requestType,
                             repositories = (state.repositories.map { it.value }
-                                    + RepositoryProgress)
+                                    + RepositoryProgressItem)
                                 .withIndex().toList()
                         )
-                    action.requestType == SearchRequestType.FIRST_PAGE_REFRESH ->
-                        newState
-                    else -> state
+                    SearchRequestType.FIRST_PAGE_REFRESH ->
+                        state.copy(requestType = action.requestType)
                 }
-            }
 
             is SearchAction.SearchLoadingSucceeded ->
-                when (true) {
-                    action.request.page == 1 ->
-                        state.copy(
-                            requestType = null,
-                            lastLoadedPage = action.request.page,
-                            repositories = action.repositories.withIndex().toList()
-                        )
-                    action.request.page == state.lastLoadedPage + 1 ->
-                        state.copy(
-                            requestType = null,
-                            lastLoadedPage = action.request.page,
-                            repositories = (state.repositories.map { it.value }
-                                    - RepositoryProgress + action.repositories)
-                                .withIndex().toList()
-                        )
-                    else -> state
-                }
+                state.copy(
+                    requestType = null,
+                    lastLoadedPage = state.lastLoadedPage + 1,
+                    repositories = (state.repositories.map { it.value }
+                            - RepositoryProgressItem + action.repositories)
+                        .withIndex().toList(),
+                    failed = false
+                )
 
             is SearchAction.SearchLoadingFailed ->
-                state.copy(requestType = null)
+                when (action.requestType) {
+                    SearchRequestType.FIRST_PAGE_INITIAL ->
+                        state.copy(
+                            requestType = null,
+                            failed = true
+                        )
+                    SearchRequestType.NEXT_PAGE ->
+                        state.copy(
+                            requestType = null,
+                            repositories = (state.repositories.map { it.value }
+                                    + RepositoryErrorItem)
+                                .withIndex().toList()
+                        )
+                    SearchRequestType.FIRST_PAGE_REFRESH ->
+                        state.copy(requestType = null)
+                }
 
             is SearchAction.LoadSuggestions -> state
 

@@ -8,6 +8,8 @@ data class Repository(
     val owner: Owner
 ) : Item<Repository>
 
-object RepositoryProgress : Item<Repository>
+object RepositoryProgressItem : Item<Repository>
+
+object RepositoryErrorItem : Item<Repository>
 
 typealias RepositoryItem = IndexedValue<Item<Repository>>

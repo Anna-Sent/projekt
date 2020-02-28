@@ -91,19 +91,26 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     override fun render(state: SearchState) {
         textViewConnected.visibility = if (state.connected) VISIBLE else GONE
 
-        val isLoadingFirstPage = state.requestType == SearchRequestType.FIRST_PAGE_INITIAL
         val isIdle = state.requestType == null
+        val isLoadingFirstPage = state.requestType == SearchRequestType.FIRST_PAGE_INITIAL
         val isRefreshing = state.requestType == SearchRequestType.FIRST_PAGE_REFRESH
 
         buttonSearch.isEnabled = isIdle
         progressBar.visibility = if (isLoadingFirstPage) VISIBLE else GONE
         swipeRefreshLayout.isEnabled = isIdle || isRefreshing
         swipeRefreshLayout.isRefreshing = isRefreshing
+
         adapter.items = state.repositories
         if (!scrolledByUser) {
             // TODO: проверить, нужно или нет
             recyclerView.scrollToPosition(0)
         }
+
+        layoutError.visibility = if (state.failed) VISIBLE else GONE
+        layoutNotFound.visibility =
+            if (!state.failed && state.lastQuery.isNotEmpty() && state.repositories.isEmpty())
+                VISIBLE else GONE
+
         val autoCompleteAdapter = ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line, state.suggestions

@@ -20,11 +20,14 @@ sealed class SearchAction : Action {
     ) : SearchAction()
 
     data class SearchLoadingSucceeded(
-        val request: SearchRequest,
+        val requestType: SearchRequestType,
         val repositories: List<Repository>
     ) : SearchAction()
 
-    data class SearchLoadingFailed(val error: Throwable) : SearchAction()
+    data class SearchLoadingFailed(
+        val requestType: SearchRequestType,
+        val error: Throwable
+    ) : SearchAction()
 
     object LoadSuggestions : SearchAction()
 
