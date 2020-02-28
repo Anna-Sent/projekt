@@ -12,7 +12,9 @@ sealed class SearchAction : Action {
 
     object OnRefresh : SearchAction()
 
-    object OnRetryNextPage : SearchAction()
+    object OnRetryClick : SearchAction()
+
+    object OnRetryNextPageClick : SearchAction()
 
     data class OnSearchQueryChanged(val query: String) : SearchAction()
 

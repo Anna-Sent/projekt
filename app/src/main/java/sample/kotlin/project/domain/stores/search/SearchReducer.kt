@@ -19,7 +19,8 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
             is SearchAction.OnScrolledToBottom,
             is SearchAction.OnRefresh,
-            is SearchAction.OnRetryNextPage,
+            is SearchAction.OnRetryClick,
+            is SearchAction.OnRetryNextPageClick,
             is SearchAction.OnSearchQueryChanged
             -> state
 
@@ -38,7 +39,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                                 .addProgress()
                                 .withIndex().toList()
                         )
-                    SearchRequestType.FIRST_PAGE_REFRESH ->
+                    SearchRequestType.FIRST_PAGE_REFRESH, SearchRequestType.FIRST_PAGE_RETRY ->
                         state.copy(requestType = action.requestType)
                 }
 
@@ -54,7 +55,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
             is SearchAction.SearchLoadingFailed ->
                 when (action.requestType) {
-                    SearchRequestType.FIRST_PAGE_INITIAL ->
+                    SearchRequestType.FIRST_PAGE_INITIAL, SearchRequestType.FIRST_PAGE_RETRY ->
                         state.copy(
                             requestType = null,
                             error = action.error

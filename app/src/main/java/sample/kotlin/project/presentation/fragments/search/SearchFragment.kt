@@ -57,7 +57,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     }
 
     private fun onRetryNextPage() {
-        viewModel.dispatch(SearchAction.OnRetryNextPage)
+        viewModel.dispatch(SearchAction.OnRetryNextPageClick)
     }
 
     override val layoutId = R.layout.fragment_search
@@ -83,6 +83,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
             .debounce(250, TimeUnit.MILLISECONDS)
             .map { SearchAction.OnSearchQueryChanged(it.toString().trim()) }
             .subscribe(viewModel::dispatch, ::unexpectedError)
+        buttonRetry.setOnClickListener { viewModel.dispatch(SearchAction.OnRetryClick) }
     }
 
     override fun onDestroyView() {
@@ -96,6 +97,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
         val isIdle = state.requestType == null
         val isLoadingFirstPage = state.requestType == SearchRequestType.FIRST_PAGE_INITIAL
+                || state.requestType == SearchRequestType.FIRST_PAGE_RETRY
         val isRefreshing = state.requestType == SearchRequestType.FIRST_PAGE_REFRESH
         val failed = state.error != null
 

@@ -14,6 +14,7 @@ class SearchStore
     schedulersProvider: SchedulersProvider,
     searchMiddleware: SearchMiddleware,
     searchRefreshMiddleware: SearchRefreshMiddleware,
+    searchRetryMiddleware: SearchRetryMiddleware,
     searchFirstPageMiddleware: SearchFirstPageMiddleware,
     searchNextPageMiddleware: SearchNextPageMiddleware,
     searchNextPageRetryMiddleware: SearchNextPageRetryMiddleware,
@@ -26,6 +27,7 @@ class SearchStore
     setOf(
         searchMiddleware,
         searchRefreshMiddleware,
+        searchRetryMiddleware,
         searchFirstPageMiddleware,
         searchNextPageMiddleware,
         searchNextPageRetryMiddleware,

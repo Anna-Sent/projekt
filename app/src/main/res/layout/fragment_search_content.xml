@@ -58,10 +58,12 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/layoutError"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
@@ -71,13 +73,18 @@
             android:id="@+id/textViewError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:ellipsize="end"
             android:lines="1"
             android:singleLine="true"
             tools:text="@tools:sample/lorem/random" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/buttonRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retry" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/layoutNotFound"
