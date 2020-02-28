@@ -8,7 +8,7 @@ import sample.kotlin.project.domain.repositories.search.SearchRequest
 import sample.kotlin.project.domain.stores.search.pojo.*
 import javax.inject.Inject
 
-class SearchRefreshMiddleware
+class SearchFirstPageRetryMiddleware
 @Inject constructor(
 ) : BaseMiddleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand>() {
 
@@ -19,11 +19,11 @@ class SearchRefreshMiddleware
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
         actions
-            .ofType<SearchAction.OnRefresh>(
-                SearchAction.OnRefresh::class.java
+            .ofType<SearchAction.OnRetryClick>(
+                SearchAction.OnRetryClick::class.java
             )
             .withLatestFrom(states) { _, state ->
                 SearchRequest(state.lastQuery, 1)
             }
-            .map { SearchAction.LoadSearchResults(it, SearchRequestType.FIRST_PAGE_REFRESH) }
+            .map { SearchAction.LoadSearchResults(it, SearchRequestType.FIRST_PAGE_RETRY) }
 }

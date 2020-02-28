@@ -96,7 +96,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         textViewConnected.visibility = if (state.connected) VISIBLE else GONE
 
         val isIdle = state.requestType == null
-        val isLoadingFirstPage = state.requestType == SearchRequestType.FIRST_PAGE_INITIAL
+        val isLoadingFirstPage = state.requestType == SearchRequestType.FIRST_PAGE
                 || state.requestType == SearchRequestType.FIRST_PAGE_RETRY
         val isRefreshing = state.requestType == SearchRequestType.FIRST_PAGE_REFRESH
         val failed = state.error != null

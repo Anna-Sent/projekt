@@ -26,7 +26,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
             is SearchAction.LoadSearchResults ->
                 when (action.requestType) {
-                    SearchRequestType.FIRST_PAGE_INITIAL ->
+                    SearchRequestType.FIRST_PAGE ->
                         state.copy(
                             requestType = action.requestType,
                             repositories = emptyList()
@@ -55,7 +55,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
             is SearchAction.SearchLoadingFailed ->
                 when (action.requestType) {
-                    SearchRequestType.FIRST_PAGE_INITIAL, SearchRequestType.FIRST_PAGE_RETRY ->
+                    SearchRequestType.FIRST_PAGE, SearchRequestType.FIRST_PAGE_RETRY ->
                         state.copy(
                             requestType = null,
                             error = action.error
