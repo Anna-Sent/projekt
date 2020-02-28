@@ -80,23 +80,25 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                 state.copy(connected = action.isConnected)
         }
 
-    private fun List<Item<Repository>>.addProgress() =
-        this + RepositoryProgressItem
+    companion object {
+        private fun List<Item<Repository>>.addProgress() =
+            this + RepositoryProgressItem
 
-    private fun List<Item<Repository>>.removeProgress() =
-        when (true) {
-            isEmpty() -> this
-            last() is RepositoryProgressItem -> subList(0, lastIndex)
-            else -> this
-        }
+        private fun List<Item<Repository>>.removeProgress() =
+            when (true) {
+                isEmpty() -> this
+                last() is RepositoryProgressItem -> subList(0, lastIndex)
+                else -> this
+            }
 
-    private fun List<Item<Repository>>.addError(error: Throwable) =
-        this + RepositoryErrorItem(error)
+        private fun List<Item<Repository>>.addError(error: Throwable) =
+            this + RepositoryErrorItem(error)
 
-    private fun List<Item<Repository>>.removeError() =
-        when (true) {
-            isEmpty() -> this
-            last() is RepositoryErrorItem -> subList(0, lastIndex)
-            else -> this
-        }
+        private fun List<Item<Repository>>.removeError() =
+            when (true) {
+                isEmpty() -> this
+                last() is RepositoryErrorItem -> subList(0, lastIndex)
+                else -> this
+            }
+    }
 }
