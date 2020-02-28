@@ -12,6 +12,8 @@ sealed class SearchAction : Action {
 
     object OnRefresh : SearchAction()
 
+    object OnRetryNextPage : SearchAction()
+
     data class OnSearchQueryChanged(val query: String) : SearchAction()
 
     data class LoadSearchResults(

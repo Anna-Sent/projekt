@@ -32,8 +32,8 @@ class SearchMiddleware
                         )
                     }
                     .doOnError {
-                        if (action.requestType != SearchRequestType.FIRST_PAGE_INITIAL) {
-                            events.accept(SearchEvent.SearchFailureEvent(it))
+                        if (action.requestType == SearchRequestType.FIRST_PAGE_REFRESH) {
+                            events.accept(SearchEvent.SearchRefreshFailureEvent(it))
                         }
                     }
                     .onErrorReturn { SearchAction.SearchLoadingFailed(action.requestType, it) }

@@ -14,7 +14,7 @@ internal class ProgressDelegate :
 
     override fun onCreateViewHolder(parent: ViewGroup): ProgressViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_progress, parent, false)
+            .inflate(R.layout.item_repository_progress, parent, false)
         return ProgressViewHolder(view)
     }
 }

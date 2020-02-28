@@ -9,6 +9,6 @@ data class SearchState(
     val lastQuery: String = "",
     val lastLoadedPage: Int = 0,
     val repositories: List<RepositoryItem> = emptyList(),
-    val failed: Boolean = false,
+    val error: Throwable? = null,
     val suggestions: List<String> = emptyList()
 ) : State

@@ -1,6 +1,8 @@
 package sample.kotlin.project.domain.stores.search
 
+import sample.kotlin.project.domain.core.lists.Item
 import sample.kotlin.project.domain.core.mvi.Reducer
+import sample.kotlin.project.domain.pojo.search.Repository
 import sample.kotlin.project.domain.pojo.search.RepositoryErrorItem
 import sample.kotlin.project.domain.pojo.search.RepositoryProgressItem
 import sample.kotlin.project.domain.stores.search.pojo.SearchAction
@@ -17,6 +19,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
             is SearchAction.OnScrolledToBottom,
             is SearchAction.OnRefresh,
+            is SearchAction.OnRetryNextPage,
             is SearchAction.OnSearchQueryChanged
             -> state
 
@@ -30,8 +33,9 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                     SearchRequestType.NEXT_PAGE ->
                         state.copy(
                             requestType = action.requestType,
-                            repositories = (state.repositories.map { it.value }
-                                    + RepositoryProgressItem)
+                            repositories = state.repositories.map { it.value }
+                                .removeError()
+                                .addProgress()
                                 .withIndex().toList()
                         )
                     SearchRequestType.FIRST_PAGE_REFRESH ->
@@ -43,9 +47,9 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                     requestType = null,
                     lastLoadedPage = state.lastLoadedPage + 1,
                     repositories = (state.repositories.map { it.value }
-                            - RepositoryProgressItem + action.repositories)
+                        .removeProgress() + action.repositories)
                         .withIndex().toList(),
-                    failed = false
+                    error = null
                 )
 
             is SearchAction.SearchLoadingFailed ->
@@ -53,13 +57,14 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                     SearchRequestType.FIRST_PAGE_INITIAL ->
                         state.copy(
                             requestType = null,
-                            failed = true
+                            error = action.error
                         )
                     SearchRequestType.NEXT_PAGE ->
                         state.copy(
                             requestType = null,
-                            repositories = (state.repositories.map { it.value }
-                                    + RepositoryErrorItem)
+                            repositories = state.repositories.map { it.value }
+                                .removeProgress()
+                                .addError(action.error)
                                 .withIndex().toList()
                         )
                     SearchRequestType.FIRST_PAGE_REFRESH ->
@@ -73,5 +78,25 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
 
             is SearchAction.ConnectivityChanged ->
                 state.copy(connected = action.isConnected)
+        }
+
+    private fun List<Item<Repository>>.addProgress() =
+        this + RepositoryProgressItem
+
+    private fun List<Item<Repository>>.removeProgress() =
+        when (true) {
+            isEmpty() -> this
+            last() is RepositoryProgressItem -> subList(0, lastIndex)
+            else -> this
+        }
+
+    private fun List<Item<Repository>>.addError(error: Throwable) =
+        this + RepositoryErrorItem(error)
+
+    private fun List<Item<Repository>>.removeError() =
+        when (true) {
+            isEmpty() -> this
+            last() is RepositoryErrorItem -> subList(0, lastIndex)
+            else -> this
         }
 }

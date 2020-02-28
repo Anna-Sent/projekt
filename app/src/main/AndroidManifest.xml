@@ -25,7 +25,7 @@
             android:name=".presentation.activities.main.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="${screenOrientation}"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

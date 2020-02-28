@@ -4,5 +4,5 @@ import sample.kotlin.project.domain.core.mvi.pojo.Event
 
 sealed class SearchEvent : Event {
 
-    data class SearchFailureEvent(val error: Throwable) : SearchEvent()
+    data class SearchRefreshFailureEvent(val error: Throwable) : SearchEvent()
 }

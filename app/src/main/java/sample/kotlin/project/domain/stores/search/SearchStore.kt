@@ -16,6 +16,7 @@ class SearchStore
     searchRefreshMiddleware: SearchRefreshMiddleware,
     searchFirstPageMiddleware: SearchFirstPageMiddleware,
     searchNextPageMiddleware: SearchNextPageMiddleware,
+    searchNextPageRetryMiddleware: SearchNextPageRetryMiddleware,
     suggestionsMiddleware: SuggestionsMiddleware,
     connectivityMiddleware: ConnectivityMiddleware,
     initialState: SearchState
@@ -27,6 +28,7 @@ class SearchStore
         searchRefreshMiddleware,
         searchFirstPageMiddleware,
         searchNextPageMiddleware,
+        searchNextPageRetryMiddleware,
         suggestionsMiddleware,
         connectivityMiddleware
     ),

@@ -50,12 +50,15 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         }
     }
 
-    private val adapter =
-        RepositoryAdapter {
-            (it.value as Repository).apply {
-                toast("$fullName ${owner.login}")
-            }
-        }
+    private val adapter = RepositoryAdapter(::onRepositoryClick, ::onRetryNextPage)
+
+    private fun onRepositoryClick(repository: Repository) {
+        repository.apply { toast("$fullName ${owner.login}") }
+    }
+
+    private fun onRetryNextPage() {
+        viewModel.dispatch(SearchAction.OnRetryNextPage)
+    }
 
     override val layoutId = R.layout.fragment_search
 
@@ -94,6 +97,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         val isIdle = state.requestType == null
         val isLoadingFirstPage = state.requestType == SearchRequestType.FIRST_PAGE_INITIAL
         val isRefreshing = state.requestType == SearchRequestType.FIRST_PAGE_REFRESH
+        val failed = state.error != null
 
         buttonSearch.isEnabled = isIdle
         progressBar.visibility = if (isLoadingFirstPage) VISIBLE else GONE
@@ -106,10 +110,11 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
             recyclerView.scrollToPosition(0)
         }
 
-        layoutError.visibility = if (state.failed) VISIBLE else GONE
-        layoutNotFound.visibility =
-            if (!state.failed && state.lastQuery.isNotEmpty() && state.repositories.isEmpty())
-                VISIBLE else GONE
+        layoutError.visibility = if (failed && isIdle) VISIBLE else GONE
+        textViewError.text = state.error?.toString()
+        layoutNotFound.visibility = if (!failed && isIdle && state.lastQuery.isNotEmpty()
+            && state.repositories.isEmpty()
+        ) VISIBLE else GONE
 
         val autoCompleteAdapter = ArrayAdapter<String>(
             requireContext(),
@@ -121,7 +126,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     override fun handle(event: SearchEvent) {
         when (event) {
 
-            is SearchEvent.SearchFailureEvent -> toast("Search failed\n${event.error}")
+            is SearchEvent.SearchRefreshFailureEvent -> toast("Search failed\n${event.error}")
         }
     }
 

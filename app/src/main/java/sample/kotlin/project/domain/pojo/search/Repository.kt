@@ -10,6 +10,6 @@ data class Repository(
 
 object RepositoryProgressItem : Item<Repository>
 
-object RepositoryErrorItem : Item<Repository>
+data class RepositoryErrorItem(val error: Throwable) : Item<Repository>
 
 typealias RepositoryItem = IndexedValue<Item<Repository>>
