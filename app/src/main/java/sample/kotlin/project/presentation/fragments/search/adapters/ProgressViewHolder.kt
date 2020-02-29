@@ -8,5 +8,6 @@ internal class ProgressViewHolder(containerView: View) :
     BaseViewHolder<RepositoryItem>(containerView) {
 
     override fun bind(item: RepositoryItem) {
+        // no op
     }
 }

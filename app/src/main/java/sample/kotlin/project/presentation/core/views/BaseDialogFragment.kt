@@ -62,6 +62,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
 
     @CallSuper
     protected open fun initUi(savedInstanceState: Bundle?) {
+        // no op
     }
 
     protected abstract fun createDialog(

@@ -41,6 +41,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            // no op
         }
     }
 
