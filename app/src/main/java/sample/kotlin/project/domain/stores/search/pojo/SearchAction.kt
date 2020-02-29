@@ -18,6 +18,10 @@ sealed class SearchAction : Action {
 
     data class OnSearchQueryChanged(val query: String) : SearchAction()
 
+    object LoadSuggestions : SearchAction()
+
+    data class ConnectivityChanged(val isConnected: Boolean) : SearchAction()
+
     data class LoadSearchResults(
         val request: SearchRequest,
         val requestType: SearchRequestType
@@ -33,9 +37,7 @@ sealed class SearchAction : Action {
         val error: Throwable
     ) : SearchAction()
 
-    object LoadSuggestions : SearchAction()
-
-    data class SuggestionsLoadingSucceeded(val suggestions: List<String>) : SearchAction()
-
-    data class ConnectivityChanged(val isConnected: Boolean) : SearchAction()
+    data class SuggestionsLoadingSucceeded(
+        val suggestions: List<String>
+    ) : SearchAction()
 }

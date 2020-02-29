@@ -21,8 +21,12 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
             is SearchAction.OnRefresh,
             is SearchAction.OnRetryClick,
             is SearchAction.OnRetryNextPageClick,
-            is SearchAction.OnSearchQueryChanged
+            is SearchAction.OnSearchQueryChanged,
+            is SearchAction.LoadSuggestions
             -> state
+
+            is SearchAction.ConnectivityChanged ->
+                state.copy(connected = action.isConnected)
 
             is SearchAction.LoadSearchResults ->
                 when (action.requestType) {
@@ -72,13 +76,8 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                         state.copy(requestType = null)
                 }
 
-            is SearchAction.LoadSuggestions -> state
-
             is SearchAction.SuggestionsLoadingSucceeded ->
                 state.copy(suggestions = action.suggestions)
-
-            is SearchAction.ConnectivityChanged ->
-                state.copy(connected = action.isConnected)
         }
 
     companion object {
