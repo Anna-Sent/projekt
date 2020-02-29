@@ -28,9 +28,6 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         fun newInstance() = SearchFragment()
     }
 
-
-    private var scrolledByUser = false
-
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -44,9 +41,6 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            if (!scrolledByUser) {
-                scrolledByUser = true
-            }
         }
     }
 
@@ -107,10 +101,6 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
         swipeRefreshLayout.isRefreshing = isRefreshing
 
         adapter.items = state.repositories
-        if (!scrolledByUser) {
-            // TODO: проверить, нужно или нет
-            recyclerView.scrollToPosition(0)
-        }
 
         layoutError.visibility = if (failed && isIdle) VISIBLE else GONE
         textViewError.text = state.error?.toString()
