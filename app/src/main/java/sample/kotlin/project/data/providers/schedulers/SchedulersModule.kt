@@ -10,5 +10,5 @@ interface SchedulersModule {
 
     @Binds
     @Singleton
-    fun bindSchedulersSource(source: SchedulersDataProvider): SchedulersProvider
+    fun bindSchedulersProvider(source: SchedulersDataProvider): SchedulersProvider
 }

@@ -10,5 +10,5 @@ interface LocalizationModule {
 
     @Binds
     @Singleton
-    fun bindLocalizationSource(source: LocalizationDataProvider): LocalizationProvider
+    fun bindLocalizationProvider(source: LocalizationDataProvider): LocalizationProvider
 }

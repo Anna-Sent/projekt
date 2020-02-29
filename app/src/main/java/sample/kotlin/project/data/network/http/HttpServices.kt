@@ -15,6 +15,6 @@ class HttpServices {
 
     @Provides
     @Singleton
-    fun provideGitHubSearchHttpService(retrofit: Retrofit) =
+    fun provideGitHubSearchHttpService(retrofit: Retrofit): GitHubSearchHttpService =
         retrofit.create(GitHubSearchHttpService::class.java)
 }

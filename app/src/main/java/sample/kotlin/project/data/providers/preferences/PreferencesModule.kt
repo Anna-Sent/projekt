@@ -18,7 +18,7 @@ interface PreferencesModule {
 
     @Binds
     @Singleton
-    fun bindPreferencesSource(source: PreferencesDataProvider): PreferencesProvider
+    fun bindPreferencesProvider(source: PreferencesDataProvider): PreferencesProvider
 
     @Module
     class Providing {

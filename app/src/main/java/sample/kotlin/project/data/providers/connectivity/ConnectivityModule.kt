@@ -10,5 +10,5 @@ interface ConnectivityModule {
 
     @Binds
     @Singleton
-    fun bindConnectivitySource(source: ConnectivityDataProvider): ConnectivityProvider
+    fun bindConnectivityProvider(source: ConnectivityDataProvider): ConnectivityProvider
 }
