@@ -22,8 +22,8 @@ class SuggestionsMiddleware
         navigationCommands: Consumer<SearchNavigationCommand>
     ): Observable<SearchAction> =
         actions
-            .ofType<SearchAction.LoadSuggestions>(
-                SearchAction.LoadSuggestions::class.java
+            .ofType<SearchAction.OnLoadSuggestions>(
+                SearchAction.OnLoadSuggestions::class.java
             )
             .switchMap {
                 searchSource.suggestions()

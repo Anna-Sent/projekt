@@ -18,7 +18,7 @@ sealed class SearchAction : Action {
 
     data class OnSearchQueryChanged(val query: String) : SearchAction()
 
-    object LoadSuggestions : SearchAction()
+    object OnLoadSuggestions : SearchAction()
 
     data class ConnectivityChanged(val isConnected: Boolean) : SearchAction()
 

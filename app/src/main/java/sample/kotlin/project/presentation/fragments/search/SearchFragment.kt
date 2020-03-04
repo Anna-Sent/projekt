@@ -63,7 +63,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null) {
-            viewModel.dispatch(SearchAction.LoadSuggestions)
+            viewModel.dispatch(SearchAction.OnLoadSuggestions)
         }
     }
 

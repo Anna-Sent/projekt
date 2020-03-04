@@ -22,7 +22,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
             is SearchAction.OnRetryClick,
             is SearchAction.OnRetryNextPageClick,
             is SearchAction.OnSearchQueryChanged,
-            is SearchAction.LoadSuggestions
+            is SearchAction.OnLoadSuggestions
             -> state
 
             is SearchAction.ConnectivityChanged ->
