@@ -21,6 +21,7 @@ class SchedulersDataProvider
     companion object {
         private const val MAX_TRY_COUNT = 5
         private const val CONSTANT_DELAY_SECONDS = 5
+        private const val INVALID_TIMER = -1L
     }
 
     private val logger = LoggerFactory.getLogger(toString())
@@ -102,12 +103,12 @@ class SchedulersDataProvider
         ObservableTransformer<Throwable, Int> { upstream ->
             upstream.zipWith(Observable.range(1, MAX_TRY_COUNT))
             { throwable, i ->
-                if (
+                when (true) {
                     throwable is NoConnectionException
-                    || throwable is NetworkOnMainThreadException
-                ) throw throwable
-                else if (i == MAX_TRY_COUNT) throw TryCountExceededException(throwable)
-                else i
+                            || throwable is NetworkOnMainThreadException -> throw throwable
+                    i == MAX_TRY_COUNT -> throw TryCountExceededException(throwable)
+                    else -> i
+                }
             }
                 .doOnNext { logger.debug("try {} failed", it) }
                 .map { (it % 5 + 1) * 3 / 2 }
@@ -122,7 +123,10 @@ class SchedulersDataProvider
         Observable.timer(seconds.toLong(), TimeUnit.SECONDS, ioScheduler)
             .mergeWith(connectivityProvider.isNetworkConnectedSkipInitial()
                 .filter { it }
-                .map { 0L })
+                .map { INVALID_TIMER })
             .firstOrError()
             .toObservable()
+            .doOnNext {
+                logger.debug("timer fired{}", if (it == INVALID_TIMER) ": has network" else "")
+            }
 }

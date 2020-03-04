@@ -22,5 +22,6 @@ class SearchDataRepository
     override fun suggestions() =
         connectivityProvider.checkNetworkConnectedOrThrow()
             .flatMap { searchSource.suggestions() }
+            .compose(schedulersProvider.retryConstantDelayInfiniteSingle())
             .subscribeOn(schedulersProvider.ioScheduler)
 }
