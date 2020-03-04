@@ -27,20 +27,38 @@ class SearchDataSource
 
     override fun search(request: SearchRequest) =
         searchRepositories(request)
-            .map { repositoriesMapper.map(it.body()!!) }
-
-            .map { repositories ->
-                Repositories(
-                    repositories.totalCount,
-                    repositories.items.withIndex().map { indexedValue ->
-                        indexedValue.value.copy(
-                            pageIndexToDebug = indexedValue.index,
-                            pageNumberToDebug = request.page
-                        )
-                    })
+            .map {
+                SearchResponse(
+                    request,
+                    repositoriesMapper.map(it.body()!!),
+                    nextPage(it),
+                    lastPage(it)
+                )
             }
 
-            .map { SearchResponse(request, it) }
+            .map { response ->
+                response.copy(
+                    repositories =
+                    Repositories(
+                        response.repositories.totalCount,
+                        response.repositories.items.withIndex().map { indexedValue ->
+                            indexedValue.value.copy(
+                                pageIndexToDebug = indexedValue.index,
+                                pageNumberToDebug = request.page
+                            )
+                        })
+                )
+            }
+
+    private fun <T> nextPage(response: Response<T>): Int {
+        // parse
+        // <https://api.github.com/search/repositories?q=g&sort=stars&order=desc&page=2>; rel="next", <https://api.github.com/search/repositories?q=g&sort=stars&order=desc&page=34>; rel="last"
+        return TODO()
+    }
+
+    private fun <T> lastPage(response: Response<T>): Int {
+        return TODO()
+    }
 
     private fun searchRepositories(request: SearchRequest): Single<Response<RepositoriesDto>> {
         return if (request.page == 1)
