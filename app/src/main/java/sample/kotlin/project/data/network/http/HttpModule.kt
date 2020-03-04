@@ -1,5 +1,6 @@
 package sample.kotlin.project.data.network.http
 
+import android.content.Context
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -52,8 +53,8 @@ class HttpModule {
     @Provides
     @Singleton
     @Named("AppInterceptor")
-    fun provideAppInterceptor() =
-        if (BuildConfig.USE_FAKE_INTERCEPTOR) FakeInterceptor()
+    fun provideAppInterceptor(context: Context) =
+        if (BuildConfig.USE_FAKE_INTERCEPTOR) FakeInterceptor(context)
         else GeneralInterceptor()
 
     @Provides

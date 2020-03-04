@@ -33,7 +33,10 @@ class SearchDataSource
                 Repositories(
                     repositories.totalCount,
                     repositories.items.withIndex().map { indexedValue ->
-                        indexedValue.value.copy(pageIndexToDebug = indexedValue.index)
+                        indexedValue.value.copy(
+                            pageIndexToDebug = indexedValue.index,
+                            pageNumberToDebug = request.page
+                        )
                     })
             }
 

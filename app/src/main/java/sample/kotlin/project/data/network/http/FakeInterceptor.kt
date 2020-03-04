@@ -1,21 +1,42 @@
 package sample.kotlin.project.data.network.http
 
+import android.content.Context
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Protocol
 import okhttp3.ResponseBody.Companion.toResponseBody
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.net.HttpURLConnection
+import java.nio.charset.StandardCharsets
+import javax.inject.Inject
 
-class FakeInterceptor : Interceptor {
+class FakeInterceptor
+@Inject constructor(
+    private val context: Context
+) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain) =
         when {
 
             chain.request().url.toUri().path.endsWith("search/repositories") ->
-                successResponse(chain, SEARCH_REPOSITORIES_RESPONSE)
+                successResponse(chain, loadFromAssets("response.json"))
 
             else -> chain.proceed(chain.request())
         }
+
+    private fun loadFromAssets(fileName: String): String {
+        BufferedReader(InputStreamReader(context.assets.open(fileName), StandardCharsets.UTF_8))
+            .use { reader ->
+                val sb = StringBuilder()
+                var line = reader.readLine()
+                while (line != null) {
+                    sb.append(line)
+                    line = reader.readLine()
+                }
+                return sb.toString()
+            }
+    }
 
     private fun successResponse(chain: Interceptor.Chain, responseString: String) =
         chain.proceed(chain.request())
@@ -29,24 +50,5 @@ class FakeInterceptor : Interceptor {
 
     companion object {
         private val MEDIA_TYPE = "application/json".toMediaType()
-        private const val SEARCH_REPOSITORIES_RESPONSE = """
-[{
-	"id": 1296269,
-	"node_id": "MDEwOlJlcG9zaXRvcnkxMjk2MjY5",
-	"name": "Hello-World",
-	"full_name": "octocat/Hello-World",
-	"private": false,
-	"html_url": "https://github.com/octocat/Hello-World",
-	"description": "This your first repo!",
-	"fork": false,
-	"languages_url": "http://api.github.com/repos/octocat/Hello-World/languages",
-	"stargazers_count": 80,
-	"watchers_count": 80,
-	"pushed_at": "2011-01-26T19:06:43Z",
-	"created_at": "2011-01-26T19:01:12Z",
-	"updated_at": "2011-01-26T19:14:43Z",
-	"subscribers_count": 42
-}]
-"""
     }
 }

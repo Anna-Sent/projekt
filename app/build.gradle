@@ -93,7 +93,7 @@ android {
             buildConfigField 'boolean', 'PRINT_HTTP_LOGS', 'true'
             buildConfigField 'boolean', 'PRETTY_JSON', 'true'
             buildConfigField 'boolean', 'USE_CERTIFICATE_PINNING', 'false'
-            buildConfigField 'boolean', 'USE_FAKE_INTERCEPTOR', 'false'
+            buildConfigField 'boolean', 'USE_FAKE_INTERCEPTOR', 'true'
         }
         qa {
             versionNameSuffix '-QA'

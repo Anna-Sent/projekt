@@ -4,6 +4,7 @@ import sample.kotlin.project.domain.core.lists.Item
 
 data class Repository(
     val pageIndexToDebug: Int,
+    val pageNumberToDebug: Int,
     val id: Int,
     val fullName: String,
     val owner: Owner
