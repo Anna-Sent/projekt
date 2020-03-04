@@ -1,11 +1,9 @@
 package sample.kotlin.project.data.repositories.search
 
-import io.reactivex.Single
 import sample.kotlin.project.domain.providers.connectivity.ConnectivityProvider
 import sample.kotlin.project.domain.providers.schedulers.SchedulersProvider
 import sample.kotlin.project.domain.repositories.search.SearchRepository
 import sample.kotlin.project.domain.repositories.search.SearchRequest
-import sample.kotlin.project.domain.repositories.search.SearchResponse
 import sample.kotlin.project.domain.sources.search.SearchSource
 import javax.inject.Inject
 
@@ -16,8 +14,13 @@ class SearchDataRepository
     private val searchSource: SearchSource
 ) : SearchRepository {
 
-    override fun search(request: SearchRequest): Single<SearchResponse> =
+    override fun search(request: SearchRequest) =
         connectivityProvider.checkNetworkConnectedOrThrow()
             .flatMap { searchSource.search(request) }
+            .subscribeOn(schedulersProvider.ioScheduler)
+
+    override fun suggestions() =
+        connectivityProvider.checkNetworkConnectedOrThrow()
+            .flatMap { searchSource.suggestions() }
             .subscribeOn(schedulersProvider.ioScheduler)
 }

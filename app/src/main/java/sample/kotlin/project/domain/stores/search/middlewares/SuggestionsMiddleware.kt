@@ -3,7 +3,7 @@ package sample.kotlin.project.domain.stores.search.middlewares
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import sample.kotlin.project.domain.core.mvi.BaseMiddleware
-import sample.kotlin.project.domain.sources.search.SearchSource
+import sample.kotlin.project.domain.repositories.search.SearchRepository
 import sample.kotlin.project.domain.stores.search.pojo.SearchAction
 import sample.kotlin.project.domain.stores.search.pojo.SearchEvent
 import sample.kotlin.project.domain.stores.search.pojo.SearchNavigationCommand
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class SuggestionsMiddleware
 @Inject constructor(
-    private val searchSource: SearchSource
+    private val searchRepository: SearchRepository
 ) : BaseMiddleware<SearchState, SearchAction, SearchEvent, SearchNavigationCommand>() {
 
     override fun bind(
@@ -26,7 +26,7 @@ class SuggestionsMiddleware
                 SearchAction.OnLoadSuggestions::class.java
             )
             .switchMap {
-                searchSource.suggestions()
+                searchRepository.suggestions()
                     .toObservable()
                     .onErrorReturnItem(emptyList())
                     .map { SearchAction.SuggestionsLoadingSucceeded(it) }
