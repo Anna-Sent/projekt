@@ -10,7 +10,9 @@ internal class RepositoryViewHolder(containerView: View) :
     BaseViewHolder<RepositoryItem>(containerView) {
 
     override fun bind(item: RepositoryItem) {
-        textViewFullName.text = (item.value as Repository).fullName
-        textViewOwnerLogin.text = (item.value as Repository).owner.login
+        val repository = item.value as Repository
+        textViewIndex.text = repository.pageIndexToDebug.toString()
+        textViewFullName.text = repository.fullName
+        textViewOwnerLogin.text = repository.owner.login
     }
 }

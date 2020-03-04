@@ -26,6 +26,15 @@ class SearchDataSource
     override fun search(request: SearchRequest) =
         searchRepositories(request)
             .map { repositoriesMapper.map(it.body()!!) }
+
+            .map { repositories ->
+                Repositories(
+                    repositories.totalCount,
+                    repositories.items.withIndex().map { indexedValue ->
+                        indexedValue.value.copy(pageIndexToDebug = indexedValue.index)
+                    })
+            }
+
             .map { SearchResponse(request, it) }
 
     private fun searchRepositories(request: SearchRequest): Single<Response<RepositoriesDto>> {
