@@ -7,19 +7,19 @@
 
     <TextView
         android:id="@+id/textViewIndex"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="@sample/sample.json/repository/index" />
 
     <TextView
         android:id="@+id/textViewFullName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="@sample/sample.json/repository/full_name" />
 
     <TextView
         android:id="@+id/textViewOwnerLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/full_names" />
 
