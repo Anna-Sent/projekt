@@ -14,9 +14,9 @@ object AndroidTestUtils {
     const val PROPERTY_TRANSITION_ANIMATION = "transition_animation_scale"
     const val PROPERTY_ANIMATOR_DURATION = "animator_duration_scale"
 
-    private val INSTRUMENTATION = InstrumentationRegistry.getInstrumentation()
-    private val uiAutomation = INSTRUMENTATION.uiAutomation
-    val testContext: Context = INSTRUMENTATION.context
+    private val instrumentation = InstrumentationRegistry.getInstrumentation()
+    private val uiAutomation = instrumentation.uiAutomation
+    val testContext: Context = instrumentation.context
     val appContext: Context = ApplicationProvider.getApplicationContext()
 
     @Throws(IOException::class)
