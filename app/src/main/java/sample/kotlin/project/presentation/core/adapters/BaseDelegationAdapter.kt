@@ -12,8 +12,8 @@ protected constructor(
     protected fun item(position: Int): I = items[position]
 
     protected operator fun <T> AdapterDelegatesManager<T>.plusAssign(
-        repositoryDelegate: AdapterDelegate<T>
+        delegate: AdapterDelegate<T>
     ) {
-        addDelegate(repositoryDelegate)
+        addDelegate(delegate)
     }
 }
