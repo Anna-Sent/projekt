@@ -8,6 +8,8 @@ data class SearchState(
     val requestType: SearchRequestType? = null,
     val lastQuery: String = "",
     val lastLoadedPage: Int = 0,
+    val nextPage: Int = 0,
+    val lastPage: Int = 0,
     val repositories: List<RepositoryItem> = emptyList(),
     val error: Throwable? = null,
     val suggestions: List<String> = emptyList()

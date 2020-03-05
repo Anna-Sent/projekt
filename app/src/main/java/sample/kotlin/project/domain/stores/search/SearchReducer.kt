@@ -50,7 +50,9 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
             is SearchAction.SearchLoadingSucceeded ->
                 state.copy(
                     requestType = null,
-                    lastLoadedPage = state.lastLoadedPage + 1,
+                    lastLoadedPage = action.loadedPage,
+                    nextPage = action.nextPage,
+                    lastPage = action.lastPage,
                     repositories = (state.repositories.map { it.value }
                         .removeProgress() + action.repositories)
                         .withIndex().toList(),

@@ -29,6 +29,9 @@ sealed class SearchAction : Action {
 
     data class SearchLoadingSucceeded(
         val requestType: SearchRequestType,
+        val loadedPage: Int,
+        val nextPage: Int,
+        val lastPage: Int,
         val repositories: List<Repository>
     ) : SearchAction()
 

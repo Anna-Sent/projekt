@@ -28,11 +28,13 @@ class SearchDataSource
     override fun search(request: SearchRequest) =
         searchRepositories(request)
             .map {
+                val pageLinks = PageLinks(it)
+                val nextPage = pageLinks.next ?: request.page
+                val lastPage = pageLinks.last ?: request.page
                 SearchResponse(
-                    request,
-                    repositoriesMapper.map(it.body()!!),
-                    nextPage(it),
-                    lastPage(it)
+                    request, repositoriesMapper.map(it.body()!!),
+                    nextPage,
+                    lastPage
                 )
             }
 

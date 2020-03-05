@@ -28,6 +28,9 @@ class SearchMiddleware
                     .map<SearchAction> {
                         SearchAction.SearchLoadingSucceeded(
                             action.requestType,
+                            action.request.page,
+                            it.nextPage,
+                            it.lastPage,
                             it.repositories.items
                         )
                     }
