@@ -24,7 +24,7 @@ interface SplashFragmentModule {
             ViewModelModule::class
         ]
     )
-    fun bindSearchFragment(): SplashFragment
+    fun bindSplashFragment(): SplashFragment
 
     @Module
     interface Binding {
