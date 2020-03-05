@@ -163,25 +163,25 @@ android {
 
     }
 
-    def host
-    def pin
+    def githubApiHost
+    def githubApiPin
 
     flavorDimensions 'server'
     productFlavors {
         dev {
-            host = 'api.github.com'
-            pin = 'sha256/WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18='
+            githubApiHost = 'api.github.com'
+            githubApiPin = 'sha256/WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18='
         }
         prod {
-            host = 'api.github.com'
-            pin = 'sha256/WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18='
+            githubApiHost = 'api.github.com'
+            githubApiPin = 'sha256/WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18='
         }
     }
 
     defaultConfig {
-        buildConfigField 'String', 'HOST', "\"${host}\""
-        buildConfigField 'String', 'PIN', "\"${pin}\""
-        buildConfigField 'String', 'API_URL', "\"https://${host}\""
+        buildConfigField 'String', 'GITHUB_API_HOST', "\"${githubApiHost}\""
+        buildConfigField 'String', 'GITHUB_API_PIN', "\"${githubApiPin}\""
+        buildConfigField 'String', 'GITHUB_API_URL', "\"https://${githubApiHost}\""
     }
 
     lintOptions {

@@ -62,7 +62,7 @@ class HttpModule {
     fun provideCertificatePinner() =
         if (BuildConfig.USE_CERTIFICATE_PINNING)
             CertificatePinner.Builder()
-                .add(BuildConfig.HOST, BuildConfig.PIN)
+                .add(BuildConfig.GITHUB_API_HOST, BuildConfig.GITHUB_API_PIN)
                 .build()
         else CertificatePinner.DEFAULT
 
@@ -92,7 +92,7 @@ class HttpModule {
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.API_URL)
+        .baseUrl(BuildConfig.GITHUB_API_URL)
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(gsonConverterFactory)
