@@ -68,7 +68,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
         setContentView(layoutId)
         stateSaver.restoreState(savedInstanceState)
         viewModel = provideViewModel(ViewModelProvider(this, viewModelProviderFactory))
-        logger.debug("provided view model: {}", viewModel)
+        logger.debug("provided view model: $viewModel")
         statesDisposables += viewModel.statesObservable
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::handle, ::unexpectedError)
@@ -81,7 +81,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        logger.debug("onNewIntent: {}", sens(intent))
+        logger.debug("onNewIntent: ${sens(intent)}")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -99,7 +99,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        logger.debug("onRestoreInstanceState: {}", sens(savedInstanceState))
+        logger.debug("onRestoreInstanceState: ${sens(savedInstanceState)}")
     }
 
     override fun onResume() {
@@ -110,20 +110,20 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
 
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
-        logger.debug("onAttachFragment: {}", fragment)
+        logger.debug("onAttachFragment: $fragment")
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
         logger.debug("onResumeFragments")
-        logger.debug("attached navigation holder: {}", navigatorHolder)
+        logger.debug("attached navigation holder: $navigatorHolder")
         navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
         logger.debug("onPause")
-        logger.debug("detached navigation holder: {}", navigatorHolder)
+        logger.debug("detached navigation holder: $navigatorHolder")
         navigatorHolder.removeNavigator()
         viewModel.eventsHolder.detachView()
     }
@@ -131,7 +131,7 @@ abstract class BaseActivity<S : State, A : Action, E : Event, NC : NavigationCom
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         stateSaver.saveInstanceState(outState)
-        logger.debug("onSaveInstanceState: {}", sens(outState))
+        logger.debug("onSaveInstanceState: ${sens(outState)}")
     }
 
     override fun onStop() {

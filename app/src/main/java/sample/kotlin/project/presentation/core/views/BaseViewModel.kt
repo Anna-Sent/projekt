@@ -41,7 +41,7 @@ constructor(
     }
 
     override fun onCleared() {
-        logger.debug("cleared view model {}", this)
+        logger.debug("cleared view model $this")
         store.dispose()
         disposables.clear()
     }

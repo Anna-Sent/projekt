@@ -75,20 +75,20 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
-        logger.debug("onAttach: {}", context)
+        logger.debug("onAttach: $context")
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
-        logger.debug("onAttachFragment: {}", childFragment)
+        logger.debug("onAttachFragment: $childFragment")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logger.debug("onCreate: {}", sens(savedInstanceState))
+        logger.debug("onCreate: ${sens(savedInstanceState)}")
         stateSaver.restoreState(savedInstanceState)
         viewModel = provideViewModel(ViewModelProvider(this, viewModelProviderFactory))
-        logger.debug("provided view model: {}", viewModel)
+        logger.debug("provided view model: $viewModel")
     }
 
     override fun onCreateView(
@@ -96,27 +96,27 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        logger.debug("onCreateView: {}", sens(savedInstanceState))
+        logger.debug("onCreateView: ${sens(savedInstanceState)}")
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logger.debug("onViewCreated: {}", sens(savedInstanceState))
+        logger.debug("onViewCreated: ${sens(savedInstanceState)}")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        logger.debug("onActivityCreated: {}", sens(savedInstanceState))
+        logger.debug("onActivityCreated: ${sens(savedInstanceState)}")
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        logger.debug("onViewStateRestored: {}", sens(savedInstanceState))
+        logger.debug("onViewStateRestored: ${sens(savedInstanceState)}")
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        logger.debug("onCreateDialog: {}", sens(savedInstanceState))
+        logger.debug("onCreateDialog: ${sens(savedInstanceState)}")
         var view: View? = null
         if (layoutId != 0) {
             view = LayoutInflater.from(requireContext()).inflate(layoutId, null)
@@ -161,7 +161,7 @@ abstract class BaseDialogFragment<S : State, A : Action, E : Event, NC : Navigat
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         stateSaver.saveInstanceState(outState)
-        logger.debug("onSaveInstanceState: {}", sens(outState))
+        logger.debug("onSaveInstanceState: ${sens(outState)}")
     }
 
     override fun onStop() {

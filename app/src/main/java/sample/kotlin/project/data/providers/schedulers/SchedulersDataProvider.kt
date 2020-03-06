@@ -94,9 +94,9 @@ class SchedulersDataProvider
         transformer: ObservableTransformer<Throwable, Int>
     ) =
         errors
-            .doOnNext { logger.debug("try failed {}", it.javaClass.simpleName) }
+            .doOnNext { logger.debug("try failed ${it.javaClass.simpleName}") }
             .compose(transformer)
-            .doOnNext { logger.debug("next try will start in {} seconds", it) }
+            .doOnNext { logger.debug("next try will start in $it seconds") }
             .flatMap(::startTimer)
 
     private fun linearDelayLimited() =
@@ -110,7 +110,7 @@ class SchedulersDataProvider
                     else -> i
                 }
             }
-                .doOnNext { logger.debug("try {} failed", it) }
+                .doOnNext { logger.debug("try $it failed") }
                 .map { (it % 5 + 1) * 3 / 2 }
         }
 
@@ -127,6 +127,6 @@ class SchedulersDataProvider
             .firstOrError()
             .toObservable()
             .doOnNext {
-                logger.debug("timer fired{}", if (it == INVALID_TIMER) ": has network" else "")
+                logger.debug("timer fired${if (it == INVALID_TIMER) ": has network" else ""}")
             }
 }

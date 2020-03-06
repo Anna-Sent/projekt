@@ -14,16 +14,16 @@ internal class AppNetworkCallback(
     private val netIds = HashSet<String>()
 
     override fun onAvailable(network: Network) {
-        logger.debug("onAvailable: {}", network)
+        logger.debug("onAvailable: $network")
         onNetworkConnected(network)
     }
 
     override fun onLosing(network: Network, maxMsToLive: Int) {
-        logger.debug("onLosing: {} {}", network, maxMsToLive)
+        logger.debug("onLosing: $network $maxMsToLive")
     }
 
     override fun onLost(network: Network) {
-        logger.debug("onLost: {}", network)
+        logger.debug("onLost: $network")
         onNetworkDisconnected(network)
     }
 
@@ -42,7 +42,7 @@ internal class AppNetworkCallback(
     }
 
     private fun onNetworkChanged() {
-        logger.debug("connected size: {}", netIds.size)
+        logger.debug("connected size: ${netIds.size}")
         connectedSetter.invoke(netIds.isNotEmpty())
     }
 
