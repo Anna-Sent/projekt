@@ -23,7 +23,7 @@ class SearchNextPageRetryMiddleware
                 SearchAction.OnRetryNextPageClick::class.java
             )
             .withLatestFrom(states) { _, state ->
-                state to SearchRequest(state.lastQuery, state.nextPage)
+                state to SearchRequest(state.lastQuery!!, state.nextPage)
             }
             .flatMap {
                 if (it.first.requestType == null)

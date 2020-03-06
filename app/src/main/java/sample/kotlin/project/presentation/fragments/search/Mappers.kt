@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 @Parcelize
 data class SearchStateParcelable(
-    val lastQuery: String = "",
+    val lastQuery: String? = null,
     val suggestions: List<String> = emptyList()
 ) : Parcelable
 

@@ -23,7 +23,7 @@ class SearchFirstPageRetryMiddleware
                 SearchAction.OnRetryClick::class.java
             )
             .withLatestFrom(states) { _, state ->
-                SearchRequest(state.lastQuery, 1)
+                SearchRequest(state.lastQuery!!, 1)
             }
             .map { SearchAction.LoadSearchResults(it, SearchRequestType.FIRST_PAGE_RETRY) }
 }

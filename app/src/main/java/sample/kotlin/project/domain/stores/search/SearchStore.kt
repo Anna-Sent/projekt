@@ -35,4 +35,11 @@ class SearchStore
         connectivityMiddleware
     ),
     initialState
-)
+) {
+    init {
+        if (initialState != SearchState() && initialState.lastQuery != null) {
+            // restored and has query
+            dispatch(SearchAction.OnSearchClick(initialState.lastQuery))
+        }
+    }
+}

@@ -105,7 +105,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
         layoutError.visibility = if (failed && isIdle) VISIBLE else GONE
         textViewError.text = state.error?.toString()
-        layoutNotFound.visibility = if (!failed && isIdle && state.lastQuery.isNotEmpty()
+        layoutNotFound.visibility = if (!failed && isIdle && state.lastQuery != null
             && state.repositories.isEmpty()
         ) VISIBLE else GONE
 
