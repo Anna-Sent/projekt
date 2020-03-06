@@ -5,8 +5,8 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.Relay
 import io.reactivex.Observable
 import io.reactivex.Single
-import sample.kotlin.project.domain.providers.connectivity.NoConnectionException
 import sample.kotlin.project.domain.providers.connectivity.ConnectivityProvider
+import sample.kotlin.project.domain.providers.connectivity.NoConnectionException
 import sample.kotlin.project.domain.providers.connectivity.isNetworkConnected
 import javax.inject.Inject
 
