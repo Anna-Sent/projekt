@@ -5,8 +5,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
 
-apply from: './scripts/artifact_naming.gradle'
-apply from: './scripts/secret.gradle'
+apply from: './read_secret.gradle'
+apply from: './rename_artifact.gradle'
 
 android {
     compileSdkVersion 29
@@ -184,20 +184,15 @@ android {
         buildConfigField 'String', 'GITHUB_API_URL', "\"https://${githubApiHost}\""
     }
 
-    lintOptions {
-        abortOnError false
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
     }
 
-    sourceSets {
-        // Example: how to add resources directories
-        // main.res.srcDirs += 'src/main/res-flags'
-        String sharedTestDir = 'src/sharedTest/java'
-        test {
-            java.srcDir sharedTestDir
-        }
-        androidTest {
-            java.srcDir sharedTestDir
-        }
+    lintOptions {
+        warningsAsErrors true
+        abortOnError true
     }
 
     androidExtensions {
@@ -221,7 +216,7 @@ dependencies {
     implementation 'com.gu.android:toolargetool:0.2.1@aar'
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
     // Android X
     implementation 'androidx.appcompat:appcompat:1.1.0'
