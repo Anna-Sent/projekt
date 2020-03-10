@@ -55,8 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:itemCount="5"
-            tools:listitem="@layout/item_repository"
-            tools:visibility="visible" />
+            tools:listitem="@layout/item_repository" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
