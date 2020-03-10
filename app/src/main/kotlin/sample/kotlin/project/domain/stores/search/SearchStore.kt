@@ -44,6 +44,7 @@ class SearchStore
     ),
     initialState
 ) {
+
     init {
         if (initialState != SearchState() && initialState.lastQuery != null) {
             // restored and has query
