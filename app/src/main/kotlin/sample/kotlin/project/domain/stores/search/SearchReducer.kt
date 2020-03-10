@@ -69,9 +69,15 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
                     lastLoadedPage = action.loadedPage,
                     nextPage = action.nextPage,
                     lastPage = action.lastPage,
-                    repositories = (state.repositories.map { it.value }
-                        .removeProgress() + action.repositories)
-                        .withIndex().toList(),
+                    repositories = when (action.requestType) {
+                        FIRST_PAGE, FIRST_PAGE_RETRY, FIRST_PAGE_REFRESH ->
+                            action.repositories
+                                .withIndex().toList()
+                        NEXT_PAGE ->
+                            (state.repositories.map { it.value }.removeProgress() +
+                                action.repositories)
+                                .withIndex().toList()
+                    },
                     error = null
                 )
 

@@ -29,9 +29,9 @@ class SearchNextPageRetryMiddleware
             .withLatestFrom(states) { _, state ->
                 state to SearchRequest(state.lastQuery!!, state.nextPage)
             }
-            .flatMap {
-                if (it.first.requestType == null) {
-                    Observable.just(LoadSearchResults(it.second, NEXT_PAGE))
+            .flatMap { (state, request) ->
+                if (state.requestType == null && state.nextPage > 0) {
+                    Observable.just(LoadSearchResults(request, NEXT_PAGE))
                 } else {
                     Observable.never()
                 }

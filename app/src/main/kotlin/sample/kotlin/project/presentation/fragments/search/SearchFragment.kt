@@ -73,13 +73,10 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
 
     private val adapter = RepositoryAdapter(::onRepositoryClick, ::onRetryNextPage)
 
-    private fun onRepositoryClick(repository: Repository) {
-        repository.apply { toast("$fullName ${owner.login}") }
-    }
+    private fun onRepositoryClick(repository: Repository) =
+        repository.run { toast("$fullName ${owner.login}") }
 
-    private fun onRetryNextPage() {
-        viewModel.dispatch(OnRetryNextPageClick)
-    }
+    private fun onRetryNextPage() = viewModel.dispatch(OnRetryNextPageClick)
 
     override val layoutId = R.layout.fragment_search
 
