@@ -33,7 +33,7 @@ class SearchNextPageRetryMiddleware
                 if (it.first.requestType == null) {
                     Observable.just(LoadSearchResults(it.second, NEXT_PAGE))
                 } else {
-                    Observable.never<SearchAction>()
+                    Observable.never()
                 }
             }
 }
