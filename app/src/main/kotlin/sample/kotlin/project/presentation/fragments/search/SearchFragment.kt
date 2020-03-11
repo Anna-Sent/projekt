@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_search_content.buttonRetry
 import kotlinx.android.synthetic.main.fragment_search_content.buttonSearch
 import kotlinx.android.synthetic.main.fragment_search_content.editTextQuery
 import kotlinx.android.synthetic.main.fragment_search_content.layoutError
-import kotlinx.android.synthetic.main.fragment_search_content.layoutNotFound
+import kotlinx.android.synthetic.main.fragment_search_content.layoutNothingFound
 import kotlinx.android.synthetic.main.fragment_search_content.progressBar
 import kotlinx.android.synthetic.main.fragment_search_content.recyclerView
 import kotlinx.android.synthetic.main.fragment_search_content.swipeRefreshLayout
@@ -113,23 +113,25 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     override fun render(state: SearchState) {
         textViewConnected.visibility = if (state.connected) VISIBLE else GONE
 
-        val isIdle = state.requestType == null
+        val notInProgress = state.requestType == null
+        val somethingLoaded = notInProgress && state.lastQuery != null
         val isLoadingFirstPage = state.requestType == FIRST_PAGE ||
             state.requestType == FIRST_PAGE_RETRY
         val isRefreshing = state.requestType == FIRST_PAGE_REFRESH
         val failed = state.error != null
 
-        buttonSearch.isEnabled = isIdle
+        buttonSearch.isEnabled = notInProgress
         progressBar.visibility = if (isLoadingFirstPage) VISIBLE else GONE
-        swipeRefreshLayout.isEnabled = isIdle || isRefreshing
+        swipeRefreshLayout.isEnabled = somethingLoaded || isRefreshing
         swipeRefreshLayout.isRefreshing = isRefreshing
 
         adapter.items = state.repositories
 
-        layoutError.visibility = if (failed && isIdle) VISIBLE else GONE
+        layoutError.visibility = if (failed && somethingLoaded) VISIBLE else GONE
         textViewError.text = state.error?.toString()
-        val notFound = !failed && isIdle && state.lastQuery != null && state.repositories.isEmpty()
-        layoutNotFound.visibility = if (notFound) VISIBLE else GONE
+        val nothingFound =
+            !failed && somethingLoaded && state.lastQuery != null && state.repositories.isEmpty()
+        layoutNothingFound.visibility = if (nothingFound) VISIBLE else GONE
 
         val autoCompleteAdapter = ArrayAdapter(
             requireContext(),

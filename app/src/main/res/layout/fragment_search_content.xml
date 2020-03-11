@@ -88,7 +88,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/layoutNotFound"
+        android:id="@+id/layoutNothingFound"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="gone"
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/not_found" />
+            android:text="@string/nothing_found" />
 
     </FrameLayout>
 
