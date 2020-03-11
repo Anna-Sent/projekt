@@ -15,5 +15,5 @@ data class SearchState(
     val suggestions: List<String> = emptyList()
 ) : State {
 
-    val hasNext = nextPage == lastPage
+    val hasNext = nextPage < lastPage
 }
