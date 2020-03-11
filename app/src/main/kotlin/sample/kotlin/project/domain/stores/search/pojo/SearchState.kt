@@ -13,4 +13,7 @@ data class SearchState(
     val repositories: List<RepositoryItem> = emptyList(),
     val error: Throwable? = null,
     val suggestions: List<String> = emptyList()
-) : State
+) : State {
+
+    val hasNext = nextPage == lastPage
+}
