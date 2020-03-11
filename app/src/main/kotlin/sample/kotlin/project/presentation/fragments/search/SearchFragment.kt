@@ -111,6 +111,7 @@ class SearchFragment : BaseFragment<SearchState, SearchAction, SearchEvent, Sear
     }
 
     override fun render(state: SearchState) {
+        // TODO Refactoring: state methods
         textViewConnected.visibility = if (state.connected) VISIBLE else GONE
 
         val notInProgress = state.requestType == null

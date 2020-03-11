@@ -6,5 +6,5 @@ sealed class MainAction : Action {
 
     object NavigateToFirstScreen : MainAction()
 
-    data class OnConnectivityChanged(val isConnected: Boolean) : MainAction()
+    data class OnConnectivityChanged(val connected: Boolean) : MainAction()
 }

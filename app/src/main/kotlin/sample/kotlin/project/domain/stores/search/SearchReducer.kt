@@ -40,7 +40,7 @@ internal class SearchReducer : Reducer<SearchState, SearchAction> {
             is OnLoadSuggestions
             -> state
 
-            is ConnectivityChanged -> state.copy(connected = action.isConnected)
+            is ConnectivityChanged -> state.copy(connected = action.connected)
 
             is LoadSearchResults -> progressState(action, state)
 

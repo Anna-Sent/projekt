@@ -24,6 +24,6 @@ class ConnectivityMiddleware
     ): Observable<MainAction> =
         actions
             .ofType(OnConnectivityChanged::class.java)
-            .doOnNext { connectivityRepository.setNetworkConnected(it.isConnected) }
+            .doOnNext { connectivityRepository.setNetworkConnected(it.connected) }
             .switchMap { Observable.never<MainAction>() }
 }

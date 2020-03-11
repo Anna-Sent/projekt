@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import sample.kotlin.project.domain.providers.connectivity.ConnectivityProvider
 import sample.kotlin.project.domain.providers.connectivity.NoConnectionException
-import sample.kotlin.project.domain.providers.connectivity.isNetworkConnected
+import sample.kotlin.project.domain.providers.connectivity.networkConnected
 import javax.inject.Inject
 
 class ConnectivityDataProvider
@@ -15,26 +15,26 @@ class ConnectivityDataProvider
     connectivityManager: ConnectivityManager
 ) : ConnectivityProvider {
 
-    private val connectedSource: Relay<Boolean>
+    private val connectedRelay: Relay<Boolean>
 
     init {
-        connectedSource = BehaviorRelay.createDefault(connectivityManager.isNetworkConnected)
+        connectedRelay = BehaviorRelay.createDefault(connectivityManager.networkConnected)
     }
 
-    override fun isNetworkConnected(): Observable<Boolean> = isNetworkConnectedObservable
+    override fun networkConnected(): Observable<Boolean> = networkConnectedObservable
 
-    override fun isNetworkConnectedSkipInitial(): Observable<Boolean> =
-        isNetworkConnectedObservable
+    override fun networkConnectedSkipInitial(): Observable<Boolean> =
+        networkConnectedObservable
             .skip(1)
 
     override fun checkNetworkConnectedOrThrow() =
-        isNetworkConnectedSingle
+        networkConnectedSingle
             .flatMap { if (it) Single.just(true) else Single.error(NoConnectionException()) }
 
     override fun setNetworkConnected(networkConnected: Boolean) =
-        connectedSource.accept(networkConnected)
+        connectedRelay.accept(networkConnected)
 
-    private val isNetworkConnectedObservable = connectedSource.distinctUntilChanged().hide()
+    private val networkConnectedObservable = connectedRelay.distinctUntilChanged().hide()
 
-    private val isNetworkConnectedSingle = isNetworkConnectedObservable.firstOrError()
+    private val networkConnectedSingle = networkConnectedObservable.firstOrError()
 }

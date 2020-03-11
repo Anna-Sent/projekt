@@ -5,9 +5,9 @@ import io.reactivex.Single
 
 interface ConnectivityProvider {
 
-    fun isNetworkConnected(): Observable<Boolean>
+    fun networkConnected(): Observable<Boolean>
 
-    fun isNetworkConnectedSkipInitial(): Observable<Boolean>
+    fun networkConnectedSkipInitial(): Observable<Boolean>
 
     fun checkNetworkConnectedOrThrow(): Single<Boolean>
 

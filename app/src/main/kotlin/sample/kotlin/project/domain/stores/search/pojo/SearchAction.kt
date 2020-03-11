@@ -20,7 +20,7 @@ sealed class SearchAction : Action {
 
     object OnLoadSuggestions : SearchAction()
 
-    data class ConnectivityChanged(val isConnected: Boolean) : SearchAction()
+    data class ConnectivityChanged(val connected: Boolean) : SearchAction()
 
     data class LoadSearchResults(
         val request: SearchRequest,

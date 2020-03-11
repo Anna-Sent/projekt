@@ -10,20 +10,20 @@ class RequestDataSource
 @Inject constructor() : RequestSource {
 
     private val map = ConcurrentHashMap<Any, Boolean>()
-    private val changed = PublishRelay.create<Boolean>()
+    private val changedRelay = PublishRelay.create<Boolean>()
 
     override fun started(requestType: Any) {
         map[requestType] = true
-        changed.accept(true)
+        changedRelay.accept(true)
     }
 
     override fun finished(requestType: Any) {
         map.remove(requestType)
-        changed.accept(true)
+        changedRelay.accept(true)
     }
 
     override fun status(requestType: Any): Observable<Boolean> =
-        changed.map { map.get(requestType, false) }.distinctUntilChanged()
+        changedRelay.map { map.get(requestType, false) }.distinctUntilChanged()
 
     companion object {
         private fun <K, V> ConcurrentHashMap<K, V>.get(key: K, defaultValue: V) =

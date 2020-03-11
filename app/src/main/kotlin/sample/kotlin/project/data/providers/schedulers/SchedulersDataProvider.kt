@@ -135,7 +135,7 @@ class SchedulersDataProvider
 
     private fun startTimer(seconds: Int) =
         Observable.timer(seconds.toLong(), TimeUnit.SECONDS, ioScheduler)
-            .mergeWith(connectivityProvider.isNetworkConnectedSkipInitial()
+            .mergeWith(connectivityProvider.networkConnectedSkipInitial()
                 .filter { it }
                 .map { INVALID_TIMER })
             .firstOrError()

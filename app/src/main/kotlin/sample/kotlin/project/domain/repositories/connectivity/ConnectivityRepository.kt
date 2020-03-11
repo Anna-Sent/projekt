@@ -4,7 +4,7 @@ import io.reactivex.Observable
 
 interface ConnectivityRepository {
 
-    fun isNetworkConnected(): Observable<Boolean>
+    fun networkConnected(): Observable<Boolean>
 
     fun setNetworkConnected(networkConnected: Boolean)
 }

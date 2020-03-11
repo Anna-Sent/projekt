@@ -9,7 +9,7 @@ class ConnectivityDataRepository
     private val connectivityProvider: ConnectivityProvider
 ) : ConnectivityRepository {
 
-    override fun isNetworkConnected() = connectivityProvider.isNetworkConnected()
+    override fun networkConnected() = connectivityProvider.networkConnected()
 
     override fun setNetworkConnected(networkConnected: Boolean) =
         connectivityProvider.setNetworkConnected(networkConnected)

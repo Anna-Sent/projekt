@@ -5,7 +5,7 @@ import android.net.NetworkCapabilities
 import io.logging.utils.DeviceUtils
 
 @Suppress("deprecation")
-val ConnectivityManager.isNetworkConnected
+val ConnectivityManager.networkConnected
     get() =
         if (DeviceUtils.isAtLeastMarshmallow()) {
             val capabilities = getNetworkCapabilities(activeNetwork)

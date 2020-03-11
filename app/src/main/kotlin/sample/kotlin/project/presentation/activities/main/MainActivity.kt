@@ -6,7 +6,7 @@ import android.net.NetworkRequest
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import sample.kotlin.project.R
-import sample.kotlin.project.domain.providers.connectivity.isNetworkConnected
+import sample.kotlin.project.domain.providers.connectivity.networkConnected
 import sample.kotlin.project.domain.stores.main.pojo.MainAction
 import sample.kotlin.project.domain.stores.main.pojo.MainAction.NavigateToFirstScreen
 import sample.kotlin.project.domain.stores.main.pojo.MainAction.OnConnectivityChanged
@@ -50,8 +50,8 @@ class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigati
     }
 
     private fun registerNetworkCallback() {
-        val isConnected = connectivityManager.isNetworkConnected
-        viewModel.dispatch(OnConnectivityChanged(isConnected))
+        val connected = connectivityManager.networkConnected
+        viewModel.dispatch(OnConnectivityChanged(connected))
 
         val networkRequest = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
