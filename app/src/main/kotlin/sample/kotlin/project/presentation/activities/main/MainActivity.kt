@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import sample.kotlin.project.R
 import sample.kotlin.project.domain.providers.connectivity.networkConnected
 import sample.kotlin.project.domain.stores.main.pojo.MainAction
-import sample.kotlin.project.domain.stores.main.pojo.MainAction.NavigateToFirstScreen
+import sample.kotlin.project.domain.stores.main.pojo.MainAction.OnNavigateToFirstScreen
 import sample.kotlin.project.domain.stores.main.pojo.MainAction.OnConnectivityChanged
 import sample.kotlin.project.domain.stores.main.pojo.MainEvent
 import sample.kotlin.project.domain.stores.main.pojo.MainNavigationCommand
@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<MainState, MainAction, MainEvent, MainNavigati
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            viewModel.dispatch(NavigateToFirstScreen)
+            viewModel.dispatch(OnNavigateToFirstScreen)
         }
     }
 
