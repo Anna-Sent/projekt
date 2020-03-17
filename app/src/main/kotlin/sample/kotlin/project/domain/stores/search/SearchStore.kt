@@ -46,7 +46,7 @@ class SearchStore
 ) {
 
     init {
-        if (initialState != SearchState() && initialState.lastQuery != null) {
+        if (initialState.lastQuery != null) {
             // restored and has query
             dispatch(OnSearchClick(initialState.lastQuery))
         }
